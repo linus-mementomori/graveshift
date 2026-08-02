@@ -15,6 +15,12 @@ export interface BeatDef {
   secret?: boolean
 }
 
+// NOTE: the BeatDef[] annotation only gives contextual typing (so each `id`
+// stays a BeatId literal instead of widening to `string`) when it's applied
+// directly to this array literal. Chaining `.sort()` onto the literal breaks
+// that — the annotation would apply to the sort *call's* result, not to the
+// literal itself — so the array is declared first and sorted as a second,
+// separate (mutating) statement.
 export const NIGHT_ORDER: BeatDef[] = [
   { id: 'cupid_link', order: 1, roleId: 'cupid', firstNightOnly: true },
   { id: 'lovers_wake', order: 2, roleId: 'cupid', firstNightOnly: true, secret: true },
@@ -32,6 +38,7 @@ export const NIGHT_ORDER: BeatDef[] = [
   { id: 'witch_act', order: 50, roleId: 'witch', cueId: 'WITCH_WAKE', secret: true },
   { id: 'gravedigger_exhume', order: 60, roleId: 'gravedigger', secret: true },
   { id: 'sleepwalker_stir', order: 65, roleId: 'sleepwalker', secret: true },
-].sort((a, b) => a.order - b.order)
+]
+NIGHT_ORDER.sort((a, b) => a.order - b.order)
 
 export const beatById = (id: BeatId): BeatDef | undefined => NIGHT_ORDER.find((b) => b.id === id)

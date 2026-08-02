@@ -1,0 +1,22 @@
+{
+  "name": "Nightfall — Mafia & Werewolf host",
+  "short_name": "Nightfall",
+  "description": "The game master in your pocket. Host Mafia and Werewolf for 5-20 players, fully offline.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#08080c",
+  "theme_color": "#08080c",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    { "src": "/icons/icon-192.svg", "sizes": "192x192", "type": "image/svg+xml" },
+    { "src": "/icons/icon-512.svg", "sizes": "512x512", "type": "image/svg+xml" },
+    {
+      "src": "/icons/icon-maskable.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

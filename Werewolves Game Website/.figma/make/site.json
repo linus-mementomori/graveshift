@@ -1,0 +1,10 @@
+{
+  "description": "Facilitates online Werewolves game sessions with interactive roles and chat, enabling players to enjoy immersive social deduction gameplay remotely.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

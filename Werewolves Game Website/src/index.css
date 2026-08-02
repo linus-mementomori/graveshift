@@ -1,0 +1,277 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap');
+@import 'tailwindcss';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0a0208;
+  color: #e8d5c4;
+  font-family: 'Courier Prime', monospace;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* VHS scanlines overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0208; }
+::-webkit-scrollbar-thumb { background: #8b0000; }
+
+/* ── Glow effects ── */
+.glow-red {
+  color: #ff3333;
+  text-shadow:
+    0 0 7px #ff0000,
+    0 0 20px #ff0000,
+    0 0 45px #cc0000,
+    0 0 80px #880000;
+}
+
+.glow-title {
+  color: #ff2222;
+  text-shadow:
+    0 0 10px #ff0000,
+    0 0 30px #ff0000,
+    0 0 60px #cc0000,
+    0 0 100px #880000,
+    0 0 180px #550000;
+}
+
+.glow-blue {
+  color: #4fc3f7;
+  text-shadow:
+    0 0 7px #29b6f6,
+    0 0 20px #0288d1,
+    0 0 45px #01579b;
+}
+
+.glow-soft {
+  color: #ffccaa;
+  text-shadow:
+    0 0 8px rgba(255, 180, 100, 0.6),
+    0 0 20px rgba(255, 120, 50, 0.3);
+}
+
+.font-display {
+  font-family: 'Libre Baskerville', serif;
+}
+
+/* ── Flicker animations ── */
+@keyframes flicker-intense {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
+}
+
+@keyframes flicker-soft {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.7; }
+  94% { opacity: 1; }
+  96% { opacity: 0.8; }
+  97% { opacity: 1; }
+}
+
+@keyframes float-particle {
+  0% { transform: translateY(0) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100vh) translateX(40px); opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 10px #ff0000, 0 0 30px #ff0000, 0 0 60px #cc0000; }
+  50% { text-shadow: 0 0 5px #ff0000, 0 0 15px #cc0000, 0 0 30px #880000; }
+}
+
+@keyframes scanline-drift {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes power-flicker {
+  0% { opacity: 0; }
+  5% { opacity: 0.8; }
+  10% { opacity: 0; }
+  15% { opacity: 0.9; }
+  20% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.animate-flicker { animation: flicker-intense 4s infinite; }
+.animate-flicker-soft { animation: flicker-soft 6s infinite; }
+.animate-pulse-glow { animation: pulse-glow 2.5s ease-in-out infinite; }
+.animate-power-on { animation: power-flicker 1.5s ease-out forwards; }
+
+/* ── Cards ── */
+.role-card {
+  background: linear-gradient(135deg, #110408 0%, #1a0810 100%);
+  border: 1px solid #3d0a14;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(139, 0, 0, 0.03) 2px,
+    rgba(139, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.role-card:hover {
+  border-color: #cc0000;
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(204, 0, 0, 0.2), 0 0 40px rgba(139, 0, 0, 0.1);
+}
+
+.role-card.team-evil {
+  border-color: #4d0010;
+}
+.role-card.team-evil:hover {
+  border-color: #cc0000;
+}
+.role-card.team-good {
+  border-color: #00334d;
+}
+.role-card.team-good:hover {
+  border-color: #29b6f6;
+  box-shadow: 0 0 20px rgba(41, 182, 246, 0.2);
+}
+
+/* ── Light bulb dot ── */
+.bulb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.bulb-red {
+  background: #ff2222;
+  box-shadow: 0 0 6px #ff0000, 0 0 12px #cc0000;
+}
+
+.bulb-blue {
+  background: #4fc3f7;
+  box-shadow: 0 0 6px #29b6f6, 0 0 12px #0288d1;
+}
+
+.bulb-off {
+  background: #2a1010;
+}
+
+/* ── Accordion ── */
+.faq-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.1rem 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.9rem;
+  color: #e8d5c4;
+  transition: color 0.2s;
+}
+
+.faq-btn:hover {
+  color: #ff3333;
+}
+
+/* ── CTA Button ── */
+.cta-btn {
+  display: inline-block;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  padding: 1rem 2.8rem;
+  color: #ff3333;
+  border: 1px solid #cc0000;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  text-shadow: 0 0 8px rgba(255,0,0,0.5);
+  box-shadow: 0 0 15px rgba(204,0,0,0.2), inset 0 0 15px rgba(139,0,0,0.1);
+}
+
+.cta-btn:hover {
+  background: rgba(139, 0, 0, 0.2);
+  box-shadow: 0 0 30px rgba(204, 0, 0, 0.4), inset 0 0 20px rgba(139,0,0,0.2);
+  color: #ff6666;
+}
+
+.cta-btn-secondary {
+  display: inline-block;
+  font-family: 'Libre Baskerville', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.15em;
+  padding: 1rem 2.8rem;
+  color: #4fc3f7;
+  border: 1px solid #0288d1;
+  text-decoration: none;
+  transition: all 0.3s;
+  text-shadow: 0 0 8px rgba(41, 182, 246, 0.4);
+  box-shadow: 0 0 15px rgba(2, 136, 209, 0.15);
+}
+
+.cta-btn-secondary:hover {
+  background: rgba(2, 136, 209, 0.1);
+  box-shadow: 0 0 30px rgba(41, 182, 246, 0.3);
+}
+
+/* ── Section divider ── */
+.divider-red {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #cc0000, transparent);
+  margin: 0 auto 2rem;
+  box-shadow: 0 0 8px #cc0000;
+}
+
+/* ── String of lights ── */
+.lights-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}

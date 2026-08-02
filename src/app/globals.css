@@ -1,0 +1,350 @@
+@import 'tailwindcss';
+
+/* ============================================================================
+   NIGHTFALL — theme tokens
+   See docs/DESIGN.md §3. Nothing in this app hard-codes a color.
+   ========================================================================== */
+
+:root {
+  /* structural — identical in every theme */
+  --bg-void: #08080c;
+  --bg-base: #0e0e14;
+  --bg-raised: #16161f;
+  --bg-overlay: #1e1e2a;
+  --border-subtle: rgb(255 255 255 / 0.08);
+  --border-strong: rgb(255 255 255 / 0.16);
+
+  --text-primary: #f2f2f7;
+  --text-secondary: #a8a8b8;
+  --text-muted: #6e6e80;
+
+  /* semantic — constant across themes */
+  --danger: #e5484d;
+  --safe: #46a758;
+  --info: #4b9ce0;
+  --warn: #f5a524;
+
+  /* theme-supplied — overridden by [data-theme] below */
+  --accent: #b5453f;
+  --accent-soft: #6b2724;
+  --accent-glow: rgb(181 69 63 / 0.28);
+  --phase-night: #141420;
+  --phase-day: #2a2418;
+
+  --font-display: var(--font-baskerville), Georgia, serif;
+  --font-speak: var(--font-baskerville), Georgia, serif;
+  --font-ui: var(--font-courier), 'Courier New', monospace;
+}
+
+[data-theme='millersHollow'] {
+  --accent: #b5453f;
+  --accent-soft: #6b2724;
+  --accent-glow: rgb(181 69 63 / 0.28);
+  --phase-night: #141420;
+  --phase-day: #2a2418;
+}
+
+[data-theme='cosaNostra'] {
+  --accent: #c9a227;
+  --accent-soft: #6b5410;
+  --accent-glow: rgb(201 162 39 / 0.26);
+  --phase-night: #0f1218;
+  --phase-day: #241f1a;
+}
+
+[data-theme='hunterDemon'] {
+  --accent: #7b4dff;
+  --accent-soft: #3a1f80;
+  --accent-glow: rgb(123 77 255 / 0.3);
+  --phase-night: #12101f;
+  --phase-day: #1f1a2e;
+}
+
+[data-theme='olympus'] {
+  --accent: #e0b64a;
+  --accent-soft: #7a5f18;
+  --accent-glow: rgb(224 182 74 / 0.26);
+  --phase-night: #101318;
+  --phase-day: #2b2618;
+}
+
+[data-theme='signalLost'] {
+  --accent: #3fb5b0;
+  --accent-soft: #1a5654;
+  --accent-glow: rgb(63 181 176 / 0.26);
+  --phase-night: #0a1214;
+  --phase-day: #16211f;
+}
+
+[data-theme='salem'] {
+  --accent: #c98a3f;
+  --accent-soft: #6b4419;
+  --accent-glow: rgb(201 138 63 / 0.26);
+  --phase-night: #12100c;
+  --phase-day: #241d14;
+}
+
+[data-theme='longCourt'] {
+  --accent: #5fa8d3;
+  --accent-soft: #234a63;
+  --accent-glow: rgb(95 168 211 / 0.26);
+  --phase-night: #0c1016;
+  --phase-day: #182028;
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------------- */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  background: var(--bg-void);
+  color-scheme: dark; /* dark only — DESIGN.md §1 principle 1 */
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-ui);
+  overscroll-behavior-y: none;
+  min-height: 100dvh;
+}
+
+/* the single grain texture that stops a dark app looking like an empty div */
+.tex-grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.05;
+  background-image: url('/tex/grain.svg');
+  background-repeat: repeat;
+}
+
+/* VHS scanlines — ported from the Werewolves reference. Purely atmospheric,
+   sits above everything, never intercepts touches. */
+.vhs-scan::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgb(0 0 0 / 0.08) 3px,
+    rgb(0 0 0 / 0.08) 4px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vhs-scan::after {
+    opacity: 0.6;
+  }
+}
+
+/* phase tinting — DESIGN.md §3.3 */
+.phase-night {
+  background: var(--phase-night);
+}
+.phase-day {
+  background: var(--phase-day);
+}
+.phase-vote {
+  background: var(--bg-void);
+}
+
+/* read-aloud block — DESIGN.md §4.3 */
+.speak {
+  font-family: var(--font-speak);
+  font-size: 1.75rem;
+  line-height: 2.5rem;
+  font-weight: 450;
+  max-width: 34ch;
+  text-wrap: balance;
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+}
+
+.speak-sm {
+  font-family: var(--font-speak);
+  font-size: 1.25rem;
+  line-height: 2rem;
+  max-width: 38ch;
+  text-wrap: balance;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.01em;
+}
+
+.caption {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+   Glow — ported from the Werewolves reference (glow-red / glow-title / glow-soft).
+   Built on currentColor so it re-skins with every theme's --accent automatically.
+   Use sparingly: hero titles and section headers, not body copy (DESIGN.md §3.4
+   contrast floors apply to text color, not text-shadow — glow is atmosphere,
+   not the thing carrying legibility).
+   ------------------------------------------------------------------------- */
+.glow-sm {
+  text-shadow:
+    0 0 6px currentColor,
+    0 0 16px currentColor;
+}
+.glow {
+  text-shadow:
+    0 0 8px currentColor,
+    0 0 24px currentColor,
+    0 0 48px currentColor;
+}
+.glow-lg {
+  text-shadow:
+    0 0 10px currentColor,
+    0 0 30px currentColor,
+    0 0 60px currentColor,
+    0 0 100px currentColor;
+}
+
+/* slow accent breathing during night — DESIGN.md §6 */
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.92;
+  }
+}
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* soft flicker, ported from the Werewolves reference — a lamp on a bad wire */
+@keyframes flicker-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 1;
+  }
+  93% {
+    opacity: 0.7;
+  }
+  94% {
+    opacity: 1;
+  }
+  96% {
+    opacity: 0.8;
+  }
+  97% {
+    opacity: 1;
+  }
+}
+.flicker {
+  animation: flicker-soft 6s infinite;
+}
+
+/* pulsing glow for the hero title */
+@keyframes pulse-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 0 10px currentColor,
+      0 0 30px currentColor,
+      0 0 60px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 5px currentColor,
+      0 0 15px currentColor,
+      0 0 30px currentColor;
+  }
+}
+.pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+/* ambient ember particles */
+@keyframes float-particle {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(30px);
+    opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Atmospheric card — ported from the Werewolves reference `.role-card`.
+   Textured gradient surface with a themed hover lift, used for theme picks,
+   role rows and seat chips wherever a plain --bg-raised box needs weight.
+   ------------------------------------------------------------------------- */
+.card-atmo {
+  background: linear-gradient(135deg, var(--bg-raised) 0%, var(--bg-overlay) 100%);
+  position: relative;
+  overflow: hidden;
+  transition:
+    border-color 0.3s,
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.card-atmo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgb(255 255 255 / 0.02) 2px,
+    rgb(255 255 255 / 0.02) 4px
+  );
+  pointer-events: none;
+}
+
+.card-atmo:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-atmo {
+    transition: none;
+  }
+  .card-atmo:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 120ms !important;
+  }
+}

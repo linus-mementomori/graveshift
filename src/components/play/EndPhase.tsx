@@ -60,7 +60,7 @@ export function EndPhase({ game }: { game: GameState }) {
         </>
       }
     >
-      <CueStrip text={theme.cueOverrides[victoryCue.id] ?? victoryCue.text} />
+      <CueStrip text={theme.cueOverrides[victoryCue.id] ?? victoryCue.text} cueId={victoryCue.id} />
 
       <div className="mt-8 text-center">
         <p className="caption text-[var(--text-muted)]">Victory</p>

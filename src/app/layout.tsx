@@ -4,6 +4,8 @@ import './globals.css'
 import { ThemeRoot } from '@/components/ThemeRoot'
 import { Particles } from '@/components/Particles'
 import { GameSync } from '@/lib/cloud/GameSync'
+import { BottomNav, BottomNavSpacer } from '@/components/BottomNav'
+import { StoreHydrator } from '@/components/StoreHydrator'
 import {
   SITE_URL,
   SITE_NAME,
@@ -94,11 +96,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="tex-grain vhs-scan">
         <ThemeRoot>
+          <StoreHydrator />
           <GameSync />
           <Particles />
           <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[480px] flex-col">
             {children}
+            <BottomNavSpacer />
           </div>
+          <BottomNav />
         </ThemeRoot>
       </body>
     </html>

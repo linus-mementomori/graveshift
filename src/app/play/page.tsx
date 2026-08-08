@@ -17,6 +17,7 @@ import { EndPhase } from '@/components/play/EndPhase'
  */
 export default function PlayPage() {
   const game = useGameStore((s) => s.game)
+  const hydrated = useGameStore((s) => s.hydrated)
   const router = useRouter()
 
   // Keep the screen awake during play (ARCHITECTURE §6). Best-effort only.
@@ -35,6 +36,16 @@ export default function PlayPage() {
       lock?.release().catch(() => {})
     }
   }, [game?.phase, game])
+
+  // Until localStorage has been read we genuinely don't know yet — saying
+  // "no game" here would be a lie that flashes on every single load.
+  if (!hydrated) {
+    return (
+      <Screen title="Play">
+        <p className="caption breathe pt-16 text-center text-[var(--text-muted)]">Loading…</p>
+      </Screen>
+    )
+  }
 
   if (!game) {
     return (

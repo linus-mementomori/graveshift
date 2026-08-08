@@ -69,38 +69,45 @@ export default function RolesPage() {
                   <div
                     key={role.id}
                     className={cn(
-                      'card-atmo flex items-center gap-3 rounded-xl border px-3 py-2',
+                      'card-atmo rounded-xl border px-3 py-2.5',
                       n > 0 ? 'border-[var(--accent)]/50' : 'border-[var(--border-subtle)]',
                       locked && 'opacity-40',
                     )}
                   >
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium">
+                    {/*
+                      Name + stepper on one row, description on its own line
+                      beneath. Previously both were `truncate`, so every summary
+                      was cut mid-sentence — which made the one piece of text
+                      that explains what a role DOES unreadable, on the screen
+                      where you decide whether to include it.
+                    */}
+                    <div className="flex items-center gap-3">
+                      <p className="min-w-0 flex-1 text-sm font-medium">
                         {roleName(theme, role.id as RoleId)}
                       </p>
-                      <p className="truncate text-xs text-[var(--text-muted)]">
-                        {locked ? `Needs ${role.minPlayers}+ players` : role.summary}
-                      </p>
+                      <Button
+                        variant="ghost"
+                        aria-label={`Remove one ${role.id}`}
+                        className="!h-10 !w-10 !min-h-10 !rounded-lg !px-0"
+                        onClick={() => adjustRole(role.id, -1)}
+                        disabled={n === 0}
+                      >
+                        −
+                      </Button>
+                      <span className="w-4 shrink-0 text-center text-sm tabular-nums">{n}</span>
+                      <Button
+                        variant="ghost"
+                        aria-label={`Add one ${role.id}`}
+                        className="!h-10 !w-10 !min-h-10 !rounded-lg !px-0"
+                        onClick={() => adjustRole(role.id, 1)}
+                        disabled={locked || assigned >= playerCount}
+                      >
+                        +
+                      </Button>
                     </div>
-                    <Button
-                      variant="ghost"
-                      aria-label={`Remove one ${role.id}`}
-                      className="!h-10 !w-10 !min-h-10 !rounded-lg !px-0"
-                      onClick={() => adjustRole(role.id, -1)}
-                      disabled={n === 0}
-                    >
-                      −
-                    </Button>
-                    <span className="w-4 text-center text-sm tabular-nums">{n}</span>
-                    <Button
-                      variant="ghost"
-                      aria-label={`Add one ${role.id}`}
-                      className="!h-10 !w-10 !min-h-10 !rounded-lg !px-0"
-                      onClick={() => adjustRole(role.id, 1)}
-                      disabled={locked || assigned >= playerCount}
-                    >
-                      +
-                    </Button>
+                    <p className="mt-0.5 pr-1 text-xs leading-relaxed text-[var(--text-muted)]">
+                      {locked ? `Needs ${role.minPlayers}+ players` : role.summary}
+                    </p>
                   </div>
                 )
               })}

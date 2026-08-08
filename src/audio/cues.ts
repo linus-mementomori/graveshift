@@ -18,7 +18,7 @@ export interface Cue {
   /** Default instruction. Themes may override (theme.cueOverrides). */
   text: string
   /** Name of the generated Web Audio patch, if one exists. */
-  synth?: 'drone' | 'chime' | 'heartbeat' | 'hit' | 'tick'
+  synth?: 'drone' | 'chime' | 'heartbeat' | 'hit' | 'tick' | 'howl'
 }
 
 export const CUES: Record<CueId, Cue> = {
@@ -34,6 +34,7 @@ export const CUES: Record<CueId, Cue> = {
     kind: 'sfx',
     urgency: 'accent',
     text: 'A low growl, or scrape your nails on the table.',
+    synth: 'howl',
   },
   SEER_WAKE: {
     id: 'SEER_WAKE',
@@ -54,42 +55,49 @@ export const CUES: Record<CueId, Cue> = {
     kind: 'sfx',
     urgency: 'accent',
     text: 'A bubbling hiss, or blow across a bottle.',
+    synth: 'chime',
   },
   NIGHT_END: {
     id: 'NIGHT_END',
     kind: 'music',
     urgency: 'ambient',
     text: 'Fade out. Let silence sit for two seconds.',
+    synth: 'drone',
   },
   DAWN: {
     id: 'DAWN',
     kind: 'music',
     urgency: 'hit',
     text: 'Nothing. Silence is the cue. Then speak.',
+    synth: 'chime',
   },
   DEATH_REVEAL: {
     id: 'DEATH_REVEAL',
     kind: 'voice',
     urgency: 'hit',
     text: 'Drop your voice. Say the name slowly. Pause.',
+    synth: 'hit',
   },
   NO_DEATH: {
     id: 'NO_DEATH',
     kind: 'voice',
     urgency: 'accent',
     text: 'Sound confused. Sell it.',
+    synth: 'tick',
   },
   DAY: {
     id: 'DAY',
     kind: 'music',
     urgency: 'ambient',
     text: 'Bright, busy, low volume — a floor under the arguing.',
+    synth: 'chime',
   },
   VOTE: {
     id: 'VOTE',
     kind: 'music',
     urgency: 'hit',
     text: 'Cut everything. Dead air makes people nervous.',
+    synth: 'tick',
   },
   EXECUTION: {
     id: 'EXECUTION',
@@ -103,24 +111,28 @@ export const CUES: Record<CueId, Cue> = {
     kind: 'light',
     urgency: 'accent',
     text: 'Put a light on them if you can. Everyone else goes quiet.',
+    synth: 'heartbeat',
   },
   VICTORY_VILLAGE: {
     id: 'VICTORY_VILLAGE',
     kind: 'music',
     urgency: 'hit',
     text: 'Something warm and triumphant. Loud.',
+    synth: 'chime',
   },
   VICTORY_MAFIA: {
     id: 'VICTORY_MAFIA',
     kind: 'music',
     urgency: 'hit',
     text: 'Something cold and smug. Let it play under the reveal.',
+    synth: 'howl',
   },
   VICTORY_NEUTRAL: {
     id: 'VICTORY_NEUTRAL',
     kind: 'music',
     urgency: 'hit',
     text: 'Something wrong. Off-kilter. Uncomfortable.',
+    synth: 'hit',
   },
 }
 

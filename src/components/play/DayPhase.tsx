@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Button, CueStrip, Screen, Speak, Notice, cn } from '@/components/ui'
+import { Soundboard } from '@/components/Soundboard'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme } from '@/themes'
 import { CUES } from '@/audio/cues'
@@ -30,9 +31,14 @@ export function DayPhase({ game }: { game: GameState }) {
     <Screen
       title={`Day ${game.dayNumber}`}
       step={`${alive.length} alive`}
-      action={<Button onClick={goVote}>Call the vote →</Button>}
+      action={
+        <>
+          <Soundboard />
+          <Button onClick={goVote}>Call the vote →</Button>
+        </>
+      }
     >
-      <CueStrip text={theme.cueOverrides.DAY ?? CUES.DAY.text} />
+      <CueStrip text={theme.cueOverrides.DAY ?? CUES.DAY.text} cueId="DAY" />
 
       <div className="mt-8">
         <Speak>{theme.narration.day}</Speak>

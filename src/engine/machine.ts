@@ -292,10 +292,23 @@ export function voterWeight(state: GameState): number {
   return voting + (mayorAlive ? 1 : 0)
 }
 
+/**
+ * Votes needed to execute — HOUSE RULE.
+ *
+ * This is a PLURALITY rule, not a majority one: whoever has the most votes is
+ * executed, provided they have more than one. A single accusing voice is never
+ * enough to hang someone, but the town does not have to agree as a body.
+ *
+ * Kept as a named constant because it is the single most balance-sensitive
+ * number in the game — see the note in `tallyVote`.
+ */
+export const MIN_VOTES_TO_EXECUTE = 2
+
+/** Retained for the balance checks, which still reason in terms of a majority. */
 export const majorityOf = (weight: number): number => Math.floor(weight / 2) + 1
 
 export function tallyVote(
-  state: GameState,
+  _state: GameState,
   votes: Record<string, number>,
 ): { executedId?: string; tie: boolean } {
   const entries = Object.entries(votes).filter(([, n]) => n > 0)
@@ -304,9 +317,14 @@ export function tallyVote(
   const sorted = [...entries].sort((a, b) => b[1] - a[1])
   const [topId, topCount] = sorted[0]
   const tie = sorted.length > 1 && sorted[1][1] === topCount
-  const needed = majorityOf(voterWeight(state))
 
-  if (tie || topCount < needed) return { tie }
+  // A tie saves EVERYONE involved — nobody is executed, both walk away.
+  // Deliberate: it makes a split town a real defensive outcome rather than a
+  // coin-flip, and gives a cornered player something to actually play for.
+  if (tie) return { tie: true }
+
+  if (topCount < MIN_VOTES_TO_EXECUTE) return { tie: false }
+
   return { executedId: topId, tie: false }
 }
 

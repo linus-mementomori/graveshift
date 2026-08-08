@@ -2,6 +2,7 @@
 
 import { Button, CueStrip, Screen, Speak, Notice } from '@/components/ui'
 import { SeatGrid } from '@/components/SeatGrid'
+import { Soundboard } from '@/components/Soundboard'
 import { RevealPanel } from '@/components/RevealPanel'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme, roleName } from '@/themes'
@@ -55,9 +56,14 @@ export function DawnPhase({ game }: { game: GameState }) {
     <Screen
       title={`Dawn ${game.dayNumber}`}
       step={`${alive.length} alive`}
-      action={<Button onClick={goDay}>Begin the day →</Button>}
+      action={
+        <>
+          <Soundboard />
+          <Button onClick={goDay}>Begin the day →</Button>
+        </>
+      }
     >
-      <CueStrip text={theme.cueOverrides.DAWN ?? CUES.DAWN.text} />
+      <CueStrip text={theme.cueOverrides.DAWN ?? CUES.DAWN.text} cueId="DAWN" />
 
       <div className="mt-8">
         <Speak>{theme.narration.dawn}</Speak>

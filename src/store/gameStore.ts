@@ -28,6 +28,14 @@ interface SetupDraft {
 }
 
 interface GameStore extends SetupDraft {
+  /**
+   * False until localStorage has been read. Screens must wait for this
+   * before concluding there is no saved game, or they flash the wrong
+   * answer on every load.
+   */
+  hydrated: boolean
+  markHydrated: () => void
+
   /** The live game. Null during setup / after New Game. */
   game: GameState | null
   /**
@@ -113,6 +121,9 @@ export const useGameStore = create<GameStore>()(
     (set, get) => ({
       ...initialDraft,
       ...initialPlay,
+
+      hydrated: false,
+      markHydrated: () => set({ hydrated: true }),
 
       // ── setup ────────────────────────────────────────────────────────────
       setPlayerCount: (n) => {
@@ -283,7 +294,45 @@ export const useGameStore = create<GameStore>()(
         set({ ...initialPlay, cloudGameId: newId(), game: rematch(game, newSeed()) })
       },
     }),
-    { name: 'remus:game', version: 3 },
+    {
+      name: 'remus:game',
+      version: 3,
+      /**
+       * Rehydrate MANUALLY, after React mounts — see <StoreHydrator/>.
+       *
+       * With the default (automatic) behaviour, persist restores at module load,
+       * which is *before* React subscribes. The server prerendered this page with
+       * an empty store, React hydrates against that empty snapshot, and the
+       * restore that already happened never notifies anyone — so a saved game
+       * sits in localStorage while every screen insists there isn't one.
+       *
+       * That was the bug behind "No game in progress" and the deal screen stuck
+       * on "Shuffling…" — the state was always there, nothing ever re-rendered.
+       */
+      skipHydration: true,
+      /**
+       * Persist only real data.
+       *
+       * Without this, zustand saves the WHOLE store — including `hydrated`.
+       * Restoring then merges `hydrated: false` back over the true value, so
+       * the flag can never latch and every screen waits forever on a load
+       * that already finished. Actions are excluded for the same reason:
+       * they're rebuilt on boot and have no business in localStorage.
+       */
+      partialize: (s) => ({
+        playerCount: s.playerCount,
+        themeId: s.themeId,
+        composition: s.composition,
+        names: s.names,
+        settings: s.settings,
+        game: s.game,
+        cloudGameId: s.cloudGameId,
+        lastDeaths: s.lastDeaths,
+        lastInfo: s.lastInfo,
+        pendingHunterIds: s.pendingHunterIds,
+        votes: s.votes,
+      }),
+    },
   ),
 )
 

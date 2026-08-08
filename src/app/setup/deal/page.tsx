@@ -16,15 +16,16 @@ import { ROLES } from '@/engine/roles'
  */
 export default function DealPage() {
   const router = useRouter()
-  const { game, startGame, themeId, playerCount } = useGameStore()
+  const { game, startGame, themeId, playerCount, hydrated } = useGameStore()
   const theme = getTheme(themeId)
   const [index, setIndex] = useState(0)
   const [seen, setSeen] = useState(false)
 
-  // Deal on arrival so the roles exist before the first reveal.
+  // Deal on arrival so the roles exist before the first reveal — but only
+  // AFTER hydration, or we'd deal a fresh game over one already in progress.
   useEffect(() => {
-    if (!game) startGame()
-  }, [game, startGame])
+    if (hydrated && !game) startGame()
+  }, [hydrated, game, startGame])
 
   if (!game) {
     return (

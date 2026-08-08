@@ -1,10 +1,11 @@
 'use client'
 
 import { Button, CueStrip, Screen, Speak, Notice, cn } from '@/components/ui'
+import { Soundboard } from '@/components/Soundboard'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme, roleName } from '@/themes'
 import { CUES } from '@/audio/cues'
-import { livingSeats, tallyVote, voterWeight, majorityOf } from '@/engine/machine'
+import { livingSeats, tallyVote, voterWeight, MIN_VOTES_TO_EXECUTE } from '@/engine/machine'
 import type { GameState } from '@/engine/types'
 
 /**
@@ -19,9 +20,13 @@ export function VotePhase({ game }: { game: GameState }) {
   const alive = livingSeats(game)
 
   const weight = voterWeight(game)
-  const majority = majorityOf(weight)
   const tally = tallyVote(game, votes)
   const cast = Object.values(votes).reduce((n, v) => n + v, 0)
+
+  // Plurality rule: the bar is measured against whoever is currently ahead,
+  // not against a fixed majority — that is the number players are watching.
+  const leadCount = Math.max(0, ...alive.map((s) => votes[s.id] ?? 0))
+  const doomedId = tally.executedId
 
   const target = tally.executedId
     ? game.seats.find((s) => s.id === tally.executedId)
@@ -30,9 +35,10 @@ export function VotePhase({ game }: { game: GameState }) {
   return (
     <Screen
       title={`Vote · Day ${game.dayNumber}`}
-      step={`${cast}/${weight} cast · need ${majority}`}
+      step={`${cast}/${weight} cast · most votes, min ${MIN_VOTES_TO_EXECUTE}`}
       action={
         <>
+          <Soundboard />
           <div className="flex gap-3">
             <Button variant="secondary" onClick={clearVotes}>
               ↺ Clear
@@ -46,12 +52,16 @@ export function VotePhase({ game }: { game: GameState }) {
             disabled={!target}
             onClick={() => target && doExecute(target.id)}
           >
-            {target ? `Execute ${target.name}` : `Needs ${majority} votes`}
+            {target
+              ? `Execute ${target.name}`
+              : tally.tie
+                ? 'Tied — nobody dies'
+                : `Needs ${MIN_VOTES_TO_EXECUTE}+ votes`}
           </Button>
         </>
       }
     >
-      <CueStrip text={theme.cueOverrides.VOTE ?? CUES.VOTE.text} />
+      <CueStrip text={theme.cueOverrides.VOTE ?? CUES.VOTE.text} cueId="VOTE" />
 
       <div className="mt-8">
         <Speak>{theme.narration.vote}</Speak>
@@ -60,7 +70,8 @@ export function VotePhase({ game }: { game: GameState }) {
       {tally.tie && (
         <div className="mt-6">
           <Notice tone="error">
-            Tied. Run it off, or take &ldquo;No execution&rdquo; — the night comes anyway.
+            Tied at the top — <strong>nobody is executed</strong>. Everyone tied walks away.
+            Keep voting to break it, or move on and let the night come.
           </Notice>
         </div>
       )}
@@ -69,15 +80,14 @@ export function VotePhase({ game }: { game: GameState }) {
         {alive.map((seat) => {
           const n = votes[seat.id] ?? 0
           const silenced = seat.marks.includes('silenced')
-          const pct = weight > 0 ? Math.min(100, (n / majority) * 100) : 0
+          const pct = leadCount > 0 ? Math.min(100, (n / leadCount) * 100) : 0
+          const doomed = seat.id === doomedId
           return (
             <div
               key={seat.id}
               className={cn(
                 'card-atmo rounded-xl border px-3 py-2.5',
-                n >= majority
-                  ? 'border-[var(--danger)]'
-                  : 'border-[var(--border-subtle)]',
+                doomed ? 'border-[var(--danger)]' : 'border-[var(--border-subtle)]',
               )}
             >
               <div className="flex items-center gap-3">
@@ -117,7 +127,7 @@ export function VotePhase({ game }: { game: GameState }) {
                   <div
                     className={cn(
                       'h-full transition-[width] duration-250',
-                      n >= majority ? 'bg-[var(--danger)]' : 'bg-[var(--accent)]',
+                      doomed ? 'bg-[var(--danger)]' : 'bg-[var(--accent)]',
                     )}
                     style={{ width: `${pct}%` }}
                   />
@@ -128,8 +138,9 @@ export function VotePhase({ game }: { game: GameState }) {
         })}
       </div>
 
-      <p className="caption mt-6 text-[var(--text-muted)]">
-        Majority is {majority} of {weight} available votes.
+      <p className="caption mt-6 leading-relaxed text-[var(--text-muted)]">
+        Most votes is executed, minimum {MIN_VOTES_TO_EXECUTE}. A tie at the top saves everyone
+        tied. {weight} votes available.
       </p>
     </Screen>
   )
@@ -178,7 +189,7 @@ export function DuskPhase({ game }: { game: GameState }) {
       step={`${alive.length} alive`}
       action={<Button onClick={continueToNight}>Night {game.dayNumber + 1} falls →</Button>}
     >
-      <CueStrip text={theme.cueOverrides.EXECUTION ?? CUES.EXECUTION.text} />
+      <CueStrip text={theme.cueOverrides.EXECUTION ?? CUES.EXECUTION.text} cueId="EXECUTION" />
 
       <div className="mt-8">
         <Speak>{theme.narration.execution}</Speak>

@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import type { ReactNode } from 'react'
+import { useState, type ReactNode } from 'react'
 
 export const cn = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
 
@@ -87,14 +87,46 @@ export function Speak({ children }: { children: ReactNode }) {
   )
 }
 
-/** DESIGN.md §5.2 — the performance instruction strip. */
-export function CueStrip({ text }: { text: string }) {
+/**
+ * DESIGN.md §5.2 — the performance instruction strip.
+ *
+ * The text is the product (D2): it tells the host what to *perform*. When the
+ * cue also has a synth patch, a play button appears so a host who doesn't want
+ * to DJ can tap instead. The sound is generated at runtime — see audio/synth.ts
+ * for why we don't ship or hotlink audio files.
+ */
+export function CueStrip({ text, cueId }: { text: string; cueId?: string }) {
+  const [playing, setPlaying] = useState(false)
+
+  async function toggle() {
+    // Dynamic import keeps the audio layer out of the first-load bundle
+    // (ARCHITECTURE §9 budget) — it downloads only if a host taps play.
+    const player = await import('@/audio/player')
+    if (playing) {
+      player.stop()
+      setPlaying(false)
+      return
+    }
+    // Prefers an MP3 in /public/audio/, falls back to the generated patch.
+    const { sustained } = await player.playCue(cueId as never)
+    setPlaying(sustained)
+  }
+
   return (
     <div className="flex items-start gap-2 rounded-lg border border-[var(--accent)]/40 bg-[var(--accent-soft)]/25 px-3 py-2">
       <span aria-hidden className="text-[var(--accent)]">
         ♪
       </span>
-      <span className="caption leading-4 text-[var(--text-secondary)]">{text}</span>
+      <span className="caption flex-1 leading-4 text-[var(--text-secondary)]">{text}</span>
+      {cueId && (
+        <button
+          onClick={toggle}
+          aria-label={playing ? 'Stop sound' : 'Play sound'}
+          className="caption -my-1 shrink-0 rounded-md border border-[var(--accent)]/50 px-2 py-1 text-[var(--accent)] active:scale-95"
+        >
+          {playing ? '■ Stop' : '▶ Play'}
+        </button>
+      )}
     </div>
   )
 }

@@ -359,17 +359,6 @@ body {
   }
 }
 
-/* ---------------------------------------------------------------------------
-   Ko-fi floating widget.
-
-   Its launcher defaults to the bottom-right corner, which is exactly where the
-   floating nav dock lives. Lifted clear of it. The selectors are Ko-fi's own,
-   so they're marked !important — their inline styles win otherwise.
-   ------------------------------------------------------------------------- */
-.floatingchat-container-wrap,
-.floatingchat-container-wrap-mobi {
-  bottom: calc(84px + env(safe-area-inset-bottom)) !important;
-}
 
 /* The opened chat panel needs the same clearance. */
 .floating-chat-kofi-popup-iframe,

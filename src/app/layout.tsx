@@ -6,7 +6,6 @@ import { Particles } from '@/components/Particles'
 import { GameSync } from '@/lib/cloud/GameSync'
 import { BottomNav, BottomNavSpacer } from '@/components/BottomNav'
 import { StoreHydrator } from '@/components/StoreHydrator'
-import { SupportWidget } from '@/components/SupportWidget'
 import {
   SITE_URL,
   SITE_NAME,
@@ -105,7 +104,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <BottomNavSpacer />
           </div>
           <BottomNav />
-          <SupportWidget />
         </ThemeRoot>
       </body>
     </html>

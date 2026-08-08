@@ -17,7 +17,9 @@ import { SUPPORT_URL } from './SupportLink'
  *
  * Two personalities:
  *
- *   BROWSING — Play · Guide · Themes · Account, plain navigation.
+ *   BROWSING — Play · Guide · Themes · Account · Support. Support is an
+ *              external link rather than a route; it replaced a floating
+ *              overlay widget that ate too much of the screen.
  *
  *   IN GAME  — Game · Sound · Roster · Notes. The last three open sheets rather
  *              than navigating, so the host never loses their place in the

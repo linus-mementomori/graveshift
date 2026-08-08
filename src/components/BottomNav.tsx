@@ -71,11 +71,22 @@ export function BottomNav() {
         className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
       >
         {/*
-          No slab, no border, no fill — the dock is just the icons, floating over
-          whatever is behind them. The only thing marking the active tab is that
-          it lights up in the theme accent.
+          A translucent slab floats the dock off the page — you can see content
+          moving behind it, but labels stay readable over anything.
+          The slab is the ONLY container: the active tab gets no box of its own,
+          just the accent colour, a glow, and the underline beneath it.
         */}
-        <ul className="pointer-events-auto flex w-full max-w-[420px] items-stretch gap-1">
+        <ul
+          className={cn(
+            'pointer-events-auto flex w-full max-w-[420px] items-stretch gap-1',
+            // Dark tint, not a white one: a light overlay plus backdrop-blur
+            // smears whatever text is behind into a milky grey band. Tinting
+            // toward the page's own dark base keeps it readable and still lets
+            // content show through.
+            'rounded-2xl border border-white/[0.06] bg-[var(--bg-base)]/70 backdrop-blur-xl',
+            'shadow-[0_8px_28px_rgb(0_0_0/0.5)]',
+          )}
+        >
           {inGame ? (
             <>
               <Tab
@@ -144,12 +155,25 @@ function Tab({
         className={active ? 'drop-shadow-[0_0_8px_var(--accent)]' : undefined}
       />
       <span className="caption text-[10px] leading-none">{label}</span>
+      {/*
+        A short lit bar instead of a filled pill. Reads as "selected" at a
+        glance without putting a second container inside the slab.
+      */}
+      <span
+        aria-hidden
+        className={cn(
+          'h-[2px] w-6 rounded-full transition-opacity duration-150',
+          active
+            ? 'bg-[var(--accent)] opacity-100 shadow-[0_0_8px_var(--accent)]'
+            : 'opacity-0',
+        )}
+      />
     </>
   )
 
   const className = cn(
     'flex min-h-[52px] w-full flex-col items-center justify-center gap-1 transition-colors duration-150',
-    // Lit, not filled: the accent colour plus a glow is the entire active state.
+    // Lit, not filled: colour, glow and the underline are the whole active state.
     active
       ? 'text-[var(--accent)] [text-shadow:0_0_10px_var(--accent)]'
       : 'text-[var(--text-muted)] active:text-[var(--text-secondary)]',

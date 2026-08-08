@@ -2,11 +2,11 @@
 
 import { cn } from './ui'
 
-const BMC_ID = process.env.NEXT_PUBLIC_BMC_USERNAME || 'projectremus'
-export const SUPPORT_URL = `https://buymeacoffee.com/${BMC_ID}`
+export const KOFI_ID = process.env.NEXT_PUBLIC_KOFI_USERNAME || 'projectremus'
+export const SUPPORT_URL = `https://ko-fi.com/${KOFI_ID}`
 
 /**
- * "Buy me a coffee" link that actually opens.
+ * "Support" link that actually opens.
  *
  * A plain <a target="_blank"> is not enough here. It silently does nothing in
  * three situations this app is regularly in:
@@ -18,14 +18,15 @@ export const SUPPORT_URL = `https://buymeacoffee.com/${BMC_ID}`
  *
  * So: try window.open, and if it returns null — which is exactly what a blocked
  * or ignored popup looks like — navigate this tab instead. Leaving the app is a
- * far better outcome than a button that does nothing.
+ * far better outcome than a button that does nothing. This was a real bug, not
+ * a hypothetical one.
  *
  * The href stays on the element so middle-click, long-press and "open in new
  * tab" all keep working, and crawlers see a real link.
  */
 export function SupportLink({
   className,
-  children = '☕ Buy me a coffee',
+  children = '☕ Support on Ko-fi',
 }: {
   className?: string
   children?: React.ReactNode

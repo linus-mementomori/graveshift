@@ -3,13 +3,14 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, BookOpen, Palette, User, Gamepad2, Volume2, Users, NotebookPen } from 'lucide-react'
+import { Home, BookOpen, Palette, User, Gamepad2, Volume2, Users, NotebookPen, Coffee } from 'lucide-react'
 import { cn } from './ui'
 import { useGameStore } from '@/store/gameStore'
 import { Sheet } from './game/Sheet'
 import { RosterSheet } from './game/RosterSheet'
 import { NotesSheet } from './game/NotesSheet'
 import { Soundboard } from './Soundboard'
+import { SUPPORT_URL } from './SupportLink'
 
 /**
  * Floating tab dock.
@@ -34,6 +35,8 @@ const BROWSE_TABS = [
   { href: '/guide', label: 'Guide', icon: BookOpen },
   { href: '/themes', label: 'Themes', icon: Palette },
   { href: '/account', label: 'Account', icon: User },
+  // Fifth tab instead of a floating widget — the overlay ate too much screen.
+  { href: SUPPORT_URL, label: 'Support', icon: Coffee, external: true },
 ] as const
 
 type SheetId = 'sound' | 'roster' | 'notes' | null
@@ -55,7 +58,7 @@ export function BottomNav() {
       {inGame && game && (
         <>
           <Sheet open={sheet === 'sound'} title="Soundboard" onClose={() => setSheet(null)}>
-            <Soundboard alwaysOpen />
+            <Soundboard game={game} alwaysOpen />
           </Sheet>
           <Sheet open={sheet === 'roster'} title="Roster" onClose={() => setSheet(null)}>
             <RosterSheet game={game} />
@@ -115,14 +118,21 @@ export function BottomNav() {
               />
             </>
           ) : (
-            BROWSE_TABS.map(({ href, label, icon }) => (
+            BROWSE_TABS.map((tab) => (
               <Tab
-                key={href}
-                href={href}
-                label={label}
-                icon={icon}
+                key={tab.href}
+                href={tab.href}
+                label={tab.label}
+                icon={tab.icon}
+                external={'external' in tab && tab.external}
                 // "/" must match exactly or it lights up on every route.
-                active={href === '/' ? pathname === '/' : pathname.startsWith(href)}
+                active={
+                  'external' in tab && tab.external
+                    ? false
+                    : tab.href === '/'
+                      ? pathname === '/'
+                      : pathname.startsWith(tab.href)
+                }
               />
             ))
           )}
@@ -138,12 +148,14 @@ function Tab({
   icon: Icon,
   active,
   onClick,
+  external,
 }: {
   href?: string
   label: string
   icon: typeof Home
   active: boolean
   onClick?: () => void
+  external?: boolean
 }) {
   const inner = (
     <>
@@ -179,9 +191,31 @@ function Tab({
       : 'text-[var(--text-muted)] active:text-[var(--text-secondary)]',
   )
 
+  /**
+   * External tabs can't be a <Link>, and a bare target="_blank" silently does
+   * nothing in an installed PWA or behind a popup blocker — the same bug that
+   * made the support button appear dead. Fall back to same-tab navigation.
+   */
+  function openExternal(e: React.MouseEvent<HTMLAnchorElement>) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    e.preventDefault()
+    const win = window.open(href, '_blank', 'noopener,noreferrer')
+    if (!win && href) window.location.href = href
+  }
+
   return (
     <li className="flex-1">
-      {href ? (
+      {external && href ? (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={openExternal}
+          className={className}
+        >
+          {inner}
+        </a>
+      ) : href ? (
         <Link href={href} aria-current={active ? 'page' : undefined} className={className}>
           {inner}
         </Link>

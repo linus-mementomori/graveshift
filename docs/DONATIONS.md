@@ -1,140 +1,91 @@
-# DONATIONS.md — Buy Me a Coffee
+# DONATIONS.md — Ko-fi
 
-A plan for accepting donations, split into **what only you can do** and **what I
-can do**. Researched August 2026.
+How donations work in Project Remus. Live at
+**[ko-fi.com/projectremus](https://ko-fi.com/projectremus)**.
 
----
-
-## 1 · How it actually works
-
-Buy Me a Coffee is a hosted donation page. Supporters buy notional "coffees"
-(you set the unit price, typically $3–$5) either one-off or as a monthly
-membership. You never touch card details — that is the entire point of using it
-rather than rolling your own.
-
-### The money
-
-| Layer | Cost |
-|---|---|
-| Buy Me a Coffee platform fee | **5%** per transaction |
-| Stripe processing | **2.9% + $0.30** per transaction |
-| Stripe payout fee | **0.5%** |
-| Monthly subscription | **$0** — no fixed cost |
-
-So a $5 coffee nets you roughly **$4.30**. On small amounts the flat $0.30 hurts
-proportionally: a $3 coffee loses ~13% to fees, a $10 one loses ~8.4%. If you
-nudge a default amount, $5 is the sweet spot.
-
-### The bits that surprise people
-
-- **Payouts run through Stripe Standard Connect.** You will complete Stripe's
-  identity verification — legal name, address, DOB, bank details. There is no
-  way around it; it's KYC, not bureaucracy for its own sake.
-- **Your page is not live until payouts are connected.** Don't link to it from
-  the app before that step or visitors hit a dead page.
-- **You must be in a Stripe-supported country.** If Stripe doesn't pay out
-  where you are, you cannot withdraw. Check this *first* — it's the one thing
-  that can invalidate the whole plan.
-- **First payout can take up to two weeks** while the account is reviewed.
-  Minimum threshold is $10. Later payouts are fast, with instant available for
-  another 0.5%.
+> **Switched from Buy Me a Coffee, August 2026.** This originally planned for
+> BMC. Ko-fi is the better deal and the earlier comparison said so: **0% on
+> one-off tips** on the free tier, against BMC's 5% platform cut. The app-side
+> work was identical either way — only the URL and the widget snippet changed.
 
 ---
 
-## 2 · Is it the right choice here?
+## 1 · The money
 
-Briefly, since switching later is annoying:
-
-| Option | Fee | Verdict |
+| Layer | Ko-fi (free tier) | Buy Me a Coffee, for comparison |
 |---|---|---|
-| **Buy Me a Coffee** | 5% + Stripe | **Recommended.** Zero setup, handles tax/receipts, recognisable, supports one-off *and* monthly |
-| Ko-fi | 0% on one-off (free tier) | Cheaper, genuinely. Less recognisable, and the free tier lacks memberships |
-| GitHub Sponsors | 0% | Best rate, but only really works if your audience is developers. Yours are party hosts |
-| Stripe Payment Links | 2.9% + $0.30 | Cheapest with no platform cut, but you build and maintain the page, and handle your own receipts |
+| Platform fee, one-off tips | **0%** | 5% |
+| Payment processing | Stripe/PayPal standard (~2.9% + $0.30) | same |
+| Monthly subscription | $0 | $0 |
+| Memberships / recurring | Ko-fi Gold only | included free |
 
-If minimising fees matters more than polish, **Ko-fi is the better deal** — it
-takes 0% on one-off tips. I'd still pick Buy Me a Coffee for name recognition:
-"buy me a coffee" is understood instantly in a way "Ko-fi" isn't. Your call, and
-the app-side work below is identical either way — only the URL changes.
+On a NZ$5 tip you keep roughly **NZ$4.55** with Ko-fi versus **NZ$4.30** with
+BMC. The flat processing fee still dominates at small amounts, so a NZ$3 tip
+loses ~13% either way — nudging people toward $5 matters more than the platform
+choice does.
 
----
-
-## 3 · What YOU do
-
-I cannot do any of these. They need your identity, your bank, your accounts.
-
-**① Check Stripe supports payouts in your country** — 5 minutes
-[stripe.com/global](https://stripe.com/global). If not, stop here and use a
-local alternative; nothing else in this plan will work.
-
-**② Create the account** — 10 minutes
-[buymeacoffee.com](https://buymeacoffee.com) → sign up → claim your username.
-Pick carefully, it's your public URL. `buymeacoffee.com/projectremus` or
-`/molinalim`. **Tell me which one** — I need it for the app.
-
-**③ Connect payouts** — 15 minutes, plus verification wait
-Dashboard → **Payouts** → *Set up payouts* → Stripe onboarding. Have ready:
-legal name and address, DOB, bank account or debit card, and possibly a photo
-ID. Expect up to two weeks for the first payout to clear review.
-
-**④ Set up the page** — 20 minutes
-- Coffee price: **$5** (best fee ratio)
-- Profile photo, and a cover image if you have one
-- Bio — a first draft is in §5 below, edit it to sound like you
-- Turn on **Memberships** only if you'll actually offer something recurring.
-  An empty membership tier looks worse than none
-
-**⑤ Decide the tone** — this one's a judgement call, not a task
-How visible should the ask be? See §4. Tell me which and I'll build it.
-
-**⑥ Tax** — boring, real
-Donations are usually taxable income. Buy Me a Coffee does not withhold
-anything. Keep the payout records; talk to whoever does your taxes.
+The one thing Ko-fi's free tier doesn't include is **recurring memberships**.
+If you ever want monthly supporters, that's Ko-fi Gold (a fixed monthly fee) —
+worth revisiting only once one-off tips are actually arriving.
 
 ---
 
-## 4 · What I do
+## 2 · What's built
 
-All app-side, once you give me the username. Roughly an hour total.
+**`<SupportLink/>`** — `src/components/SupportLink.tsx`
 
-**A · A `<SupportLink/>` component**
-Reads the URL from `NEXT_PUBLIC_BMC_USERNAME`, so the link isn't hard-coded and
-the whole feature disappears cleanly if the env var is unset — same nullable
-pattern as Supabase.
+A themed link to your Ko-fi page, used on `/account`.
 
-**B · Placement.** Pick a level:
+It does **not** rely on `target="_blank"` alone, because that silently does
+nothing in three situations this app is regularly in — and that was a real bug,
+not a hypothetical one:
 
-| Level | Where | Feel |
-|---|---|---|
-| **Quiet** *(recommended)* | Account page + guide footer only | Invisible unless you go looking |
-| **Standard** | Above, plus a line on the End screen after a finished game | Asks once, at the only moment they're pleased with you |
-| **Prominent** | Above, plus a home-screen button | Hard to miss. Also hard to miss |
+- installed as a PWA (`display: standalone`), where iOS in particular swallows it
+- inside an in-app browser (Instagram, Slack, a preview pane)
+- behind a popup blocker
 
-I'd take **Standard**. The End screen is the single honest moment to ask — the
-game just worked, the table said "again", and nobody's mid-task. Asking on the
-home screen taxes people who haven't used it yet, and asking during setup or
-play is unforgivable: the host is holding a phone in a dark room with eleven
-people waiting.
+So it tries `window.open`, and if that returns `null` — exactly what a blocked
+popup looks like — it navigates the current tab instead. Modified clicks
+(⌘-click, middle-click, long-press) are passed straight through, and the real
+`href` stays on the element so crawlers still see a link.
 
-**C · Never during a game.** Whatever level you choose, no donation UI on
-`/setup/*` or `/play`. I'll enforce that in the component itself, not by
-remembering.
+**`<SupportWidget/>`** — `src/components/SupportWidget.tsx`
 
-**D · Open in a new tab** with `rel="noopener noreferrer"` — a donation flow
-should never navigate away from a game in progress.
+Ko-fi's floating overlay widget, themed to the live accent colour.
 
-**E · No tracking pixel.** Buy Me a Coffee offers an embeddable widget with a
-third-party script. I'd skip it: it's a script tag from another origin on a page
-with a strict offline story, and it would be the only tracker in an app whose
-docs say there are none. A plain link does the same job.
+- Ko-fi takes its colours as arguments to `kofiWidgetOverlay.draw()`, so a theme
+  change is just another draw call — no script re-injection needed.
+- The label colour is computed from the accent's luminance, so it flips to dark
+  text on the gold themes instead of being unreadable white-on-yellow.
+- The accent is read from a throwaway `<div data-theme>` rather than from
+  `<html>`. `ThemeRoot` sets `data-theme` in its own effect and React runs child
+  effects *before* parent ones, so reading off the document returns the previous
+  theme's colour.
+- CSS in `globals.css` lifts the launcher clear of the floating nav dock, which
+  otherwise occupies exactly the same corner.
+- **Hidden on `/setup`, `/play` and `/auth`.** A donation prompt while someone is
+  mid-night with eleven people waiting is the worst possible ask.
 
-**F · Docs + `.env.example`** updated so the setting is discoverable.
+**Config** — `NEXT_PUBLIC_KOFI_USERNAME`, defaulting to `projectremus`.
 
 ---
 
-## 5 · Draft bio
+## 3 · The trade-off you accepted
 
-Edit freely — it should sound like you, not me.
+The widget is a **third-party script from `storage.ko-fi.com`**. I'd originally
+recommended a plain link instead, on the grounds that it would be the only
+external script in an app whose docs say it has no trackers, and it can't work
+offline.
+
+That's still true, and it's a reasonable call to make anyway — the widget is far
+more visible than a buried link. Both paths exist: if the CDN is blocked, the
+script fails silently and the `/account` link still works.
+
+---
+
+## 4 · Bio draft
+
+Edit freely — it should sound like you.
 
 > I build **Project Remus**, a free game master for Werewolf and Mafia. It deals
 > the roles, runs the night order, settles the rules arguments, and tells you
@@ -145,18 +96,14 @@ Edit freely — it should sound like you, not me.
 
 ---
 
-## 6 · What happens next
+## 5 · Still yours to do
 
-1. You do ①–⑤ above
-2. Send me the username and your chosen placement level
-3. I add the component, wire the env var, and deploy
-
-Until then, nothing changes in the app — there's no half-built donation UI
-sitting around.
-
----
-
-**Sources:** [Buy Me a Coffee — payouts](https://help.buymeacoffee.com/en/articles/10025793-how-do-you-set-up-payouts-on-your-buy-me-a-coffee-page) ·
-[Buy Me a Coffee — fee calculation](https://help.buymeacoffee.com/en/articles/8105744-how-to-calculate-charges-on-your-payment) ·
-[Buy Me a Coffee — how it works](https://help.buymeacoffee.com/en/articles/10182730-what-is-buy-me-a-coffee-and-how-does-it-work) ·
-[SchoolMaker — 2026 pricing comparison](https://www.schoolmaker.com/blog/buy-me-a-coffee-pricing)
+- **Tax.** Donations are usually taxable income and Ko-fi withholds nothing.
+  Keep the payout records.
+- **Payouts.** Ko-fi pays via PayPal or Stripe — make sure one is connected, or
+  money arrives nowhere.
+- **Placement.** Currently the widget is on every non-game screen, plus a link
+  on `/account`. If you want it quieter (account only) or louder (a line on the
+  End screen after a finished game), say which and I'll move it. The End screen
+  is the single most honest moment to ask — the game just worked and nobody's
+  mid-task.

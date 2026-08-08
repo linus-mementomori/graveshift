@@ -7,15 +7,27 @@ import { getTheme } from '@/themes'
 import { isSupabaseConfigured } from '@/lib/supabase'
 import { useAuth } from '@/lib/useAuth'
 
+const PHASE_LABEL: Record<string, string> = {
+  night: 'Night',
+  dawn: 'Dawn',
+  day: 'Day',
+  vote: 'Vote',
+  dusk: 'Dusk',
+}
+
 export default function Home() {
   const themeId = useGameStore((s) => s.themeId)
   const theme = getTheme(themeId)
   const { email } = useAuth()
+  const game = useGameStore((s) => s.game)
+
+  // Resume is offered only for a game that's actually mid-flight (DESIGN §7.1).
+  const resumable = game && game.phase !== 'end'
 
   return (
     <div className="flex min-h-dvh flex-col justify-between px-5 pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <div>
-        <h1 className="display pulse-glow text-5xl text-[var(--accent)]">NIGHTFALL</h1>
+        <h1 className="display pulse-glow text-5xl text-[var(--accent)]">PROJECT REMUS</h1>
         <p className="caption mt-3 text-[var(--text-muted)]">
           the game master in your pocket
         </p>
@@ -23,7 +35,14 @@ export default function Home() {
       </div>
 
       <div className="space-y-3">
-        <ButtonLink href="/setup/players">▶ New game</ButtonLink>
+        {resumable && (
+          <ButtonLink href="/play">
+            ↻ Resume — {PHASE_LABEL[game.phase] ?? game.phase} {game.dayNumber}
+          </ButtonLink>
+        )}
+        <ButtonLink href="/setup/players" variant={resumable ? 'secondary' : 'primary'}>
+          ▶ New game
+        </ButtonLink>
         <ButtonLink href="/guide" variant="secondary">
           How to host
         </ButtonLink>

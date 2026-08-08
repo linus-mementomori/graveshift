@@ -1,0 +1,89 @@
+<!--
+  Project Remus — Magic link / OTP
+  Paste into: Authentication → Emails → Templates → Magic link or OTP
+  Suggested subject: Your Project Remus sign-in link
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0e0e14;margin:0;padding:32px 12px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px;background-color:#16161f;border:1px solid rgba(255,255,255,0.10);border-radius:14px;">
+
+        <tr>
+          <td style="padding:36px 36px 0 36px;" align="left">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:26px;letter-spacing:-0.01em;color:#cf5a53;">
+              PROJECT REMUS
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#6e6e80;padding-top:6px;">
+              The game master in your pocket
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:28px 36px 0 36px;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:21px;line-height:31px;color:#f2f2f7;">
+              Your way back in.
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:14px;line-height:23px;color:#a8a8b8;padding-top:14px;">
+              Open the link below to sign in. No password needed. It works once,
+              and only for a short while.
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:28px 36px 0 36px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="center" bgcolor="#b5453f" style="border-radius:12px;">
+                  <a href="{{ .ConfirmationURL }}"
+                     style="display:block;padding:16px 24px;font-family:'Courier New',Courier,monospace;font-size:15px;font-weight:bold;letter-spacing:0.06em;color:#0e0e14;text-decoration:none;border-radius:12px;">
+                    Sign me in
+                  </a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 36px 0 36px;">
+            <div style="font-family:'Courier New',Courier,monospace;font-size:11px;line-height:18px;color:#6e6e80;">
+              Button not working? Paste this into your browser:
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:11px;line-height:18px;word-break:break-all;padding-top:6px;">
+              <a href="{{ .ConfirmationURL }}" style="color:#cf5a53;text-decoration:underline;">{{ .ConfirmationURL }}</a>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:24px 36px 0 36px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="border:1px solid rgba(255,255,255,0.10);border-radius:10px;">
+              <tr>
+                <td style="padding:14px 18px;" align="center">
+                  <div style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#6e6e80;">
+                    Or enter this code
+                  </div>
+                  <div style="font-family:'Courier New',Courier,monospace;font-size:26px;font-weight:bold;letter-spacing:0.28em;color:#f2f2f7;padding-top:8px;">
+                    {{ .Token }}
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:28px 36px 34px 36px;">
+            <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:19px;color:#6e6e80;">
+              If you didn't ask to sign in, ignore this email and nothing happens.
+              Never forward this link — anyone holding it can sign in as you.
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>

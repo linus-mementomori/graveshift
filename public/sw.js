@@ -1,12 +1,12 @@
 /**
- * Nightfall service worker — ARCHITECTURE.md §6.
+ * Project Remus service worker — ARCHITECTURE.md §6.
  *
  * Cache-first for everything. There is no network content to be stale about
  * (CONTEXT.md D1/D6), so the only job here is making the app work in a basement
  * with no signal.
  */
 
-const CACHE = 'nightfall-v1'
+const CACHE = 'remus-v1'
 const SHELL = ['/', '/setup/players/', '/setup/theme/', '/setup/roles/', '/setup/seats/', '/setup/deal/', '/play/', '/guide/', '/manifest.webmanifest', '/tex/grain.svg']
 
 self.addEventListener('install', (event) => {

@@ -1,4 +1,4 @@
-# DESIGN.md — Nightfall
+# DESIGN.md — Project Remus
 
 The visual and interaction system. Written for a very specific context: **one thumb, a dark room,
 a loud party, and a host who is also holding a drink.**
@@ -381,7 +381,7 @@ breathing loop stops entirely. Nothing is lost but atmosphere.
 ### 7.1 Home
 
 ```
-        NIGHTFALL              display-xl, accent glow
+        PROJECT REMUS              display-xl, accent glow
    the game master in your pocket   caption, text-muted
 
    ┌────────────────────────┐

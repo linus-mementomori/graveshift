@@ -3,6 +3,7 @@ import { Libre_Baskerville, Courier_Prime } from 'next/font/google'
 import './globals.css'
 import { ThemeRoot } from '@/components/ThemeRoot'
 import { Particles } from '@/components/Particles'
+import { GameSync } from '@/lib/cloud/GameSync'
 
 const baskerville = Libre_Baskerville({
   subsets: ['latin'],
@@ -21,11 +22,11 @@ const courierPrime = Courier_Prime({
 })
 
 export const metadata: Metadata = {
-  title: 'Nightfall — the game master in your pocket',
+  title: 'Project Remus — the game master in your pocket',
   description:
-    'Host Mafia and Werewolf for 5–20 players. Nightfall handles the roles, the night order and the rules, and tells you exactly what to say and play.',
+    'Host Mafia and Werewolf for 5–20 players. Project Remus handles the roles, the night order and the rules, and tells you exactly what to say and play.',
   manifest: '/manifest.webmanifest',
-  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Nightfall' },
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Project Remus' },
 }
 
 export const viewport: Viewport = {
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-theme="millersHollow" className={`${baskerville.variable} ${courierPrime.variable}`}>
       <body className="tex-grain vhs-scan">
         <ThemeRoot>
+          <GameSync />
           <Particles />
           <div className="relative z-10 mx-auto flex min-h-dvh w-full max-w-[480px] flex-col">
             {children}

@@ -145,11 +145,3 @@ export function NotConfigured() {
     </Notice>
   )
 }
-
-export function Stub({ note }: { note: string }) {
-  return (
-    <div className="rounded-xl border border-dashed border-[var(--border-strong)] p-4 text-sm text-[var(--text-muted)]">
-      {note}
-    </div>
-  )
-}

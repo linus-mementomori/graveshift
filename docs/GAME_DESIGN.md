@@ -1,4 +1,4 @@
-# GAME_DESIGN.md — Nightfall
+# GAME_DESIGN.md — Project Remus
 
 The complete rules specification. This document is **normative**: the engine implements exactly
 what is written here, and any ambiguity found in play is resolved by amending this file first.

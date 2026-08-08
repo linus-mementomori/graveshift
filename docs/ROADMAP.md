@@ -1,4 +1,4 @@
-# ROADMAP.md — Nightfall
+# ROADMAP.md — Project Remus
 
 Build order. Each phase ends in something you could actually put in front of a table.
 
@@ -18,34 +18,41 @@ re-skins the app.
 
 ---
 
-## Phase 1 — A game you can actually host *(the milestone that matters)*
+## ✅ Phase 1 — A game you can actually host *(done)*
 
-Core roles only: Villager, Werewolf, Seer, Doctor. One theme: Millers Hollow.
+Shipped past the original Tier-1-only scope: the engine implements **every role in §3**, not just
+the core four.
 
-- [ ] `deal.ts` — seeded shuffle, role assignment
-- [ ] `RevealPanel` — hold-to-reveal, 3-second cover countdown, no-DOM-until-held
-- [ ] `nightOrder.ts` + `BeatCard` — beat walking, legal targets, Back/Repeat
-- [ ] `resolve.ts` — the 10-step pipeline for the Tier-1 subset
-- [ ] Dawn reveal, Day, nominate → tally → execute
-- [ ] `winCheck.ts` — village and mafia conditions
-- [ ] Persist on every action; Resume from Home
-- [ ] End screen with full role reveal
+- [x] `rng.ts` — seeded mulberry32 + Fisher–Yates, so a deal is replayable from its seed
+- [x] `deal.ts` — seeded shuffle, role assignment, starting charges, Executioner target
+- [x] `RevealPanel` — hold-to-reveal, cover-the-screen countdown, no-DOM-until-held, 8s auto-hide
+- [x] `machine.ts` — beat walking, legal targets with reasons, Back/Clear, phase transitions
+- [x] `resolve.ts` — the full 10-step pipeline, all tiers
+- [x] Dawn reveal, Day, vote tally → execute, Dusk
+- [x] `winCheck.ts` — village, mafia parity, all four neutral conditions, forced-outcome detection
+- [x] Persist on every action; **Resume** from Home
+- [x] End screen with full role reveal + night-by-night log
 
-**Exit criteria:** host a real 8-player game start to finish, on a phone, without touching a
-rulebook or reaching for a second device.
+**Verified:** 46 engine assertions covering the §9 edge-case table (rampage vs bodyguard, seer
+snapshot rule, jester-by-night, SK mafia-immunity, lover cascade, prince double-execution), plus a
+full 6-player game driven start→finish in the browser.
+
+**Still open from §9:** the Blackmailer's silence is applied and blocks voting weight, but "may not
+speak" is a table convention the app only flags.
 
 ---
 
-## Phase 2 — Depth
+## Phase 2 — Depth *(mostly done alongside Phase 1)*
 
-- [ ] Tier 2 roles: Bodyguard, Hunter, Witch, Vigilante, Mayor, Lycan, Minion, Alpha, Cupid
-- [ ] Cascade resolution (Lovers grief, Hunter revenge) until stable
-- [ ] Charges system (potions, ammo, self-heal limit, one-shots)
-- [ ] `balance.ts` — presets 5–20, the §5.2 rule set, `villageEdge`, vote-margin checks
-- [ ] `BalanceMeter` with the plain-language read
-- [ ] Night 0 toggle
-- [ ] Reveal-on-death setting
-- [ ] Every GAME_DESIGN §9 edge case covered by a named test
+- [x] Tier 2 roles: Bodyguard, Hunter, Witch, Vigilante, Mayor, Lycan, Minion, Alpha, Cupid
+- [x] Tier 3 roles: Jester, Serial Killer, Executioner, Blackmailer, Prince, Gravedigger, Priest, Sleepwalker
+- [x] Cascade resolution (Lovers grief, Hunter revenge) until stable
+- [x] Charges system (potions, ammo, self-heal limit, one-shots)
+- [x] `balance.ts` — presets 5–20, the §5.2 rule set, `villageEdge`, vote-margin checks
+- [x] `BalanceMeter` with the plain-language read
+- [x] Night 0 toggle
+- [x] Reveal-on-death setting
+- [ ] Move the §9 edge-case assertions into a real runner (Vitest) instead of a scratch script
 
 **Exit:** a 12–15 player game with a full role board resolves correctly, including the nasty
 interactions (Rampage vs Bodyguard, Witch reviving a double-target, Hunter killing a Lover).

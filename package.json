@@ -1,5 +1,5 @@
 {
-  "name": "nightfall",
+  "name": "project-remus",
   "version": "0.1.0",
   "private": true,
   "description": "The game master in your pocket — a Mafia/Werewolf host companion PWA.",
@@ -13,7 +13,7 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.111.0",
     "lucide-react": "^0.454.0",
-    "next": "15.1.6",
+    "next": "15.5.22",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "zustand": "^5.0.2"

@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from 'react'
 import type { Session, User } from '@supabase/supabase-js'
-import { supabase, isAdminEmail } from './supabase'
+import { supabase, fetchIsAdmin } from './supabase'
 
 export interface AuthState {
   session: Session | null
   user: User | null
   email: string | null
+  /** Answered by the database (public.is_admin()), not by a list in this bundle. */
   isAdmin: boolean
   /** True until the initial session lookup resolves. Never blocks gameplay. */
   loading: boolean
@@ -19,6 +20,7 @@ export interface AuthState {
  */
 export function useAuth(): AuthState {
   const [session, setSession] = useState<Session | null>(null)
+  const [isAdmin, setIsAdmin] = useState(false)
   const [loading, setLoading] = useState(Boolean(supabase))
 
   useEffect(() => {
@@ -43,13 +45,26 @@ export function useAuth(): AuthState {
     }
   }, [])
 
-  const email = session?.user?.email ?? null
+  // Admin status is a round-trip, so it resolves just after the session does.
+  useEffect(() => {
+    let active = true
+    if (!session) {
+      setIsAdmin(false)
+      return
+    }
+    fetchIsAdmin().then((ok) => {
+      if (active) setIsAdmin(ok)
+    })
+    return () => {
+      active = false
+    }
+  }, [session])
 
   return {
     session,
     user: session?.user ?? null,
-    email,
-    isAdmin: isAdminEmail(email),
+    email: session?.user?.email ?? null,
+    isAdmin,
     loading,
   }
 }

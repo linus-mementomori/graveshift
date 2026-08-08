@@ -1,5 +1,5 @@
 /**
- * NIGHTFALL ENGINE — types
+ * PROJECT REMUS ENGINE — types
  *
  * ⚠ ARCHITECTURAL RULE: nothing in src/engine may import from outside src/engine.
  * The engine is pure (CONTEXT.md D7) so it can run in a Worker, in Node, and in tests.
@@ -105,8 +105,14 @@ export interface Seat {
   roleId: RoleId
   alive: boolean
   marks: Mark[]
-  /** Remaining uses: witch potions, vigilante ammo, doctor self-heals, one-shots. */
-  charges: Partial<Record<AbilityId | 'selfHeal' | 'life' | 'death' | 'rampage', number>>
+  /**
+   * Remaining uses: witch potions, vigilante ammo, doctor self-heals, one-shots.
+   * `guilt` is a pending flag, not a resource: set when a Vigilante shoots the
+   * village, spent when they die of it the following night (GAME_DESIGN §3).
+   */
+  charges: Partial<
+    Record<AbilityId | 'selfHeal' | 'life' | 'death' | 'rampage' | 'guilt', number>
+  >
   loverId?: string
   execTargetId?: string
   lastProtectedId?: string
@@ -180,6 +186,14 @@ export interface GameState {
   log: LogEntry[]
   settings: GameSettings
   winner?: WinResult
+  /**
+   * Mayor has revealed; their vote counts double from here on.
+   *
+   * Transient per-cycle results (deaths, night info, owed Hunter shots, the
+   * live vote tally) deliberately live in the STORE, not here — they belong to
+   * one phase, not to the game.
+   */
+  mayorRevealedId?: string
 }
 
 /** A single host instruction inside a phase. */

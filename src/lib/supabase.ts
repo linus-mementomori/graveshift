@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 /**
- * Supabase client for Nightfall.
+ * Supabase client for Project Remus.
  *
  * CLOUD_PLAN P1: the account is OPTIONAL. This module must never be on the
  * critical path of hosting a game — nothing under src/engine or the play flow
@@ -31,17 +31,21 @@ export const supabase: SupabaseClient | null = isSupabaseConfigured
   : null
 
 /**
- * Accounts permitted to open the admin dashboard.
+ * Ask the DATABASE whether the current user is an admin.
  *
- * NOTE: this list is a UX gate only — it decides what the browser bothers to
- * render. It is NOT the security boundary. Actual enforcement lives in the RLS
- * policies in supabase/schema.sql (`public.is_admin()`), which Postgres applies
- * to every request regardless of what this bundle claims. Keep the two in sync.
+ * There is deliberately no hard-coded email list in this bundle. `is_admin()`
+ * in supabase/schema.sql is the single source of truth: it is already the RLS
+ * boundary, so duplicating it here would only create a second list to forget
+ * to update — which is exactly how the dashboard silently shows nothing.
+ *
+ * Still a UX gate, not security: it decides what we bother to render. Postgres
+ * enforces the real rule on every request regardless of what this returns.
  */
-export const ADMIN_EMAILS = ['REPLACE-WITH-YOUR-EMAIL@example.com']
-
-export function isAdminEmail(email: string | null | undefined): boolean {
-  return !!email && ADMIN_EMAILS.includes(email.toLowerCase())
+export async function fetchIsAdmin(): Promise<boolean> {
+  if (!supabase) return false
+  const { data, error } = await supabase.rpc('is_admin')
+  if (error) return false
+  return data === true
 }
 
 /** Where OAuth should land. Trailing slash matters — next.config sets trailingSlash. */

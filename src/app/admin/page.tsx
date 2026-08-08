@@ -130,12 +130,19 @@ export default function AdminPage() {
           </ButtonLink>
         }
       >
-        <div className="pt-4">
+        <div className="space-y-4 pt-4">
           <Notice>
             {email
               ? 'This account does not have admin access.'
               : 'Sign in with an admin account to view this dashboard.'}
           </Notice>
+
+          {/*
+            A refusal with no explanation is a dead end (DESIGN §5.8). The two
+            values below are exactly what decides this screen, so showing them
+            turns "it doesn't work" into a one-glance diagnosis.
+          */}
+          {email && <AdminDiagnostics email={email} />}
         </div>
       </Screen>
     )
@@ -224,5 +231,58 @@ export default function AdminPage() {
         </>
       )}
     </Screen>
+  )
+}
+
+/**
+ * Shows the two values that actually decide admin access:
+ *   1. the email in this browser's session
+ *   2. what public.is_admin() returns for that session's token
+ *
+ * They must agree with the email inside is_admin() in supabase/schema.sql.
+ * Anything else — a stale bundle, a different Google address, an unsaved SQL
+ * edit — shows up here immediately instead of as a silent empty screen.
+ */
+function AdminDiagnostics({ email }: { email: string }) {
+  const [rpc, setRpc] = useState<{ value: unknown; error: string | null } | null>(null)
+
+  useEffect(() => {
+    if (!supabase) return
+    supabase
+      .rpc('is_admin')
+      .then(({ data, error }) => setRpc({ value: data, error: error?.message ?? null }))
+  }, [])
+
+  const Row = ({ label, value }: { label: string; value: string }) => (
+    <div className="flex gap-3 py-1">
+      <span className="caption w-40 shrink-0 text-[var(--text-muted)]">{label}</span>
+      <span className="min-w-0 flex-1 break-all text-xs text-[var(--text-secondary)]">{value}</span>
+    </div>
+  )
+
+  return (
+    <div className="rounded-xl border border-[var(--border-subtle)] p-4">
+      <p className="caption mb-2 text-[var(--text-muted)]">Why you&apos;re seeing this</p>
+
+      <Row label="Signed in as" value={email} />
+      <Row
+        label="is_admin() says"
+        value={
+          rpc === null
+            ? 'checking…'
+            : rpc.error
+              ? `error — ${rpc.error}`
+              : String(rpc.value)
+        }
+      />
+
+      <p className="mt-3 text-xs leading-relaxed text-[var(--text-muted)]">
+        {rpc?.error
+          ? 'The function could not be called. Re-run supabase/schema.sql.'
+          : rpc?.value === false
+            ? 'The function ran and returned false — the email above is not inside is_admin(). Copy it EXACTLY into supabase/set-admin.sql and re-run it. Watch for a different Google address than the one you expected.'
+            : 'If this says true but the dashboard is still hidden, you are running an old bundle — hard-reload once.'}
+      </p>
+    </div>
   )
 }

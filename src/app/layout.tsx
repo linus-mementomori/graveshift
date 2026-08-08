@@ -4,6 +4,15 @@ import './globals.css'
 import { ThemeRoot } from '@/components/ThemeRoot'
 import { Particles } from '@/components/Particles'
 import { GameSync } from '@/lib/cloud/GameSync'
+import {
+  SITE_URL,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  softwareAppJsonLd,
+  faqJsonLd,
+} from '@/lib/seo'
 
 const baskerville = Libre_Baskerville({
   subsets: ['latin'],
@@ -22,11 +31,39 @@ const courierPrime = Courier_Prime({
 })
 
 export const metadata: Metadata = {
-  title: 'Project Remus — the game master in your pocket',
-  description:
-    'Host Mafia and Werewolf for 5–20 players. Project Remus handles the roles, the night order and the rules, and tells you exactly what to say and play.',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    // Sub-pages set only their own title; this appends the brand.
+    template: `%s · ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  applicationName: SITE_NAME,
+  category: 'games',
   manifest: '/manifest.webmanifest',
-  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: 'Project Remus' },
+  appleWebApp: { capable: true, statusBarStyle: 'black-translucent', title: SITE_NAME },
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    locale: 'en_US',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${SITE_NAME} — ${SITE_TAGLINE}` }],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    description: SITE_DESCRIPTION,
+    images: ['/og.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+  },
 }
 
 export const viewport: Viewport = {
@@ -40,6 +77,21 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-theme="millersHollow" className={`${baskerville.variable} ${courierPrime.variable}`}>
+      <head>
+        {/*
+          JSON-LD is the structured-data channel Google actually documents and
+          uses — unlike the keywords meta tag. This is what can turn a plain
+          blue link into a rich result with an FAQ dropdown.
+        */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareAppJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd()) }}
+        />
+      </head>
       <body className="tex-grain vhs-scan">
         <ThemeRoot>
           <GameSync />

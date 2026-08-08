@@ -115,6 +115,60 @@ export function Field({
   )
 }
 
+/** Multi-line input. `hint` carries the word count / limit for read-aloud lines. */
+export function Textarea({
+  label,
+  hint,
+  tone,
+  ...rest
+}: {
+  label: string
+  hint?: string
+  tone?: 'warn' | 'muted'
+} & React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
+  return (
+    <label className="block">
+      <span className="caption flex items-baseline justify-between gap-2 text-[var(--text-muted)]">
+        <span>{label}</span>
+        {hint && (
+          <span className={tone === 'warn' ? 'text-[var(--warn)]' : 'text-[var(--text-muted)]'}>
+            {hint}
+          </span>
+        )}
+      </span>
+      <textarea
+        {...rest}
+        className="mt-1.5 min-h-20 w-full resize-y rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] px-3 py-2 text-sm leading-relaxed outline-none focus:border-[var(--accent)]"
+      />
+    </label>
+  )
+}
+
+export function Select({
+  label,
+  options,
+  ...rest
+}: {
+  label: string
+  options: { value: string; label: string }[]
+} & React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <label className="block">
+      <span className="caption text-[var(--text-muted)]">{label}</span>
+      <select
+        {...rest}
+        className="mt-1.5 h-12 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-raised)] px-3 text-base outline-none focus:border-[var(--accent)]"
+      >
+        {options.map((o) => (
+          <option key={o.value} value={o.value}>
+            {o.label}
+          </option>
+        ))}
+      </select>
+    </label>
+  )
+}
+
 type NoticeTone = 'info' | 'error' | 'success'
 
 const TONES: Record<NoticeTone, string> = {

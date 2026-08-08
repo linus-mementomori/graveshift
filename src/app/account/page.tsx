@@ -60,13 +60,16 @@ export default function AccountPage() {
           <h2 className="display glow-sm text-3xl">Your account</h2>
           <p className="mt-2 text-sm text-[var(--text-secondary)]">{email}</p>
 
-          {isAdmin && (
-            <div className="mt-5">
+          <div className="mt-5 space-y-3">
+            <ButtonLink href="/themes" variant="secondary">
+              My themes
+            </ButtonLink>
+            {isAdmin && (
               <ButtonLink href="/admin" variant="secondary">
                 Open admin dashboard
               </ButtonLink>
-            </div>
-          )}
+            )}
+          </div>
 
           <h3 className="display glow-sm mt-10 text-xl">Game history</h3>
           {games === null ? (

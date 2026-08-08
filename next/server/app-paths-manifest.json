@@ -1,0 +1,6 @@
+{
+  "/page": "app/page.js",
+  "/themes/page": "app/themes/page.js",
+  "/themes/editor/page": "app/themes/editor/page.js",
+  "/setup/theme/page": "app/setup/theme/page.js"
+}

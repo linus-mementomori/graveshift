@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Button, CueStrip, Screen, Speak, Notice, cn } from '@/components/ui'
-import { Soundboard } from '@/components/Soundboard'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme } from '@/themes'
 import { CUES } from '@/audio/cues'
@@ -33,7 +32,6 @@ export function DayPhase({ game }: { game: GameState }) {
       step={`${alive.length} alive`}
       action={
         <>
-          <Soundboard />
           <Button onClick={goVote}>Call the vote →</Button>
         </>
       }

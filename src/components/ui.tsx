@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useState, type ReactNode } from 'react'
+import { usePathname } from 'next/navigation'
 
 export const cn = (...c: (string | false | null | undefined)[]) => c.filter(Boolean).join(' ')
 
@@ -62,6 +63,9 @@ export function Screen({
   children: ReactNode
   action?: ReactNode
 }) {
+  const pathname = usePathname() ?? '/'
+  const hasDock = !pathname.startsWith('/auth')
+
   return (
     <div className="flex min-h-dvh flex-col">
       <header className="flex h-14 shrink-0 items-center justify-between px-5">
@@ -70,7 +74,16 @@ export function Screen({
       </header>
       <main className="flex-1 overflow-y-auto px-5 pb-6">{children}</main>
       {action && (
-        <footer className="shrink-0 space-y-3 px-5 pt-3 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+        <footer
+          className={cn(
+            'shrink-0 space-y-3 px-5 pt-3',
+            // The dock floats over everything, so the action deck has to clear
+            // it or the primary button ends up underneath a tab bar.
+            hasDock
+              ? 'pb-[calc(88px_+_env(safe-area-inset-bottom))]'
+              : 'pb-[max(1.25rem,env(safe-area-inset-bottom))]',
+          )}
+        >
           {action}
         </footer>
       )}

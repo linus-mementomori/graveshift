@@ -3,7 +3,6 @@
 import { useMemo, useState } from 'react'
 import { Button, CueStrip, Screen, Speak, Notice, cn } from '@/components/ui'
 import { SeatGrid } from '@/components/SeatGrid'
-import { Soundboard } from '@/components/Soundboard'
 import { RevealPanel } from '@/components/RevealPanel'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme, roleName } from '@/themes'
@@ -93,7 +92,6 @@ export function NightPhase({ game }: { game: GameState }) {
       step={`${alive} alive · beat ${game.beatIndex + 1}/${beats.length}`}
       action={
         <>
-          <Soundboard />
           <div className="flex gap-3">
             <Button variant="secondary" onClick={backBeat} disabled={game.beatIndex === 0}>
               ← Back

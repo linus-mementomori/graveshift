@@ -4,6 +4,13 @@ import { useEffect, useState } from 'react'
 import { Button, ButtonLink, Notice, NotConfigured, Screen } from '@/components/ui'
 import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { useAuth } from '@/lib/useAuth'
+import {
+  listAllFeedback,
+  setFeedbackStatus,
+  KINDS,
+  type FeedbackRow,
+  type FeedbackStatus,
+} from '@/lib/cloud/feedback'
 
 /**
  * Admin dashboard.
@@ -52,6 +59,7 @@ export default function AdminPage() {
   const [stats, setStats] = useState<Stats | null>(null)
   const [recent, setRecent] = useState<RecentGame[] | null>(null)
   const [showHosts, setShowHosts] = useState(false)
+  const [feedback, setFeedback] = useState<FeedbackRow[] | null>(null)
 
   useEffect(() => {
     if (!supabase || !isAdmin) return
@@ -88,6 +96,7 @@ export default function AdminPage() {
     }
 
     load()
+    listAllFeedback().then(setFeedback)
   }, [isAdmin])
 
   async function loadHosts() {
@@ -195,6 +204,31 @@ export default function AdminPage() {
             </ul>
           )}
 
+          <h3 className="display glow-sm mt-10 text-xl">
+            Feedback{feedback && feedback.length > 0 ? ` (${feedback.filter((f) => f.status === 'new').length} new)` : ''}
+          </h3>
+          {feedback === null ? (
+            <p className="caption mt-3 text-[var(--text-muted)]">Loading…</p>
+          ) : feedback.length === 0 ? (
+            <p className="mt-3 text-sm text-[var(--text-secondary)]">Nothing sent yet.</p>
+          ) : (
+            <ul className="mt-3 space-y-2">
+              {feedback.map((f) => (
+                <FeedbackCard
+                  key={f.id}
+                  row={f}
+                  onStatus={async (s) => {
+                    if (await setFeedbackStatus(f.id, s)) {
+                      setFeedback((rows) =>
+                        (rows ?? []).map((r) => (r.id === f.id ? { ...r, status: s } : r)),
+                      )
+                    }
+                  }}
+                />
+              ))}
+            </ul>
+          )}
+
           <h3 className="display glow-sm mt-10 text-xl">Who played this week</h3>
           {!showHosts ? (
             <div className="mt-3 space-y-2">
@@ -284,5 +318,62 @@ function AdminDiagnostics({ email }: { email: string }) {
             : 'If this says true but the dashboard is still hidden, you are running an old bundle — hard-reload once.'}
       </p>
     </div>
+  )
+}
+
+
+/** One report, with the two triage actions that actually get used. */
+function FeedbackCard({
+  row,
+  onStatus,
+}: {
+  row: FeedbackRow
+  onStatus: (s: FeedbackStatus) => void
+}) {
+  const tone =
+    row.status === 'new'
+      ? 'border-[var(--accent)]/50'
+      : row.status === 'done'
+        ? 'border-[var(--safe)]/40'
+        : 'border-[var(--border-subtle)]'
+
+  return (
+    <li className={`card-atmo rounded-xl border px-3 py-2.5 ${tone}`}>
+      <div className="flex items-baseline justify-between gap-2">
+        <span className="caption truncate text-[var(--text-secondary)]">
+          {row.display_name ?? 'Unnamed'} · {KINDS[row.kind]?.label ?? row.kind}
+        </span>
+        <span className="caption shrink-0 text-[var(--text-muted)]">
+          {new Date(row.created_at).toLocaleDateString()}
+        </span>
+      </div>
+
+      {row.theme_name && (
+        <p className="caption mt-1 text-[var(--accent)]">
+          theme: {row.theme_name}
+          {row.theme_category ? ` · ${row.theme_category}` : ''}
+        </p>
+      )}
+
+      <p className="mt-1 text-sm leading-relaxed text-[var(--text-primary)]">{row.message}</p>
+
+      {row.page && (
+        <p className="caption mt-1 truncate text-[var(--text-muted)]">from {row.page}</p>
+      )}
+
+      <div className="mt-2 flex gap-3">
+        {(['read', 'done', 'wontfix'] as FeedbackStatus[]).map((s) => (
+          <button
+            key={s}
+            onClick={() => onStatus(s)}
+            className={`caption underline underline-offset-4 ${
+              row.status === s ? 'text-[var(--accent)]' : 'text-[var(--text-muted)]'
+            }`}
+          >
+            {s}
+          </button>
+        ))}
+      </div>
+    </li>
   )
 }

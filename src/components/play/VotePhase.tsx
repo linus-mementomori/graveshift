@@ -1,7 +1,6 @@
 'use client'
 
 import { Button, CueStrip, Screen, Speak, Notice, cn } from '@/components/ui'
-import { Soundboard } from '@/components/Soundboard'
 import { useGameStore } from '@/store/gameStore'
 import { getTheme, roleName } from '@/themes'
 import { CUES } from '@/audio/cues'
@@ -38,7 +37,6 @@ export function VotePhase({ game }: { game: GameState }) {
       step={`${cast}/${weight} cast · most votes, min ${MIN_VOTES_TO_EXECUTE}`}
       action={
         <>
-          <Soundboard />
           <div className="flex gap-3">
             <Button variant="secondary" onClick={clearVotes}>
               ↺ Clear

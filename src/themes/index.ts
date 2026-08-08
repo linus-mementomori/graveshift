@@ -5,7 +5,8 @@ import { ROLES } from '@/engine/roles'
 import { millersHollow } from './millersHollow'
 import { cosaNostra } from './cosaNostra'
 import { hunterDemon } from './hunterDemon'
-import { olympus } from './olympus'
+import { aeaea } from './aeaea'
+import { widowsBay } from './widowsBay'
 import { signalLost } from './signalLost'
 import { salem } from './salem'
 import { longCourt } from './longCourt'
@@ -14,7 +15,8 @@ export const THEMES: Theme[] = [
   millersHollow,
   cosaNostra,
   hunterDemon,
-  olympus,
+  aeaea,
+  widowsBay,
   signalLost,
   salem,
   longCourt,

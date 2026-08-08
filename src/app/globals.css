@@ -60,12 +60,22 @@
   --phase-day: #1f1a2e;
 }
 
-[data-theme='olympus'] {
+/* Aeaea — sun-god gold on wine-dark water. Circe is Helios' daughter. */
+[data-theme='aeaea'] {
   --accent: #e0b64a;
   --accent-soft: #7a5f18;
   --accent-glow: rgb(224 182 74 / 0.26);
   --phase-night: #101318;
   --phase-day: #2b2618;
+}
+
+/* Widow's Bay — bog green: mushrooms, damp stone, salt-rotted timber. */
+[data-theme='widowsBay'] {
+  --accent: #86a63f;
+  --accent-soft: #3d4d1c;
+  --accent-glow: rgb(134 166 63 / 0.26);
+  --phase-night: #0b100c;
+  --phase-day: #1a1f14;
 }
 
 [data-theme='signalLost'] {

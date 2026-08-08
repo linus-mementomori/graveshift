@@ -20,8 +20,9 @@ import { EXTRA_SOUNDS } from '@/audio/files'
  * the primary action alone in the thumb zone, and firing a scare by accident
  * instead of confirming a night action would be genuinely bad.
  */
-export function Soundboard() {
-  const [open, setOpen] = useState(false)
+export function Soundboard({ alwaysOpen = false }: { alwaysOpen?: boolean } = {}) {
+  const [openState, setOpen] = useState(false)
+  const open = alwaysOpen || openState
   const [available, setAvailable] = useState<Set<string> | null>(null)
 
   // Probe once, lazily, the first time the host opens the tray.

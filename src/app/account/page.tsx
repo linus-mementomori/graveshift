@@ -8,6 +8,8 @@ import { useAuth, signOut } from '@/lib/useAuth'
 import { useGameStore } from '@/store/gameStore'
 import { clearAppCache } from '@/lib/pwa'
 
+const BMC_ID = process.env.NEXT_PUBLIC_BMC_USERNAME || 'projectremus'
+
 interface GameRow {
   id: string
   theme_id: string | null
@@ -91,6 +93,21 @@ export default function AccountPage() {
             <ButtonLink href="/themes" variant="secondary">
               My themes
             </ButtonLink>
+            <ButtonLink href="/feedback" variant="secondary">
+              Send feedback
+            </ButtonLink>
+            {/*
+              The floating widget is a third-party script — ad blockers and
+              offline both kill it. This link is the version that always works.
+            */}
+            <a
+              href={`https://www.buymeacoffee.com/${BMC_ID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-14 w-full items-center justify-center gap-2 rounded-xl border border-[var(--accent)]/50 px-5 text-base tracking-wide text-[var(--accent)] active:scale-[0.98]"
+            >
+              ☕ Buy me a coffee
+            </a>
             {isAdmin && (
               <ButtonLink href="/admin" variant="secondary">
                 Open admin dashboard

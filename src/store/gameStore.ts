@@ -72,6 +72,7 @@ interface GameStore extends SetupDraft {
   goDay: () => void
   goVote: () => void
   revealMayor: (seatId: string) => void
+  setSeatNote: (seatId: string, note: string) => void
   setVote: (seatId: string, n: number) => void
   clearVotes: () => void
   doExecute: (seatId: string) => void
@@ -243,6 +244,21 @@ export const useGameStore = create<GameStore>()(
         const game = get().game
         if (!game) return
         set({ game: M.revealMayor(game, seatId) })
+      },
+
+      /**
+       * Host scratch-notes against a seat. Deliberately kept out of the engine:
+       * they never affect resolution, so machine.ts has no business knowing.
+       */
+      setSeatNote: (seatId, note) => {
+        const game = get().game
+        if (!game) return
+        set({
+          game: {
+            ...game,
+            seats: game.seats.map((s) => (s.id === seatId ? { ...s, notes: note } : s)),
+          },
+        })
       },
 
       setVote: (seatId, n) =>

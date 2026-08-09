@@ -1,7 +1,7 @@
 # DONATIONS.md — Ko-fi
 
 How donations work in Graveshift. Live at
-**[ko-fi.com/projectremus](https://ko-fi.com/projectremus)**.
+**[ko-fi.com/1stplaybook](https://ko-fi.com/1stplaybook)**.
 
 > **Switched from Buy Me a Coffee, August 2026.** This originally planned for
 > BMC. Ko-fi is the better deal and the earlier comparison said so: **0% on
@@ -66,7 +66,9 @@ Ko-fi's floating overlay widget, themed to the live accent colour.
 - **Hidden on `/setup`, `/play` and `/auth`.** A donation prompt while someone is
   mid-night with eleven people waiting is the worst possible ask.
 
-**Config** — `NEXT_PUBLIC_KOFI_USERNAME`, defaulting to `projectremus`.
+**Config** — `NEXT_PUBLIC_KOFI_USERNAME`, defaulting to `1stplaybook`. Renamed
+from `projectremus` in August 2026 — the account is now studio-level so any
+future 1st Playbook product can reuse the same Ko-fi page.
 
 ---
 

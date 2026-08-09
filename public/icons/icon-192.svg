@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="192" height="192">
-  <rect width="192" height="192" fill="#08080c"/>
-  <circle cx="256" cy="240" r="120" fill="none" stroke="#b5453f" stroke-width="14"/>
-  <path d="M256 120a120 120 0 0 0 0 240 92 92 0 0 1 0-240z" fill="#b5453f"/>
-  <text x="256" y="446" font-family="Georgia,serif" font-size="64" fill="#f2f2f7" text-anchor="middle" letter-spacing="6">NF</text>
-</svg>

@@ -46,7 +46,7 @@ to do. Plain static hosting is both simpler and correct here.
 NEXT_PUBLIC_SITE_URL=https://graveshift.1stplaybook.com
 NEXT_PUBLIC_SUPABASE_URL=<your value>
 NEXT_PUBLIC_SUPABASE_ANON_KEY=<your value>
-NEXT_PUBLIC_KOFI_USERNAME=projectremus
+NEXT_PUBLIC_KOFI_USERNAME=1stplaybook
 ```
 
 `NEXT_PUBLIC_*` values are inlined at **build** time, not read at runtime —

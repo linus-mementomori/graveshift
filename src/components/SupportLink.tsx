@@ -2,7 +2,7 @@
 
 import { cn } from './ui'
 
-export const KOFI_ID = process.env.NEXT_PUBLIC_KOFI_USERNAME || 'projectremus'
+export const KOFI_ID = process.env.NEXT_PUBLIC_KOFI_USERNAME || '1stplaybook'
 export const SUPPORT_URL = `https://ko-fi.com/${KOFI_ID}`
 
 /**

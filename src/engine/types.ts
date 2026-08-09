@@ -1,5 +1,5 @@
 /**
- * GRAVESHIFT ENGINE — types
+ * GRAVESHIFT ENGINE. Types
  *
  * ⚠ ARCHITECTURAL RULE: nothing in src/engine may import from outside src/engine.
  * The engine is pure (CONTEXT.md D7) so it can run in a Worker, in Node, and in tests.
@@ -11,12 +11,12 @@ export type Faction = 'village' | 'mafia' | 'neutral'
 export type Phase = 'setup' | 'night' | 'dawn' | 'day' | 'vote' | 'dusk' | 'end'
 
 export type RoleId =
-  // Tier 1 — Core
+  // Tier 1, Core
   | 'villager'
   | 'werewolf'
   | 'seer'
   | 'doctor'
-  // Tier 2 — Standard
+  // Tier 2, Standard
   | 'bodyguard'
   | 'hunter'
   | 'witch'
@@ -26,7 +26,7 @@ export type RoleId =
   | 'minion'
   | 'alpha'
   | 'cupid'
-  // Tier 3 — Advanced
+  // Tier 3, Advanced
   | 'jester'
   | 'serialKiller'
   | 'executioner'
@@ -135,7 +135,7 @@ export interface Role {
 }
 
 /**
- * A recorded night action. Intents are collected, NOT applied — the whole night
+ * A recorded night action. Intents are collected, NOT applied. The whole night
  * resolves in one deterministic pass at dawn (GAME_DESIGN §4.2). This is what
  * makes "Back" trivial and edge cases decidable.
  */
@@ -190,7 +190,7 @@ export interface GameState {
    * Mayor has revealed; their vote counts double from here on.
    *
    * Transient per-cycle results (deaths, night info, owed Hunter shots, the
-   * live vote tally) deliberately live in the STORE, not here — they belong to
+   * live vote tally) deliberately live in the STORE, not here. They belong to
    * one phase, not to the game.
    */
   mayorRevealedId?: string

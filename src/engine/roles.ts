@@ -1,5 +1,5 @@
 /**
- * The role catalogue — GAME_DESIGN.md §3.
+ * The role catalogue, GAME_DESIGN.md §3.
  * Roles are theme-agnostic rules. Themes supply the *names* (see src/themes).
  */
 
@@ -187,7 +187,7 @@ export const ROLES: Record<RoleId, Role> = {
     nightOrder: 65,
     ability: 'sense',
     beatId: 'sleepwalker_stir',
-    summary: 'Learns whether anyone died last night — but not who.',
+    summary: 'Learns whether anyone died last night, but not who.',
   },
 }
 
@@ -202,6 +202,6 @@ export const rolesByFaction = (faction: Role['faction']) =>
 export const isPowerRole = (id: RoleId) =>
   ROLES[id].faction === 'village' && id !== 'villager' && id !== 'lycan'
 
-/** Roles that can produce a night kill — used by the balance caps (§5.2 rule 4). */
+/** Roles that can produce a night kill. Used by the balance caps (§5.2 rule 4). */
 export const isKiller = (id: RoleId) =>
   ROLES[id].ability === 'kill' || id === 'vigilante' || id === 'witch'

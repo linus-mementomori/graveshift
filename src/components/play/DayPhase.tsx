@@ -9,7 +9,7 @@ import { livingSeats } from '@/engine/machine'
 import { forcedOutcome } from '@/engine/winCheck'
 import type { GameState } from '@/engine/types'
 
-/** DAY — GAME_DESIGN.md §6. Discussion, notes, the Mayor reveal, then the vote. */
+/** DAY, GAME_DESIGN.md §6. Discussion, notes, the Mayor reveal, then the vote. */
 export function DayPhase({ game }: { game: GameState }) {
   const { goVote, revealMayor, callIt } = useGameStore()
   const theme = getTheme(game.themeId)
@@ -23,7 +23,7 @@ export function DayPhase({ game }: { game: GameState }) {
   }, [seconds])
 
   const mayor = alive.find((s) => s.roleId === 'mayor' && !s.marks.includes('revealed'))
-  // §10.6 — surface a decided game, but the host keeps the gavel.
+  // §10.6. Surface a decided game, but the host keeps the gavel.
   const forced = forcedOutcome(game)
 
   return (
@@ -61,7 +61,7 @@ export function DayPhase({ game }: { game: GameState }) {
       {forced && (
         <div className="mt-6">
           <Notice tone="error">
-            <p className="mb-2 font-medium">This is decided — {forced.message}</p>
+            <p className="mb-2 font-medium">This is decided: {forced.message}</p>
             <Button variant="secondary" onClick={() => callIt(forced)}>
               Call it for the {forced.faction}
             </Button>
@@ -105,7 +105,7 @@ export function DayPhase({ game }: { game: GameState }) {
           <ul className="mt-2 space-y-1">
             {game.log.slice(-6).map((entry, i) => (
               <li key={i} className="text-xs text-[var(--text-secondary)]">
-                — {entry.text}
+                · {entry.text}
               </li>
             ))}
           </ul>

@@ -11,7 +11,7 @@ import { VotePhase, DuskPhase } from '@/components/play/VotePhase'
 import { EndPhase } from '@/components/play/EndPhase'
 
 /**
- * The single play route — ARCHITECTURE.md §2.
+ * The single play route (ARCHITECTURE.md §2).
  * The phase machine renders into it; `machine.ts` is the only thing that
  * decides which phase we're in.
  */
@@ -30,14 +30,14 @@ export default function PlayPage() {
         lock = l
       })
       .catch(() => {
-        /* unsupported or denied — atmosphere, not a requirement */
+        /* unsupported or denied. Atmosphere, not a requirement */
       })
     return () => {
       lock?.release().catch(() => {})
     }
   }, [game?.phase, game])
 
-  // Until localStorage has been read we genuinely don't know yet — saying
+  // Until localStorage has been read we genuinely don't know yet. Saying
   // "no game" here would be a lie that flashes on every single load.
   if (!hydrated) {
     return (

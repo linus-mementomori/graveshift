@@ -6,7 +6,7 @@
  * Order of preference per cue:
  *   1. an MP3 in /public/audio/ (if the file exists)
  *   2. the generated synth patch (audio/synth.ts)
- *   3. silence — never an error, never a broken screen
+ *   3. silence. Never an error, never a broken screen
  *
  * That fallback chain is the important part: the host is mid-game in a dark
  * room, and a missing file must degrade to "a different sound" or "no sound",
@@ -19,7 +19,7 @@ import type { CueId } from '@/engine/types'
 
 /** Cached <audio> elements, so a repeated cue doesn't re-download. */
 const cache = new Map<string, HTMLAudioElement>()
-/** Files we've already learned are missing — don't retry them all game. */
+/** Files we've already learned are missing. Don't retry them all game. */
 const missing = new Set<string>()
 
 /** Whatever is currently sustaining, so a new sound can replace it. */
@@ -69,7 +69,7 @@ export async function playCue(cueId: CueId): Promise<PlayResult> {
         if (!sustained) current = null
         return { source: 'file', sustained }
       } catch {
-        // Autoplay refused, decode failed, file corrupt — fall through.
+        // Autoplay refused, decode failed, file corrupt. Fall through.
         missing.add(file)
       }
     }
@@ -85,7 +85,7 @@ export async function playCue(cueId: CueId): Promise<PlayResult> {
   return { source: 'none', sustained: false }
 }
 
-/** Play a soundboard extra. These are files only — no synth equivalent. */
+/** Play a soundboard extra. These are files only. No synth equivalent. */
 export async function playFile(file: string): Promise<boolean> {
   stop()
   const el = element(file)

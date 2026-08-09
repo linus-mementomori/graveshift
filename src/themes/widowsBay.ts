@@ -1,7 +1,7 @@
 import type { Theme } from './types'
 
 /**
- * WIDOW'S BAY — the shared premise of Fear Street (2021) and Widow's Bay (2026).
+ * WIDOW'S BAY. The shared premise of Fear Street (2021) and Widow's Bay (2026).
  *
  * Both turn on the same bargain: a founding family made a pact underground, and
  * every generation an heir goes back down and gives up a name. The named person
@@ -15,7 +15,7 @@ import type { Theme } from './types'
  * and buried rather than dead, the curse holding as long as one of his blood
  * remains on the island, and islanders who die if they ever leave.
  *
- * The mafia here are not monsters — they are neighbours with a mortgage. That's
+ * The mafia here are not monsters. They are neighbours with a mortgage. That's
  * the horror.
  */
 export const widowsBay: Theme = {
@@ -28,7 +28,7 @@ export const widowsBay: Theme = {
   roleSkins: {
     villager: {
       name: 'Islander',
-      flavour: 'Born here, so you die here — the water takes anyone who leaves. No gift. One vote.',
+      flavour: 'Born here, so you die here. The water takes anyone who leaves. No gift. One vote.',
     },
     werewolf: {
       name: 'The Bloodline',
@@ -108,7 +108,7 @@ export const widowsBay: Theme = {
     },
     sleepwalker: {
       name: 'The Lighthouse Keeper',
-      flavour: 'You are awake at three, watching the water. You know if it took anyone — never who.',
+      flavour: 'You are awake at three, watching the water. You know if it took anyone. Never who.',
     },
   },
   narration: {

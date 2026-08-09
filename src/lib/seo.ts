@@ -3,8 +3,8 @@
  *
  * One honest note before anyone tunes this: search engines rank *pages people
  * find useful*, and this app is one screen plus a game engine. The realistic
- * win here is ranking for specific, low-competition intent — "werewolf game
- * master app", "mafia night order", "how to host werewolf" — not for the head
+ * win here is ranking for specific, low-competition intent ("werewolf game
+ * master app", "mafia night order", "how to host werewolf"), not for the head
  * term "werewolf", which belongs to a film franchise and always will.
  *
  * Stuffing broad trendy keywords is actively counter-productive: Google has
@@ -26,9 +26,9 @@ export const SITE_DESCRIPTION =
  * Terms real people actually type when they have this problem. Chosen for
  * intent, not volume.
  *
- * NOTE: the `keywords` meta tag itself has been ignored by Google since 2009 —
- * it is included only because Bing and some smaller engines still read it, and
- * it costs nothing. The words that actually matter are the ones in the visible
+ * NOTE: Google has ignored the `keywords` meta tag itself since 2009. It is
+ * included only because Bing and some smaller engines still read it, and it
+ * costs nothing. The words that actually matter are the ones in the visible
  * headings and body copy.
  */
 export const SITE_KEYWORDS = [
@@ -45,7 +45,7 @@ export const SITE_KEYWORDS = [
 ]
 
 /**
- * JSON-LD. This is the part that genuinely moves the needle — it is how you get
+ * JSON-LD. This is the part that genuinely moves the needle. It is how you get
  * rich results rather than a plain blue link, and unlike meta keywords, Google
  * documents and uses it.
  */
@@ -55,9 +55,18 @@ export function softwareAppJsonLd() {
     '@type': 'SoftwareApplication',
     name: SITE_NAME,
     applicationCategory: 'GameApplication',
-    operatingSystem: 'Any — installable web app (iOS, Android, desktop)',
+    operatingSystem: 'Any: installable web app (iOS, Android, desktop)',
     description: SITE_DESCRIPTION,
     url: SITE_URL,
+    // Ties this app to the studio at 1stplaybook.com. Graveshift lives on a
+    // subdomain, which search engines treat as a largely separate site. This is
+    // what tells them the two are one entity, and it's what future sibling
+    // products will point at too. See docs/SEO.md §6.
+    publisher: {
+      '@type': 'Organization',
+      name: '1st Playbook',
+      url: 'https://1stplaybook.com',
+    },
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -79,7 +88,7 @@ export function faqJsonLd() {
   const qa: [string, string][] = [
     [
       'How many players do you need for Werewolf?',
-      'Between 5 and 20. The game is best with 8 to 15 — below 8 there is not enough discussion for deduction to work, and above 18 the conversation gets hard to manage.',
+      'Between 5 and 20. The game is best with 8 to 15. Below that there is not enough discussion for deduction to work, and above 18 the conversation gets hard to manage.',
     ],
     [
       'What is the night order in Werewolf?',
@@ -87,7 +96,7 @@ export function faqJsonLd() {
     ],
     [
       'Do you need a moderator to play Werewolf?',
-      'Traditionally yes, and that person never gets to play. Graveshift takes over the bookkeeping — who is alive, who was protected, who wins — so the host only has to perform, or so a player can host and still take part.',
+      'Traditionally yes, and that person never gets to play. Graveshift takes over the bookkeeping (who is alive, who was protected, who wins) so the host only has to perform, or so a player can host and still take part.',
     ],
     [
       'Is Graveshift free?',

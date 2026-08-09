@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Graveshift
+# ARCHITECTURE.md: Graveshift
 
 How the app is built. Assumes CONTEXT.md's locked decisions (especially **D1** single-device,
 **D3** full state machine, **D5** offline PWA, **D7** pure engine).
@@ -25,7 +25,7 @@ How the app is built. Assumes CONTEXT.md's locked decisions (especially **D1** s
 | Rendering | **Static (`output: 'export'`)** | No server exists (D1). Deploy anywhere, cache everything. |
 | Styling | **Tailwind CSS 4** + CSS custom properties | Utility speed, but all color goes through theme tokens (DESIGN §3.1). |
 | State | **Zustand** + `persist` middleware | ~1 kB, no provider tree, trivially serialisable. |
-| Engine | **Plain TypeScript, zero deps** | Pure functions (D7) — runnable in a Worker, in Node, in a test. |
+| Engine | **Plain TypeScript, zero deps** | Pure functions (D7). Runnable in a Worker, in Node, in a test. |
 | Audio | **Web Audio API**, generated only | No files, no licensing (D2). |
 | Icons | **lucide-react** + custom SVG role glyphs | One stroke weight, tree-shakeable. |
 | Testing | **Vitest** (engine) + **Playwright** (flows) | Engine is pure → unit tests are fast and total. |
@@ -197,7 +197,7 @@ checkWin(state):                           WinResult | null
 forcedOutcome(state):                      WinResult | null   // §10.6
 ```
 
-No `Date.now()`, no `Math.random()` — time and randomness are injected. That's what makes a game
+No `Date.now()`, no `Math.random()`. Time and randomness are injected. That's what makes a game
 replayable from `{ seed, intents[] }`, which is how the e2e tests and the simulator both work.
 
 ### 3.3 Why intents, not immediate mutation
@@ -220,7 +220,7 @@ User taps  →  store action  →  engine fn (pure)  →  new GameState  →  re
 
 - **Write on every action.** The state is a few kB; JSON round-trip is sub-millisecond. There is no
   debounce, because the failure mode we're protecting against (phone dies mid-night) is unforgiving.
-- **Resume** reads the saved state on Home and offers *"Resume — Night 3."*
+- **Resume** reads the saved state on Home and offers *"Resume. Night 3."*
 - **Versioned.** `state.version` gates migrations; an unmigratable state is discarded with an
   explicit "couldn't restore your game" message rather than crashing into a half-state.
 - **Undo** keeps the last 5 `GameState` snapshots in memory (not persisted) for the phase-level
@@ -252,14 +252,14 @@ so a cold offline start still gets the right typeface.
 
 - `manifest.webmanifest`: standalone display, portrait-primary, `background_color: #08080c`,
   maskable icons.
-- **Service worker** (`public/sw.js`, no Workbox — it's ~60 lines):
+- **Service worker** (`public/sw.js`, no Workbox, it's ~60 lines):
   - Precache the app shell, fonts, icons, and texture on install.
   - **Cache-first** for everything. There is no network content to be stale about.
   - New deploys activate on next cold start; a small "Update ready" pill appears if a new SW is
     waiting.
 - **Wake lock** (`navigator.wakeLock`) requested when entering `play`, released on `end` or
   backgrounding. Graceful no-op where unsupported.
-- **Install prompt**: captured `beforeinstallprompt`, surfaced once on the End screen — after a
+- **Install prompt**: captured `beforeinstallprompt`, surfaced once on the End screen. After a
   good game is the only moment anyone wants to install anything.
 
 Target: **fully functional in airplane mode after one visit.**
@@ -270,13 +270,13 @@ Target: **fully functional in airplane mode after one visit.**
 
 Two independent layers:
 
-1. **Cue text** (always on) — `CueStrip` renders `theme.cueOverrides[cueId] ?? cues[cueId].text`.
+1. **Cue text** (always on), `CueStrip` renders `theme.cueOverrides[cueId] ?? cues[cueId].text`.
    This is the product (D2).
-2. **Generated sound** (opt-in) — `synth.ts` builds each patch from oscillators, filters, and noise
+2. **Generated sound** (opt-in), `synth.ts` builds each patch from oscillators, filters, and noise
    buffers. Nothing is fetched. Patches per GAME_DESIGN §7.4.
 
 `AudioContext` is created lazily on the **first user gesture** (iOS requires it) and suspended when
-the tab backgrounds. If audio is off, `synth.ts` is never imported — it's a dynamic import behind
+the tab backgrounds. If audio is off, `synth.ts` is never imported, it's a dynamic import behind
 the setting, so the bundle doesn't carry it.
 
 ---

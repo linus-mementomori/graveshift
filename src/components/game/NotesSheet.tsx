@@ -11,7 +11,7 @@ import type { GameState } from '@/engine/types'
  * remembers the mechanical state; this is for the social read, which is the one
  * thing it cannot infer.
  *
- * Notes are never uploaded — they sit alongside seat names, which are stripped
+ * Notes are never uploaded. They sit alongside seat names, which are stripped
  * before any cloud sync (CLOUD_PLAN §14.2).
  */
 export function NotesSheet({ game }: { game: GameState }) {

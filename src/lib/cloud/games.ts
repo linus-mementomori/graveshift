@@ -1,14 +1,14 @@
 'use client'
 
 /**
- * Game sync — CLOUD_PLAN §7.
+ * Game sync, CLOUD_PLAN §7.
  *
  * Three checkpoints, never a per-tap write: created, finished, abandoned.
  * Every write is idempotent (client-generated uuid as the primary key), so a
  * retry upserts rather than duplicating.
  *
  * P2: this is a background mirror. A failure here must never surface in the
- * play UI — the host is mid-game and there is nothing useful they could do.
+ * play UI. The host is mid-game and there is nothing useful they could do.
  */
 
 import { supabase } from '@/lib/supabase'

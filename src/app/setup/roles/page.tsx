@@ -77,7 +77,7 @@ export default function RolesPage() {
                     {/*
                       Name + stepper on one row, description on its own line
                       beneath. Previously both were `truncate`, so every summary
-                      was cut mid-sentence — which made the one piece of text
+                      was cut mid-sentence, which made the one piece of text
                       that explains what a role DOES unreadable, on the screen
                       where you decide whether to include it.
                     */}

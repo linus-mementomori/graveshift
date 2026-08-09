@@ -1,9 +1,9 @@
 /**
- * Win conditions — GAME_DESIGN §2.
+ * Win conditions, GAME_DESIGN §2.
  *
  * Evaluated after every death. Neutral roles that win on a *specific event*
  * (Jester executed, Executioner's mark executed) are decided at the moment of
- * execution in machine.ts — this file answers the standing question "given who
+ * execution in machine.ts. This file answers the standing question "given who
  * is alive, is it over?".
  */
 
@@ -23,7 +23,7 @@ export function checkWin(state: GameState): WinResult | null {
   const sk = alive.filter(isSerialKiller)
   const others = alive.filter((s) => !isMafia(s) && !isSerialKiller(s))
 
-  // Serial Killer wins alone — only once literally nobody else is left.
+  // Serial Killer wins alone. Only once literally nobody else is left.
   if (sk.length > 0 && mafia.length === 0 && others.length === 0) {
     return {
       faction: 'neutral',
@@ -55,7 +55,7 @@ export function checkWin(state: GameState): WinResult | null {
 }
 
 /**
- * "This is decided — call it?" (GAME_DESIGN §10.6)
+ * "This is decided. Call it?" (GAME_DESIGN §10.6)
  *
  * A game can be arithmetically over while still requiring several joyless
  * rounds to finish. This spots the common case: even executing a wolf every

@@ -17,11 +17,11 @@ import { SUPPORT_URL } from './SupportLink'
  *
  * Two personalities:
  *
- *   BROWSING — Play · Guide · Themes · Account · Support. Support is an
+ *   BROWSING: Play · Guide · Themes · Account · Support. Support is an
  *              external link rather than a route; it replaced a floating
  *              overlay widget that ate too much of the screen.
  *
- *   IN GAME  — Game · Sound · Roster · Notes. The last three open sheets rather
+ *   IN GAME:  Game · Sound · Roster · Notes. The last three open sheets rather
  *              than navigating, so the host never loses their place in the
  *              night. This is why the soundboard moved here: sound is something
  *              a host wants at *any* beat, not only the ones we happened to put
@@ -37,7 +37,7 @@ const BROWSE_TABS = [
   { href: '/guide', label: 'Guide', icon: BookOpen },
   { href: '/themes', label: 'Themes', icon: Palette },
   { href: '/account', label: 'Account', icon: User },
-  // Fifth tab instead of a floating widget — the overlay ate too much screen.
+  // Fifth tab instead of a floating widget. The overlay ate too much screen.
   { href: SUPPORT_URL, label: 'Support', icon: Coffee, external: true },
 ] as const
 
@@ -76,7 +76,7 @@ export function BottomNav() {
         className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))]"
       >
         {/*
-          A translucent slab floats the dock off the page — you can see content
+          A translucent slab floats the dock off the page. You can see content
           moving behind it, but labels stay readable over anything.
           The slab is the ONLY container: the active tab gets no box of its own,
           just the accent colour, a glow, and the underline beneath it.
@@ -195,7 +195,7 @@ function Tab({
 
   /**
    * External tabs can't be a <Link>, and a bare target="_blank" silently does
-   * nothing in an installed PWA or behind a popup blocker — the same bug that
+   * nothing in an installed PWA or behind a popup blocker. The same bug that
    * made the support button appear dead. Fall back to same-tab navigation.
    */
   function openExternal(e: React.MouseEvent<HTMLAnchorElement>) {

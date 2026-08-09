@@ -13,13 +13,13 @@ import type { CueId, GameState } from '@/engine/types'
  *
  * Two kinds of sound sit here:
  *
- *   CUES — one per beat of the night order. These ALWAYS work: if there's no
+ *   CUES: one per beat of the night order. These ALWAYS work: if there's no
  *   MP3 in /public/audio/ the player falls back to the generated synth patch.
  *   The one matching the current phase or beat is pulled out and marked
  *   recommended, so the common case is a single tap rather than scanning
  *   sixteen buttons in a dark room.
  *
- *   EXTRAS — scares and stings with no fixed place in the night. File-only, so
+ *   EXTRAS: scares and stings with no fixed place in the night. File-only, so
  *   they're probed first and hidden unless the MP3 actually exists. A dead
  *   button is worse than a missing one when you can't debug a 404 mid-game.
  */
@@ -64,7 +64,7 @@ export function Soundboard({
   const theme = game ? getTheme(game.themeId) : null
   const recommended = recommendedCue(game ?? null)
 
-  // Probe the extras once, lazily. Cues need no probe — they always have a synth.
+  // Probe the extras once, lazily. Cues need no probe. They always have a synth.
   useEffect(() => {
     if (!open || available) return
     let active = true
@@ -157,7 +157,7 @@ export function Soundboard({
         <p className="caption text-[var(--text-muted)]">Checking…</p>
       ) : usableExtras.length === 0 ? (
         <p className="text-xs leading-relaxed text-[var(--text-muted)]">
-          None installed. Drop MP3s into <code>public/audio/</code> — see that folder&apos;s README
+          None installed. Drop MP3s into <code>public/audio/</code>. See that folder&apos;s README
           for the filenames. Cues above work regardless.
         </p>
       ) : (

@@ -22,7 +22,7 @@ export function NightPhase({ game }: { game: GameState }) {
   const beat = beats[game.beatIndex]
   const alive = game.seats.filter((s) => s.alive).length
 
-  // Ran past the last beat — resolve the night.
+  // Ran past the last beat. Resolve the night.
   if (!beat) {
     return (
       <Screen
@@ -108,7 +108,7 @@ export function NightPhase({ game }: { game: GameState }) {
             }}
             disabled={!canAdvance}
           >
-            {isInfoOnly ? 'Done — continue' : 'Confirm & continue'}
+            {isInfoOnly ? 'Done & continue' : 'Confirm & continue'}
           </Button>
         </>
       }
@@ -123,7 +123,7 @@ export function NightPhase({ game }: { game: GameState }) {
       {/* Night 0: information happens, killing does not (GAME_DESIGN §1). */}
       {game.settings.nightZero && game.dayNumber === 1 && (
         <p className="caption mt-4 text-[var(--warn)]">
-          Night 0 — kills tonight will not land.
+          Night 0: kills tonight will not land.
         </p>
       )}
 
@@ -133,7 +133,7 @@ export function NightPhase({ game }: { game: GameState }) {
           <span className="text-sm">
             Declare Rampage
             <span className="block text-xs text-[var(--text-muted)]">
-              Once per game. Ignores all protection — but the Bodyguard still absorbs.
+              Once per game. Ignores all protection, but the Bodyguard still absorbs.
             </span>
           </span>
           <input
@@ -182,7 +182,7 @@ export function NightPhase({ game }: { game: GameState }) {
         </div>
       )}
 
-      {/* Who this beat's actor already knows — the informational beats. */}
+      {/* Who this beat's actor already knows: the informational beats. */}
       {isInfoOnly && (
         <div className="mt-6">
           <InfoBeatBody game={game} beatId={beat.id} />
@@ -249,7 +249,7 @@ function InfoBeatBody({ game, beatId }: { game: GameState; beatId: string }) {
   } else if (beatId === 'sleepwalker_stir') {
     return (
       <Notice>
-        The Sleepwalker learns at dawn whether anyone died — not who. Nothing to do now.
+        The Sleepwalker learns at dawn whether anyone died, not who. Nothing to do now.
       </Notice>
     )
   }

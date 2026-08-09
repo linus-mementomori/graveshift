@@ -35,7 +35,7 @@ const courierPrime = Courier_Prime({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    default: `${SITE_NAME} | Werewolf & Mafia game master app`,
     // Sub-pages set only their own title; this appends the brand.
     template: `%s · ${SITE_NAME}`,
   },
@@ -49,15 +49,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    title: `${SITE_NAME} | Werewolf & Mafia game master app`,
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     locale: 'en_US',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${SITE_NAME} — ${SITE_TAGLINE}` }],
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${SITE_NAME}: ${SITE_TAGLINE}` }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} — Werewolf & Mafia game master app`,
+    title: `${SITE_NAME} | Werewolf & Mafia game master app`,
     description: SITE_DESCRIPTION,
     images: ['/og.png'],
   },
@@ -82,7 +82,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         {/*
           JSON-LD is the structured-data channel Google actually documents and
-          uses — unlike the keywords meta tag. This is what can turn a plain
+          uses, unlike the keywords meta tag. This is what can turn a plain
           blue link into a rich result with an FAQ dropdown.
         */}
         <script

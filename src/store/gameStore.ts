@@ -1,12 +1,12 @@
 'use client'
 
 /**
- * Game store — the thin React-facing wrapper around the pure engine.
+ * Game store. The thin React-facing wrapper around the pure engine.
  *
  * Persists to localStorage on EVERY action (ARCHITECTURE.md §4). No debounce:
  * the failure mode we protect against is a phone dying mid-night phase.
  *
- * The engine stays pure (CONTEXT.md D7). Anything impure — the seed, the clock —
+ * The engine stays pure (CONTEXT.md D7). Anything impure (the seed, the clock)
  * is generated HERE and injected.
  */
 
@@ -41,7 +41,7 @@ interface GameStore extends SetupDraft {
   /**
    * Client-generated id for the cloud `games` row. Generated here (impure) and
    * used as an idempotency key so a retried sync upserts instead of duplicating.
-   * Null while playing signed-out — anonymous games are never synced (CLOUD_PLAN P1).
+   * Null while playing signed-out. Anonymous games are never synced (CLOUD_PLAN P1).
    */
   cloudGameId: string | null
   /** Results of the most recent resolution, for the Dawn and reveal screens. */
@@ -109,7 +109,7 @@ const initialPlay = {
   votes: {} as Record<string, number>,
 }
 
-/** Impure by design — the engine may not do this itself (D7). */
+/** Impure by design. The engine may not do this itself (D7). */
 const newSeed = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
 
 const newId = () =>
@@ -314,22 +314,22 @@ export const useGameStore = create<GameStore>()(
       name: 'graveshift:game',
       version: 3,
       /**
-       * Rehydrate MANUALLY, after React mounts — see <StoreHydrator/>.
+       * Rehydrate MANUALLY, after React mounts. See <StoreHydrator/>.
        *
        * With the default (automatic) behaviour, persist restores at module load,
        * which is *before* React subscribes. The server prerendered this page with
        * an empty store, React hydrates against that empty snapshot, and the
-       * restore that already happened never notifies anyone — so a saved game
+       * restore that already happened never notifies anyone, so a saved game
        * sits in localStorage while every screen insists there isn't one.
        *
        * That was the bug behind "No game in progress" and the deal screen stuck
-       * on "Shuffling…" — the state was always there, nothing ever re-rendered.
+       * on "Shuffling…". The state was always there, nothing ever re-rendered.
        */
       skipHydration: true,
       /**
        * Persist only real data.
        *
-       * Without this, zustand saves the WHOLE store — including `hydrated`.
+       * Without this, zustand saves the WHOLE store. Including `hydrated`.
        * Restoring then merges `hydrated: false` back over the true value, so
        * the flag can never latch and every screen waits forever on a load
        * that already finished. Actions are excluded for the same reason:

@@ -1,4 +1,4 @@
-# DESIGN.md — Graveshift
+# DESIGN.md: Graveshift
 
 The visual and interaction system. Written for a very specific context: **one thumb, a dark room,
 a loud party, and a host who is also holding a drink.**
@@ -33,14 +33,14 @@ edge.
 
 **4 · Read-aloud text is a first-class typographic object.**
 Lines the host speaks are set at 22–30 px, generous leading, high contrast, never truncated, never
-inside a scroll container. If it doesn't fit, the line is too long — fix the copy, not the type.
+inside a scroll container. If it doesn't fit, the line is too long. Fix the copy, not the type.
 
 **5 · Theme is a costume, not a redesign.**
 Layout, spacing, and component structure are identical across all themes. Only color, accent
 texture, iconography, and words change. A host who learns one theme knows them all.
 
 **6 · Nothing moves fast.**
-Motion is slow and heavy — 200–400 ms, ease-out. This is a game about dread. Bouncy spring
+Motion is slow and heavy, 200–400 ms, ease-out. This is a game about dread. Bouncy spring
 animations belong in a different app.
 
 **7 · Never trap the host.**
@@ -64,7 +64,7 @@ Tailwind defaults map cleanly; do not invent intermediate values.
 | Small phone | 360 px | Must work. iPhone SE / small Android. |
 | **Design baseline** | **390 px** | All specs below assume this. |
 | Large phone | 430 px | Content max-width 480 px, centred. |
-| Tablet / desktop | ≥ 768 px | Centred 480 px column on a vignette background. **Not** a redesign — this app is a phone app that happens to open on a laptop. |
+| Tablet / desktop | ≥ 768 px | Centred 480 px column on a vignette background. **Not** a redesign, this app is a phone app that happens to open on a laptop. |
 
 ### 2.3 The play frame
 
@@ -83,15 +83,15 @@ Every in-game screen uses the same three-band structure:
 └──────────────────────────────┘
 ```
 
-- **Status bar** — always visible, never scrolls. Left: phase + night number. Centre: alive count.
+- **Status bar**. Always visible, never scrolls. Left: phase + night number. Centre: alive count.
   Right: menu (undo, settings, end game).
-- **Stage** — the only scrollable region, and it should rarely need to scroll.
-- **Action deck** — pinned to the bottom, `padding-bottom: env(safe-area-inset-bottom)`.
+- **Stage**, the only scrollable region, and it should rarely need to scroll.
+- **Action deck**. Pinned to the bottom, `padding-bottom: env(safe-area-inset-bottom)`.
 
 ### 2.4 Touch targets
 
 Minimum **48 × 48 px**, **56 px** for anything used during Night. Minimum 8 px between adjacent
-targets — 12 px in the seat grid, because the host is tapping in the dark.
+targets, 12 px in the seat grid, because the host is tapping in the dark.
 
 ---
 
@@ -146,14 +146,14 @@ All color goes through CSS custom properties on `:root`, swapped by a `data-them
 
 ### 3.3 Phase tinting
 
-The background shifts with the phase — subtle, but the host feels it:
+The background shifts with the phase. Subtle, but the host feels it:
 
 | Phase | Background | Vignette | Accent behaviour |
 |---|---|---|---|
 | Night | `--phase-night` | strong, 60 % opacity | accent glows softly, 2 % breathing pulse |
 | Dawn | gradient `--phase-night → --phase-day` over 1200 ms | fading | still |
 | Day | `--phase-day` | light | flat, no glow |
-| Vote | `--bg-void` | none — hard, flat, cold | accent only on the tally |
+| Vote | `--bg-void` | none. Hard, flat, cold | accent only on the tally |
 | End | winner's color washes the whole frame | radial from centre | full saturation |
 
 ### 3.4 Contrast floor
@@ -161,7 +161,7 @@ The background shifts with the phase — subtle, but the host feels it:
 - Body text on any theme background: **≥ 4.5:1**
 - Read-aloud text: **≥ 7:1** (it's read at a glance, in the dark, possibly by someone tipsy)
 - Accent on background: **≥ 3:1** for anything load-bearing
-- Never encode meaning in color alone — alive/dead also differ in opacity, strikethrough, and icon.
+- Never encode meaning in color alone: alive/dead also differ in opacity, strikethrough, and icon.
 
 ---
 
@@ -171,40 +171,40 @@ The background shifts with the phase — subtle, but the host feels it:
 
 | Role | Font | Why |
 |---|---|---|
-| **Display** (titles, phase names, role names) | `Libre Baskerville`, italic 700 | Superseded 2026-08: the per-theme-category font swap (Cinzel/Bebas Neue/Zen Kaku/Space Grotesk) was never implemented — every theme shared one `--font-display` token. Replaced with a single italic serif, matched to the reference VHS-horror mock (`Werewolves Game Website/`), applied uniformly across all seven themes. |
-| **Read-aloud** | `Libre Baskerville` | Same family as Display — matches the reference's blockquote treatment. Still warm and legible at `speak-lg` sizes; the italic reads as *spoken* the same way the old serif did. |
-| **UI / body** | `Courier Prime` (monospace) | Typewriter/VHS-readout feel from the reference. Tighter than Inter at small sizes but still clears the §3.4 contrast floor — it carries labels, captions and buttons, not paragraphs. |
+| **Display** (titles, phase names, role names) | `Libre Baskerville`, italic 700 | Superseded 2026-08: the per-theme-category font swap (Cinzel/Bebas Neue/Zen Kaku/Space Grotesk) was never implemented. Every theme shared one `--font-display` token. Replaced with a single italic serif, matched to the reference VHS-horror mock (`Werewolves Game Website/`), applied uniformly across all seven themes. |
+| **Read-aloud** | `Libre Baskerville` | Same family as Display. Matches the reference's blockquote treatment. Still warm and legible at `speak-lg` sizes; the italic reads as *spoken* the same way the old serif did. |
+| **UI / body** | `Courier Prime` (monospace) | Typewriter/VHS-readout feel from the reference. Tighter than Inter at small sizes but still clears the §3.4 contrast floor, it carries labels, captions and buttons, not paragraphs. |
 | **Numeric** | `Courier Prime` with `tabular-nums` | Vote tallies must not jitter. |
 
-All fonts loaded via `next/font/google` (`Libre_Baskerville`, `Courier_Prime`) in `app/layout.tsx` — no runtime request once built, works offline (Decision D5).
+All fonts loaded via `next/font/google` (`Libre_Baskerville`, `Courier_Prime`) in `app/layout.tsx`. No runtime request once built, works offline (Decision D5).
 
 ### 4.4 Atmosphere (added 2026-08)
 
-Ported from the Figma Make reference in `Werewolves Game Website/` — a VHS/horror mock with glow
+Ported from the Figma Make reference in `Werewolves Game Website/`, a VHS/horror mock with glow
 type, scanlines and floating embers. Layered onto the existing token system so every theme keeps it,
 not just Millers Hollow:
 
-- **VHS scanlines** — `.vhs-scan` on `<body>`, a fixed repeating-gradient overlay at `z-index: 50`,
+- **VHS scanlines**, `.vhs-scan` on `<body>`, a fixed repeating-gradient overlay at `z-index: 50`,
   `pointer-events: none`. Purely atmospheric, sits above content, never blocks touches.
-- **Glow** — `.glow-sm` / `.glow` / `.glow-lg`, text-shadow stacks built on `currentColor` so they
+- **Glow**, `.glow-sm` / `.glow` / `.glow-lg`, text-shadow stacks built on `currentColor` so they
   re-skin with `--accent` automatically. Used sparingly: hero title, section headers, the setup
-  player-count number, the selected theme card's name. Never on body copy — glow is atmosphere, the
+  player-count number, the selected theme card's name. Never on body copy. Glow is atmosphere, the
   §3.4 contrast floors still govern legibility.
-- **Flicker / pulse** — `.flicker` (a lamp on a bad wire, 6 s loop) and `.pulse-glow` (2.5 s
+- **Flicker / pulse**, `.flicker` (a lamp on a bad wire, 6 s loop) and `.pulse-glow` (2.5 s
   breathing glow, replaces the plainer `breathe` opacity-only pulse on the home wordmark).
-- **Ember particles** — `<Particles />`, ~18 CSS-animated dots drifting upward, colored via
+- **Ember particles**, `<Particles />`, ~18 CSS-animated dots drifting upward, colored via
   `var(--accent)`, mounted once in `ThemeRoot`. Renders nothing under
   `prefers-reduced-motion: reduce`.
-- **`.card-atmo`** — gradient surface (`--bg-raised → --bg-overlay`) with a faint scanline texture
+- **`.card-atmo`**. Gradient surface (`--bg-raised → --bg-overlay`) with a faint scanline texture
   and a hover lift, replacing flat `--bg-raised` boxes on theme cards, role rows, seat targets and
   the deal-list rows. Mirrors the reference's `.role-card`.
 
-All of the above degrade to a flat cross-fade under `prefers-reduced-motion` per §6 — nothing here
+All of the above degrade to a flat cross-fade under `prefers-reduced-motion` per §6. Nothing here
 is load-bearing for reading the screen, only for mood.
 
 **Bug found and fixed while doing this pass:** the old `@theme inline` block in `globals.css`
 registered a `--color-base` token, which collided with Tailwind's own built-in `text-base` (the
-1rem font-size utility) — Tailwind resolved `text-base` to `color: var(--bg-base)` instead of a
+1rem font-size utility). Tailwind resolved `text-base` to `color: var(--bg-base)` instead of a
 font size. Since `--bg-base` and `--bg-void` are nearly the same near-black, this was invisible on
 filled buttons but made secondary-button text and the theme-card titles render nearly the same
 color as their own background. The bridge block was unused elsewhere (every component already used
@@ -306,7 +306,7 @@ Used for the role deal and for investigation results. Never shows secret info on
 
 - Resting state: a blurred/frosted card reading **"Hold to reveal"** + a warning: *"Cover the
   screen."*
-- 3-second countdown before the hold arms — gives the player time to turn away from the table.
+- 3-second countdown before the hold arms. Gives the player time to turn away from the table.
 - Content shows only while the finger is held down (`onPointerDown` → `onPointerUp`). Release =
   instant hide, no animation, no lingering frame.
 - Screenshot-ish protections: content is not rendered to the DOM until the hold begins.
@@ -319,7 +319,7 @@ Full-bleed interstitial between phases. 900 ms total.
 - Background cross-fades to the new phase tint.
 - Phase title (`display-xl`) fades up 12 px, letter-spacing animating from `0.3em → 0.12em`.
 - Optional single line of theme narration underneath.
-- Tappable to skip — always. Never trap the host in an animation.
+- Tappable to skip. Always. Never trap the host in an animation.
 
 ### 5.6 `VoteTally`
 
@@ -333,16 +333,16 @@ Full-bleed interstitial between phases. 900 ms total.
 
 - A horizontal track: red (mafia-favoured) → amber (balanced) → green (village-favoured).
 - A marker slides to the computed `villageEdge` score (GAME_DESIGN §5.3), 300 ms ease-out.
-- One line of plain-language copy underneath. Never blocks the host — advice, not a gate.
+- One line of plain-language copy underneath. Never blocks the host. Advice, not a gate.
 - **Two-stage fidelity.** The heuristic score paints immediately; when the background simulator
   (GAME_DESIGN §10.5) returns, the marker eases to the true simulated win rate and the caption
   upgrades from *"Balanced"* to *"Village wins 51% of simulated games."* A small `caption` spinner
-  marks the in-between state — never a blocking loader.
+  marks the in-between state. Never a blocking loader.
 - **Vote-margin failure is the one loud warning.** If the opening vote-margin check (§10.2) fails,
   the meter turns `--danger` and shows: *"The wolves can out-vote the town on day one."* Still not
-  a hard block — but it is the only balance message that gets a full-width banner.
+  a hard block, but it is the only balance message that gets a full-width banner.
 - **Night 0 toggle** lives directly beneath the meter, since it is the cheapest fix the host has.
-  Toggling it re-runs the simulation and the marker visibly moves — which teaches the host what the
+  Toggling it re-runs the simulation and the marker visibly moves, which teaches the host what the
   setting actually does far better than a tooltip would.
 
 ### 5.8 Buttons
@@ -355,7 +355,7 @@ Full-bleed interstitial between phases. 900 ms total.
 | **Danger** | `--danger` fill | Execute, end game, delete |
 
 All buttons: `active:scale-[0.98]`, 120 ms. Disabled = 40 % opacity **and** a reason on tap
-("Doctor already protected Ana last night") — never a dead button with no explanation.
+("Doctor already protected Ana last night"). Never a dead button with no explanation.
 
 ---
 
@@ -396,21 +396,21 @@ breathing loop stops entirely. Nothing is lost but atmosphere.
 
 Background: current theme's night tint with a slow-drifting grain texture. The wordmark breathes.
 
-### 7.2 Setup — player count
+### 7.2 Setup: player count
 
 - Giant number, `display-xl` at 72 px, centred.
 - `−` / `+` buttons at 64 px either side (thumb-friendly, no tiny steppers).
 - A quick-pick row: `6 · 8 · 10 · 12 · 15`.
-- Below: live composition preview — *"2 wolves · 3 power roles · 3 villagers"*.
+- Below: live composition preview, *"2 wolves · 3 power roles · 3 villagers"*.
 
-### 7.3 Setup — theme
+### 7.3 Setup: theme
 
 - 2-column card grid. Each card: themed background swatch, display font name, one-line tagline.
-- Selecting a card **immediately re-skins the entire app** — including this screen. That moment is
+- Selecting a card **immediately re-skins the entire app**. Including this screen. That moment is
   the demo; make it feel good (240 ms cross-fade of all tokens).
 - Long-press a card → preview sheet showing that theme's role names and a sample narration line.
 
-### 7.4 Setup — roles
+### 7.4 Setup: roles
 
 - Grouped by faction: Mafia / Village / Neutral, each a collapsible section.
 - Each role: icon, themed name, `+`/`−` stepper, one-line ability summary.
@@ -418,13 +418,13 @@ Background: current theme's night tint with a slow-drifting grain texture. The w
 - Warnings appear inline in `--warn`, never as a blocking modal.
 - Secondary button: **Reset to recommended.**
 
-### 7.5 Setup — seats
+### 7.5 Setup: seats
 
 - Vertical list of text inputs, auto-focus advancing on Enter.
 - Drag handles to reorder to match the physical circle.
 - "Auto-name" fills `Player 1…n` instantly for hosts who don't care.
 
-### 7.6 Setup — the deal
+### 7.6 Setup: the deal
 
 Full-bleed, one player at a time, no chrome:
 
@@ -450,14 +450,14 @@ Progress dots at the bottom. No back-navigation into an already-dealt seat (it w
 
 ### 7.8 Dawn
 
-- Phase transition, then the stage holds only the death reveal — deliberately sparse.
+- Phase transition, then the stage holds only the death reveal. Deliberately sparse.
 - If someone died: name in `display-lg`, `--danger`, with the themed death flavour beneath, and
   (if reveal-on-death is on) the role in a small badge.
 - If nobody died: a single centred line and a lot of empty space. Emptiness *is* the design.
 
 ### 7.9 Day
 
-- Optional timer as a thin progress bar under the status bar (not a big countdown — that creates
+- Optional timer as a thin progress bar under the status bar (not a big countdown, that creates
   anxiety about the wrong thing).
 - Seat grid with per-seat note fields.
 - Primary: **Call the vote.**
@@ -486,7 +486,7 @@ Progress dots at the bottom. No back-navigation into an already-dealt seat (it w
   *"Ana, alive, not selected."*
 - **Dynamic type:** all sizes in `rem`; the layout holds to 200 % text scaling. No fixed-height
   text containers.
-- **Colorblind:** alive/dead never rely on color — opacity, strikethrough, and an icon carry it.
+- **Colorblind:** alive/dead never rely on color. Opacity, strikethrough, and an icon carry it.
   Faction results use both color and an explicit word ("MAFIA" / "NOT MAFIA").
 - **One-handed:** every play-screen control sits in the bottom 45 %.
 - **Wake lock:** requested during play so the screen doesn't sleep mid-night phase.
@@ -502,5 +502,5 @@ Progress dots at the bottom. No back-navigation into an already-dealt seat (it w
 - **Texture:** a single tiling SVG grain overlay at 3–6 % opacity over every background. It's the
   cheapest way to stop a dark app from looking like an empty div.
 - **No photography. No stock illustration. No AI-slop portraits.** Silhouettes, symbols, and type.
-  This keeps the bundle tiny, the themes coherent, and the mood ambiguous — which is the point of a
+  This keeps the bundle tiny, the themes coherent, and the mood ambiguous, which is the point of a
   game where you don't know who anyone is.

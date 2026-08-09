@@ -6,7 +6,7 @@ import type { BeatId } from '@/engine/types'
  *
  * Themes supply narration for the common beats (GAME_DESIGN §8.1); anything a
  * theme doesn't name falls back to a generic line built from the themed role
- * name, so a new theme is never *broken* — only less flavourful.
+ * name, so a new theme is never *broken*. Only less flavourful.
  */
 export function beatNarration(theme: Theme, beatId: BeatId, themedRole: string): string {
   switch (beatId) {
@@ -52,5 +52,5 @@ export const closingLine = (themedRole: string) => `${themedRole}, close your ey
 /** Death flavour, falling back to a plain statement if the theme is silent. */
 export function deathLine(theme: Theme, reason: string, name: string): string {
   const flavour = theme.deathFlavour[reason as keyof typeof theme.deathFlavour]
-  return flavour ? `${name} — ${flavour}` : `${name} did not survive the night.`
+  return flavour ? `${name}, ${flavour}` : `${name} did not survive the night.`
 }

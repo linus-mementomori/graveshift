@@ -2,7 +2,7 @@
   "name": "graveshift",
   "version": "0.1.0",
   "private": true,
-  "description": "The game master in your pocket — a Mafia/Werewolf host companion PWA.",
+  "description": "The game master in your pocket. A Mafia/Werewolf host companion PWA.",
   "scripts": {
     "dev": "next dev",
     "build": "next build && node scripts/stamp-sw.mjs",

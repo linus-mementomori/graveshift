@@ -1,5 +1,5 @@
 /**
- * The cue system — GAME_DESIGN.md §7.
+ * The cue system (GAME_DESIGN.md §7).
  *
  * DECISION D2: the app never ships or plays licensed music. It tells the HOST
  * what to play or perform. The host is the instrument. An optional Web Audio
@@ -40,7 +40,7 @@ export const CUES: Record<CueId, Cue> = {
     id: 'SEER_WAKE',
     kind: 'sfx',
     urgency: 'accent',
-    text: 'A single soft chime — a glass tap works.',
+    text: 'A single soft chime. A glass tap works.',
     synth: 'chime',
   },
   DOCTOR_WAKE: {
@@ -89,7 +89,7 @@ export const CUES: Record<CueId, Cue> = {
     id: 'DAY',
     kind: 'music',
     urgency: 'ambient',
-    text: 'Bright, busy, low volume — a floor under the arguing.',
+    text: 'Bright, busy, low volume. A floor under the arguing.',
     synth: 'chime',
   },
   VOTE: {
@@ -136,7 +136,7 @@ export const CUES: Record<CueId, Cue> = {
   },
 }
 
-/** Host performance coaching — surfaced one at a time, never repeated in a session. */
+/** Host performance coaching. Surfaced one at a time, never repeated in a session. */
 export const HOST_TIPS: string[] = [
   'Pause after a name. Silence does the work.',
   "Don't rush the night. Slow is scary.",

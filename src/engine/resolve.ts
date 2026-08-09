@@ -1,5 +1,5 @@
 /**
- * Night resolution — the deterministic pass that turns a night's INTENTS into
+ * Night resolution. The deterministic pass that turns a night's INTENTS into
  * deaths (GAME_DESIGN §4.2).
  *
  * Why intents rather than immediate mutation: the host taps "wolves kill Ana" at
@@ -41,7 +41,7 @@ const find = (seats: Seat[], id: string | null | undefined) =>
 const intentsFor = (intents: Intent[], beatId: string) =>
   intents.filter((i) => i.beatId === beatId)
 
-/** What the Seer sees. Lycan is village but reads guilty — that's the whole point of it. */
+/** What the Seer sees. Lycan is village but reads guilty. That's the whole point of it. */
 export const readsAsMafia = (seat: Seat): boolean =>
   ROLES[seat.roleId].faction === 'mafia' || seat.roleId === 'lycan'
 
@@ -153,7 +153,7 @@ function landAttacks(state: GameState, attacks: Attack[]): Death[] {
 }
 
 /**
- * Who is currently dying tonight — shown to the Witch before she chooses.
+ * Who is currently dying tonight. Shown to the Witch before she chooses.
  * Excludes her own potions so the answer doesn't depend on itself.
  */
 export function pendingVictims(state: GameState): Seat[] {
@@ -317,7 +317,7 @@ export function resolveNight(prev: GameState): ResolveResult {
 
 /**
  * Kill everyone listed, then keep going while those deaths cause more: Lovers
- * die of grief. A dying Hunter is NOT resolved here — the host must aim that
+ * die of grief. A dying Hunter is NOT resolved here. The host must aim that
  * shot, so it comes back as a pending id.
  */
 export function applyDeaths(

@@ -1,12 +1,12 @@
 /**
- * Seeded randomness — the ONLY source of chance in the engine.
+ * Seeded randomness. The ONLY source of chance in the engine.
  *
  * D7: no Math.random() anywhere. Everything derives from an injected seed, which
  * is what makes a game replayable from { seed, intents[] } and the simulator
  * deterministic.
  */
 
-/** mulberry32 — small, fast, good enough for shuffling a dozen cards. */
+/** mulberry32. Small, fast, good enough for shuffling a dozen cards. */
 export function makeRng(seed: string): () => number {
   let h = 1779033703 ^ seed.length
   for (let i = 0; i < seed.length; i++) {

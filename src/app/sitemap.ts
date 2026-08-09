@@ -1,11 +1,11 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/seo'
 
-/** Required by `output: 'export'` — the file is generated once at build time. */
+/** Required by `output: 'export'`. The file is generated once at build time. */
 export const dynamic = 'force-static'
 
 /**
- * Static sitemap — works with `output: 'export'`, emitted as /sitemap.xml.
+ * Static sitemap. Works with `output: 'export'`, emitted as /sitemap.xml.
  *
  * Only genuinely public, indexable pages belong here. Account, admin, the
  * editor and the play flow are all excluded: they need a session, render

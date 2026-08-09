@@ -15,7 +15,7 @@ export default function GuidePage() {
       <h2 className="display glow-sm text-3xl">The job</h2>
       <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
         You are not a player. You hold the phone, you read what it shows you, and you keep the
-        room moving. The app remembers everything — who is alive, who acted, who is protected —
+        room moving. The app remembers everything (who is alive, who acted, who is protected)
         so you can spend your attention on delivery instead of bookkeeping.
       </p>
 
@@ -23,7 +23,7 @@ export default function GuidePage() {
       <ul className="mt-3 space-y-2">
         {HOST_TIPS.map((t) => (
           <li key={t} className="text-sm text-[var(--text-secondary)]">
-            — {t}
+            · {t}
           </li>
         ))}
       </ul>

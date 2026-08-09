@@ -28,7 +28,7 @@ export default function SignUpPage() {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      // full_name feeds the profiles trigger's display_name. Presentation only —
+      // full_name feeds the profiles trigger's display_name. Presentation only:
       // user_metadata is user-editable and is never an authorization input.
       options: { data: { full_name: displayName || null }, emailRedirectTo: authRedirectTo() },
     })

@@ -37,7 +37,7 @@ export interface KindMeta {
 }
 
 /**
- * The categories. Order matters — this is the order they appear in the picker,
+ * The categories. Order matters. This is the order they appear in the picker,
  * roughly most to least common.
  *
  * Praise and complaint are split deliberately rather than folded into one
@@ -84,7 +84,7 @@ export const KINDS: Record<FeedbackKind, KindMeta> = {
   },
 }
 
-/** Back-compat alias — some callers only need the label. */
+/** Back-compat alias. Some callers only need the label. */
 export const KIND_LABELS: Record<FeedbackKind, string> = Object.fromEntries(
   Object.entries(KINDS).map(([k, v]) => [k, v.label]),
 ) as Record<FeedbackKind, string>
@@ -121,7 +121,7 @@ export async function sendFeedback(input: {
 
 /**
  * Reads from the admin view. RLS is what decides the scope: a normal user gets
- * only their own rows back, an admin gets everyone's. Same query either way —
+ * only their own rows back, an admin gets everyone's. Same query either way, so
  * there is no client-side filtering to get wrong.
  */
 export async function listFeedback(): Promise<FeedbackRow[]> {

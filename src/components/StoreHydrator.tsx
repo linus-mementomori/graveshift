@@ -19,7 +19,7 @@ export function StoreHydrator() {
   useEffect(() => {
     // Flag it from here rather than onRehydrateStorage: this runs after the
     // restore has fully settled, and it still fires when there is nothing
-    // saved at all — which is just as much an answer as finding a game.
+    // saved at all, which is just as much an answer as finding a game.
     Promise.resolve(useGameStore.persist.rehydrate()).finally(() => {
       useGameStore.setState({ hydrated: true })
     })

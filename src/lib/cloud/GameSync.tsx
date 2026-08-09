@@ -8,7 +8,7 @@ import { recordGameStart, recordGameEnd } from './games'
 
 /**
  * Watches the store and mirrors two moments to Supabase: a game beginning and
- * a game ending (CLOUD_PLAN §7 — checkpoints, never per-tap).
+ * a game ending (CLOUD_PLAN §7. Checkpoints, never per-tap).
  *
  * Mounted once, renders nothing. Every call is fire-and-forget: a sync failure
  * queues in the outbox and never reaches the play UI.
@@ -23,7 +23,7 @@ export function GameSync() {
   // Flush anything stranded from a previous session, and on reconnect.
   useEffect(() => startOutbox(), [])
 
-  // Flush again once a session exists — offline games recorded while signed
+  // Flush again once a session exists. Offline games recorded while signed
   // out of a *session* (but with an account) land as soon as auth resolves.
   useEffect(() => {
     if (!supabase) return

@@ -6,7 +6,7 @@
  * The service worker is what makes the app work offline, and it is also the
  * thing most likely to serve something stale after a deploy. `public/sw.js` now
  * versions its cache per build and fetches navigations network-first, which
- * should make this unnecessary — but "should" is doing real work in that
+ * should make this unnecessary, but "should" is doing real work in that
  * sentence, and a user staring at a screen that won't update needs a button,
  * not a DevTools tutorial.
  *

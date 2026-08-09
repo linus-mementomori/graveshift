@@ -1,5 +1,5 @@
 /**
- * Dealing — turn a setup config into a starting GameState.
+ * Dealing. Turn a setup config into a starting GameState.
  * Pure: the same (config, seed) always produces the same table.
  */
 
@@ -13,7 +13,7 @@ export interface DealConfig {
   composition: Composition
   themeId: string
   settings: GameSettings
-  /** Injected by the store — the engine never invents randomness (D7). */
+  /** Injected by the store. The engine never invents randomness (D7). */
   seed: string
 }
 

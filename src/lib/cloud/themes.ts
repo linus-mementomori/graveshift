@@ -1,13 +1,13 @@
 'use client'
 
 /**
- * Custom theme CRUD — CLOUD_PLAN §8.
+ * Custom theme CRUD, CLOUD_PLAN §8.
  *
  * A "modified prompt" and a "custom theme" are the same object: a theme's
  * narration lines ARE the host's script. One table, one editor, one validator.
  *
  * Everything read back from the database goes through validateTheme() before it
- * can reach a play screen (D11) — the row is untrusted even though the user
+ * can reach a play screen (D11). The row is untrusted even though the user
  * wrote it themselves, because rows can be edited by other clients, other
  * sessions, or a future version of this app.
  */

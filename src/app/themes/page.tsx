@@ -67,7 +67,7 @@ export default function MyThemesPage() {
     >
       <h2 className="display glow-sm text-3xl">Your worlds</h2>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
-        A theme changes every word and colour — the names, the flavour, and every line you read
+        A theme changes every word and colour: the names, the flavour, and every line you read
         aloud. It never changes the rules.
       </p>
 

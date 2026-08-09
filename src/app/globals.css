@@ -1,12 +1,12 @@
 @import 'tailwindcss';
 
 /* ============================================================================
-   GRAVESHIFT — theme tokens
+   GRAVESHIFT: theme tokens
    See docs/DESIGN.md §3. Nothing in this app hard-codes a color.
    ========================================================================== */
 
 :root {
-  /* structural — identical in every theme */
+  /* structural: identical in every theme */
   --bg-void: #08080c;
   --bg-base: #0e0e14;
   --bg-raised: #16161f;
@@ -18,13 +18,13 @@
   --text-secondary: #a8a8b8;
   --text-muted: #6e6e80;
 
-  /* semantic — constant across themes */
+  /* semantic: constant across themes */
   --danger: #e5484d;
   --safe: #46a758;
   --info: #4b9ce0;
   --warn: #f5a524;
 
-  /* theme-supplied — overridden by [data-theme] below */
+  /* theme-supplied: overridden by [data-theme] below */
   --accent: #b5453f;
   --accent-soft: #6b2724;
   --accent-glow: rgb(181 69 63 / 0.28);
@@ -60,7 +60,7 @@
   --phase-day: #1f1a2e;
 }
 
-/* Aeaea — sun-god gold on wine-dark water. Circe is Helios' daughter. */
+/* Aeaea: sun-god gold on wine-dark water. Circe is Helios' daughter. */
 [data-theme='aeaea'] {
   --accent: #e0b64a;
   --accent-soft: #7a5f18;
@@ -69,7 +69,7 @@
   --phase-day: #2b2618;
 }
 
-/* Widow's Bay — bog green: mushrooms, damp stone, salt-rotted timber. */
+/* Widow's Bay: bog green: mushrooms, damp stone, salt-rotted timber. */
 [data-theme='widowsBay'] {
   --accent: #86a63f;
   --accent-soft: #3d4d1c;
@@ -111,7 +111,7 @@
 
 html {
   background: var(--bg-void);
-  color-scheme: dark; /* dark only — DESIGN.md §1 principle 1 */
+  color-scheme: dark; /* dark only: DESIGN.md §1 principle 1 */
 }
 
 body {
@@ -134,7 +134,7 @@ body {
   background-repeat: repeat;
 }
 
-/* VHS scanlines — ported from the Werewolves reference. Purely atmospheric,
+/* VHS scanlines: ported from the Werewolves reference. Purely atmospheric,
    sits above everything, never intercepts touches. */
 .vhs-scan::after {
   content: '';
@@ -157,7 +157,7 @@ body {
   }
 }
 
-/* phase tinting — DESIGN.md §3.3 */
+/* phase tinting: DESIGN.md §3.3 */
 .phase-night {
   background: var(--phase-night);
 }
@@ -168,7 +168,7 @@ body {
   background: var(--bg-void);
 }
 
-/* read-aloud block — DESIGN.md §4.3 */
+/* read-aloud block: DESIGN.md §4.3 */
 .speak {
   font-family: var(--font-speak);
   font-size: 1.75rem;
@@ -204,10 +204,10 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   Glow — ported from the Werewolves reference (glow-red / glow-title / glow-soft).
+   Glow: ported from the Werewolves reference (glow-red / glow-title / glow-soft).
    Built on currentColor so it re-skins with every theme's --accent automatically.
    Use sparingly: hero titles and section headers, not body copy (DESIGN.md §3.4
-   contrast floors apply to text color, not text-shadow — glow is atmosphere,
+   contrast floors apply to text color, not text-shadow: glow is atmosphere,
    not the thing carrying legibility).
    ------------------------------------------------------------------------- */
 .glow-sm {
@@ -229,7 +229,7 @@ body {
     0 0 100px currentColor;
 }
 
-/* slow accent breathing during night — DESIGN.md §6 */
+/* slow accent breathing during night: DESIGN.md §6 */
 @keyframes breathe {
   0%,
   100% {
@@ -243,7 +243,7 @@ body {
   animation: breathe 4s ease-in-out infinite;
 }
 
-/* soft flicker, ported from the Werewolves reference — a lamp on a bad wire */
+/* soft flicker, ported from the Werewolves reference: a lamp on a bad wire */
 @keyframes flicker-soft {
   0%,
   100% {
@@ -308,7 +308,7 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
-   Atmospheric card — ported from the Werewolves reference `.role-card`.
+   Atmospheric card: ported from the Werewolves reference `.role-card`.
    Textured gradient surface with a themed hover lift, used for theme picks,
    role rows and seat chips wherever a plain --bg-raised box needs weight.
    ------------------------------------------------------------------------- */

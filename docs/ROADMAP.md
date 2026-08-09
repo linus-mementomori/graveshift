@@ -1,10 +1,10 @@
-# ROADMAP.md — Graveshift
+# ROADMAP.md: Graveshift
 
 Build order. Each phase ends in something you could actually put in front of a table.
 
 ---
 
-## ✅ Phase 0 — Foundations *(done)*
+## ✅ Phase 0: Foundations *(done)*
 
 - `CONTEXT.md`, `DESIGN.md`, `GAME_DESIGN.md`, `ARCHITECTURE.md`, this file
 - Next.js App Router + TypeScript + Tailwind scaffold
@@ -18,18 +18,18 @@ re-skins the app.
 
 ---
 
-## ✅ Phase 1 — A game you can actually host *(done)*
+## ✅ Phase 1: A game you can actually host *(done)*
 
 Shipped past the original Tier-1-only scope: the engine implements **every role in §3**, not just
 the core four.
 
-- [x] `rng.ts` — seeded mulberry32 + Fisher–Yates, so a deal is replayable from its seed
-- [x] `deal.ts` — seeded shuffle, role assignment, starting charges, Executioner target
-- [x] `RevealPanel` — hold-to-reveal, cover-the-screen countdown, no-DOM-until-held, 8s auto-hide
-- [x] `machine.ts` — beat walking, legal targets with reasons, Back/Clear, phase transitions
-- [x] `resolve.ts` — the full 10-step pipeline, all tiers
+- [x] `rng.ts`. Seeded mulberry32 + Fisher–Yates, so a deal is replayable from its seed
+- [x] `deal.ts`. Seeded shuffle, role assignment, starting charges, Executioner target
+- [x] `RevealPanel`. Hold-to-reveal, cover-the-screen countdown, no-DOM-until-held, 8s auto-hide
+- [x] `machine.ts`. Beat walking, legal targets with reasons, Back/Clear, phase transitions
+- [x] `resolve.ts`, the full 10-step pipeline, all tiers
 - [x] Dawn reveal, Day, vote tally → execute, Dusk
-- [x] `winCheck.ts` — village, mafia parity, all four neutral conditions, forced-outcome detection
+- [x] `winCheck.ts`. Village, mafia parity, all four neutral conditions, forced-outcome detection
 - [x] Persist on every action; **Resume** from Home
 - [x] End screen with full role reveal + night-by-night log
 
@@ -42,13 +42,13 @@ speak" is a table convention the app only flags.
 
 ---
 
-## Phase 2 — Depth *(mostly done alongside Phase 1)*
+## Phase 2: Depth *(mostly done alongside Phase 1)*
 
 - [x] Tier 2 roles: Bodyguard, Hunter, Witch, Vigilante, Mayor, Lycan, Minion, Alpha, Cupid
 - [x] Tier 3 roles: Jester, Serial Killer, Executioner, Blackmailer, Prince, Gravedigger, Priest, Sleepwalker
 - [x] Cascade resolution (Lovers grief, Hunter revenge) until stable
 - [x] Charges system (potions, ammo, self-heal limit, one-shots)
-- [x] `balance.ts` — presets 5–20, the §5.2 rule set, `villageEdge`, vote-margin checks
+- [x] `balance.ts`. Presets 5–20, the §5.2 rule set, `villageEdge`, vote-margin checks
 - [x] `BalanceMeter` with the plain-language read
 - [x] Night 0 toggle
 - [x] Reveal-on-death setting
@@ -59,7 +59,7 @@ interactions (Rampage vs Bodyguard, Witch reviving a double-target, Hunter killi
 
 ---
 
-## Phase 3 — Theatre
+## Phase 3: Theatre
 
 This is the phase that makes it *fun* rather than merely correct.
 
@@ -76,9 +76,9 @@ not just the information.
 
 ---
 
-## Phase 4 — Rigour
+## Phase 4: Rigour
 
-- [ ] `sim/` — baseline agent policy + headless driver
+- [ ] `sim/`. Baseline agent policy + headless driver
 - [ ] `sim.worker.ts` and live simulated win rates in setup
 - [ ] Balance test suite: every preset in the 45–55 % band, gating CI
 - [ ] Preset retuning wherever the simulator disagrees with the hand-built table
@@ -90,7 +90,7 @@ not just the information.
 
 ---
 
-## Phase 5 — Polish
+## Phase 5: Polish
 
 - [ ] Tier 3 roles: Jester, Serial Killer, Executioner, Blackmailer, Prince, Gravedigger, Priest, Sleepwalker
 - [ ] Guide screen: how to host, role reference, first-timer walkthrough

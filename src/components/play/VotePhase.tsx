@@ -8,7 +8,7 @@ import { livingSeats, tallyVote, voterWeight, MIN_VOTES_TO_EXECUTE } from '@/eng
 import type { GameState } from '@/engine/types'
 
 /**
- * VOTE + DUSK — GAME_DESIGN.md §6.
+ * VOTE + DUSK, GAME_DESIGN.md §6.
  *
  * The host enters a count per nominee. The app owns the arithmetic: silenced
  * seats contribute 0 voting weight and a revealed Mayor contributes 2.
@@ -23,7 +23,7 @@ export function VotePhase({ game }: { game: GameState }) {
   const cast = Object.values(votes).reduce((n, v) => n + v, 0)
 
   // Plurality rule: the bar is measured against whoever is currently ahead,
-  // not against a fixed majority — that is the number players are watching.
+  // not against a fixed majority. That is the number players are watching.
   const leadCount = Math.max(0, ...alive.map((s) => votes[s.id] ?? 0))
   const doomedId = tally.executedId
 
@@ -53,7 +53,7 @@ export function VotePhase({ game }: { game: GameState }) {
             {target
               ? `Execute ${target.name}`
               : tally.tie
-                ? 'Tied — nobody dies'
+                ? 'Tied, nobody dies'
                 : `Needs ${MIN_VOTES_TO_EXECUTE}+ votes`}
           </Button>
         </>
@@ -68,7 +68,7 @@ export function VotePhase({ game }: { game: GameState }) {
       {tally.tie && (
         <div className="mt-6">
           <Notice tone="error">
-            Tied at the top — <strong>nobody is executed</strong>. Everyone tied walks away.
+            Tied at the top. <strong>Nobody is executed</strong>. Everyone tied walks away.
             Keep voting to break it, or move on and let the night come.
           </Notice>
         </div>
@@ -144,7 +144,7 @@ export function VotePhase({ game }: { game: GameState }) {
   )
 }
 
-/** DUSK — the reveal after an execution, then back into the night. */
+/** DUSK. The reveal after an execution, then back into the night. */
 export function DuskPhase({ game }: { game: GameState }) {
   const { lastDeaths, pendingHunterIds, resolveHunter, continueToNight } = useGameStore()
   const theme = getTheme(game.themeId)

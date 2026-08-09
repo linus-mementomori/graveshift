@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { SITE_URL } from '@/lib/seo'
 
-/** Required by `output: 'export'` — the file is generated once at build time. */
+/** Required by `output: 'export'`. The file is generated once at build time. */
 export const dynamic = 'force-static'
 
 /**

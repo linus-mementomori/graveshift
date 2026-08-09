@@ -1,7 +1,7 @@
 import type { Theme } from './types'
 
 /**
- * AEAEA — Circe's island, from Book 10 of the Odyssey.
+ * AEAEA, Circe's island, from Book 10 of the Odyssey.
  *
  * Replaces the old "Olympus Betrayed", which was generic Greek pantheon
  * wallpaper. This one commits to a single story, which gives the whole theme a
@@ -10,7 +10,7 @@ import type { Theme } from './types'
  * gives Odysseus *moly*, the herb that breaks the charm.
  *
  * The good rewrite here is DEATH: nobody dies, they are turned. Same mechanics,
- * far better table talk — "Ana is in the sty" lands differently to "Ana is dead".
+ * far better table talk, "Ana is in the sty" lands differently to "Ana is dead".
  */
 export const aeaea: Theme = {
   id: 'aeaea',
@@ -23,7 +23,7 @@ export const aeaea: Theme = {
     villager: { name: 'Oarsman', flavour: 'You pulled an oar for ten years. No gift, no charm, one vote.' },
     werewolf: {
       name: 'Enchantress',
-      flavour: 'Cheese, barley, honey, wine — and the drug beneath. Choose who drinks.',
+      flavour: 'Cheese, barley, honey, wine, and the drug beneath. Choose who drinks.',
     },
     seer: { name: 'Tiresias', flavour: 'You were shown one thing each night. It is always true.' },
     doctor: {
@@ -52,7 +52,7 @@ export const aeaea: Theme = {
     prince: { name: 'Herald of Ithaca', flavour: 'Show the captain’s seal once and the crew stays its hand.' },
     gravedigger: { name: 'Shade-Caller', flavour: 'Blood in the trench, and the sty gives up what someone truly was.' },
     priest: { name: 'Athena-Favoured', flavour: 'One prayer, answered once. Nothing touches them for a day and a night.' },
-    sleepwalker: { name: 'The Watchman', flavour: 'You slept badly on deck. You know if the sty took anyone — never who.' },
+    sleepwalker: { name: 'The Watchman', flavour: 'You slept badly on deck. You know if the sty took anyone. Never who.' },
   },
   narration: {
     nightFall: 'Night on Aeaea. Smoke from the hall, and something singing at a loom. Close your eyes.',

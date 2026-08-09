@@ -1,4 +1,4 @@
-# GAME_DESIGN.md — Graveshift
+# GAME_DESIGN.md: Graveshift
 
 The complete rules specification. This document is **normative**: the engine implements exactly
 what is written here, and any ambiguity found in play is resolved by amending this file first.
@@ -37,9 +37,9 @@ A **win check** runs after *every* death, not just at phase end. If a check pass
 game jumps straight to END.
 
 **Phase durations** are host-controlled by default. Optional timers: Day 3/5/8 min, Vote 60/90 s,
-Last Words 30 s. Timers are advisory — the host can always extend.
+Last Words 30 s. Timers are advisory, the host can always extend.
 
-**Night 0** (optional, default **on** for ≤ 9 players). A first night in which all kills fail —
+**Night 0** (optional, default **on** for ≤ 9 players). A first night in which all kills fail,
 information roles act, killers do not. It hands the village one extra day of discussion and one
 extra execution before anyone dies. It is the single cleanest lever for tilting a setup toward the
 village without adding a role, and the app offers it as a one-tap balance fix during setup.
@@ -56,19 +56,19 @@ village without adding a role, and the app offers it as a one-tap balance fix du
 
 **Neutral win conditions**
 
-- **Jester** — wins the instant they are executed by daytime vote. The game **ends immediately**;
-  everyone else loses. (Dying at night does *not* count — the Jester must be voted out.)
-- **Serial Killer** — wins when they are the last player alive, or the only player alive besides a
+- **Jester**. Wins the instant they are executed by daytime vote. The game **ends immediately**;
+  everyone else loses. (Dying at night does *not* count, the Jester must be voted out.)
+- **Serial Killer**. Wins when they are the last player alive, or the only player alive besides a
   single non-killer they can finish. Blocks a Mafia parity win while alive.
-- **Lovers** (created by Cupid) — if exactly the two Lovers remain alive, they win together and
+- **Lovers** (created by Cupid). If exactly the two Lovers remain alive, they win together and
   override all other conditions, even across factions.
-- **Executioner** — wins if their assigned target is executed by vote while the Executioner lives.
+- **Executioner**. Wins if their assigned target is executed by vote while the Executioner lives.
   Does not end the game; they simply score a win. If their target dies at night, they become a
   plain Villager.
 
 **Parity rule detail.** Mafia parity is checked as `mafia >= others`, where *others* counts every
 living non-Mafia seat including neutrals. This is the standard "wolves can no longer be outvoted"
-condition. With a living Serial Killer, Mafia cannot win — the SK is an unresolved threat.
+condition. With a living Serial Killer, Mafia cannot win, the SK is an unresolved threat.
 
 ---
 
@@ -76,41 +76,41 @@ condition. With a living Serial Killer, Mafia cannot win — the SK is an unreso
 
 Roles are grouped in **tiers**. New hosts get Core only by default.
 
-### Tier 1 — Core (always available)
+### Tier 1: Core (always available)
 
 | Role | Faction | Night | Ability |
 |---|---|---|---|
-| **Villager** | Village | — | None. Votes, talks, lies convincingly about nothing. |
+| **Villager** | Village |, | None. Votes, talks, lies convincingly about nothing. |
 | **Werewolf** | Mafia | 30 | Collectively choose one seat to kill each night. Knows the other wolves. |
 | **Seer** | Village | 25 | Each night, learn one seat's **faction** (Mafia or Not-Mafia). |
 | **Doctor** | Village | 20 | Each night, protect one seat from death. **May not protect the same seat twice in a row.** May self-protect (limit: twice per game). |
 
-### Tier 2 — Standard
+### Tier 2: Standard
 
 | Role | Faction | Night | Ability |
 |---|---|---|---|
 | **Bodyguard** | Village | 21 | Protect a seat. If that seat is attacked, the Bodyguard dies instead and the attack is absorbed. Cannot guard self. |
-| **Hunter** | Village | — | On death (any cause), immediately choose a seat; that seat dies too. Triggers before the next phase. |
+| **Hunter** | Village |, | On death (any cause), immediately choose a seat; that seat dies too. Triggers before the next phase. |
 | **Witch** | Village | 50 | Two one-shot potions: **Life** (revive tonight's victim) and **Death** (kill any seat). Is shown who is about to die. May use both on the same night. |
 | **Vigilante** | Village | 40 | Two one-shot night kills. If a shot kills a Village member, the Vigilante dies of guilt the following night. |
-| **Mayor** | Village | — | May reveal at any time during Day. Once revealed, their vote counts **twice** for the rest of the game and they can never be a Seer's "not-mafia" surprise. Cannot be un-revealed. |
-| **Lycan** | Village | — | A true villager who reads as **Mafia** to the Seer. |
+| **Mayor** | Village |, | May reveal at any time during Day. Once revealed, their vote counts **twice** for the rest of the game and they can never be a Seer's "not-mafia" surprise. Cannot be un-revealed. |
+| **Lycan** | Village |, | A true villager who reads as **Mafia** to the Seer. |
 | **Minion** | Mafia | 5 | Knows the Werewolves. The Werewolves do **not** know the Minion. No night kill. |
 | **Alpha Wolf** | Mafia | 30 | Once per game, declares a **Rampage**: that night's Mafia kill ignores all protection. |
 | **Cupid** | Village | 1 (first night only) | Links two seats as **Lovers**. If one dies, the other dies of grief. Lovers learn each other's identity. |
 
-### Tier 3 — Advanced
+### Tier 3: Advanced
 
 | Role | Faction | Night | Ability |
 |---|---|---|---|
-| **Jester** | Neutral | — | Wants to be executed. See §2. |
+| **Jester** | Neutral |, | Wants to be executed. See §2. |
 | **Serial Killer** | Neutral | 35 | Kills one seat each night. Immune to the Mafia's night kill (they fight back). Wins alone. |
-| **Executioner** | Neutral | — | Assigned a random living Village target at setup. See §2. |
+| **Executioner** | Neutral |, | Assigned a random living Village target at setup. See §2. |
 | **Blackmailer** | Mafia | 10 | Silences one seat: that player may not speak or vote during the following Day. |
-| **Prince** | Village | — | The first time the Prince would be executed by vote, they reveal instead and survive. The vote is spent. |
+| **Prince** | Village |, | The first time the Prince would be executed by vote, they reveal instead and survive. The vote is spent. |
 | **Gravedigger** | Village | 60 | Each night, learn the exact **role** of one dead seat. |
 | **Priest** | Village | 22 | One-shot: bless a seat. That seat is immune to *all* death for one full cycle (night + day execution). |
-| **Sleepwalker** | Village | 65 | Learns whether *anyone* died last night before the rest of the table does — but not who. Flavour role for early information. |
+| **Sleepwalker** | Village | 65 | Learns whether *anyone* died last night before the rest of the table does, but not who. Flavour role for early information. |
 
 **Reserved for later:** Sorcerer, Arsonist, Cult Leader, Fool. Not in v1.
 
@@ -121,7 +121,7 @@ Roles are grouped in **tiers**. New hosts get Core only by default.
 ### 4.1 Order
 
 Each role has an integer `nightOrder`. The engine walks the living, awake roles in ascending order,
-skipping any whose ability is spent or blocked. Ties never occur — the table is unique.
+skipping any whose ability is spent or blocked. Ties never occur, the table is unique.
 
 | # | Beat | Notes |
 |---|---|---|
@@ -171,7 +171,7 @@ resolveNight(state, intents) →
 **Snapshot rule.** Investigative results are computed against the state **before** step 7. A Seer
 who checks a player who dies that same night still gets a correct answer.
 
-**Determinism rule.** If two effects could contradict, the order above decides — always. There is
+**Determinism rule.** If two effects could contradict, the order above decides. Always. There is
 no "host discretion" in resolution.
 
 ### 4.3 Death reasons (used in Dawn narration)
@@ -210,7 +210,7 @@ manually with a live warning if the balance drifts.
 | 20 | 5 | 7 | 2 | 6 | + Prince |
 
 > These sixteen rows are checked against the §5.2 rules programmatically, not by eye. Four of them
-> failed on the first pass — 13, 14, 19 and 20 all exceeded the power-role density cap — and the
+> failed on the first pass (13, 14, 19 and 20 all exceeded the power-role density cap) and the
 > numbers above are the corrected set. The check is what the balance test suite (ARCHITECTURE §8)
 > automates.
 
@@ -219,7 +219,7 @@ manually with a live warning if the balance drifts.
 1. **Mafia ratio** must sit between **20 % and 30 %** of the table, **from 7 players up**. Below
    20 % the village steamrolls; above 30 % the wolves win before information accumulates.
    `mafiaCount = clamp(round(players * 0.26), 1, floor((players - 1) / 3))`
-   At 5–6 players the floor is waived, because rule 2 binds harder — a second wolf at 6 would start
+   At 5–6 players the floor is waived, because rule 2 binds harder, a second wolf at 6 would start
    the game one death from parity.
 2. **Never let Mafia start at parity-minus-one.** A 5- or 6-player game has exactly 1 wolf, never 2.
 3. **Power role density ≤ 55 %** of the village. If almost everyone has a power, no one is bluffing
@@ -231,7 +231,7 @@ manually with a live warning if the balance drifts.
 7. **Serial Killer requires ≥ 15 players** and forces at least 3 Mafia (it needs a crowded board).
 8. **Alpha Wolf requires ≥ 12 players** (its Rampage invalidates the Doctor, which is brutal early).
 9. **Opening vote margin.** If *every* evil player voted as a bloc on Day 1, they must still fall
-   short of a majority by at least 2 votes — and they must still fall short after one mislynch
+   short of a majority by at least 2 votes, and they must still fall short after one mislynch
    and one full night of kills. This is the "can evil steal the execution?" check, and it is the
    most load-bearing balance test in the whole table. It is what actually stops a setup from being
    broken by design.
@@ -244,13 +244,13 @@ manually with a live warning if the balance drifts.
     the wolves' job impossible.
 13. **Village kill power must be strictly harder to use than evil kill power.** The Vigilante is
     ammo-limited *and* punished for misfires; the Witch's Death is one-shot. Evil kills are
-    unlimited and free. This asymmetry is deliberate and non-negotiable — an unrestricted village
+    unlimited and free. This asymmetry is deliberate and non-negotiable, an unrestricted village
     vigilante is just a second mafia with better PR.
 14. **No evil execution-immunity.** The Prince (execution save) is village-only. No Mafia or Neutral
     role may be immune to execution or block a vote outright. Evil survivability is earned by
     lying, not granted by the setup.
 15. **Neutral win conditions must be directional.** Every neutral must want a *specific* faction to
-    win or lose — never merely "survive." A survive-to-win neutral has no incentive to act, drifts
+    win or lose. Never merely "survive." A survive-to-win neutral has no incentive to act, drifts
     to whoever is nicest to them, and turns the endgame into a kingmaker coin-flip. Jester (wants
     to be executed), Executioner (wants a named target executed), and Serial Killer (wants everyone
     dead) all pass this test.
@@ -286,17 +286,17 @@ Every beat below is what the app shows. `«...»` is **read aloud verbatim**.
 
 ### SETUP
 
-**S1 · Table size** — "How many are playing?" Big stepper, 5–20. Live preview of the composition.
+**S1 · Table size**. "How many are playing?" Big stepper, 5–20. Live preview of the composition.
 
-**S2 · Choose a world** — Theme grid. Selecting one re-skins the whole app instantly.
+**S2 · Choose a world**. Theme grid. Selecting one re-skins the whole app instantly.
 
-**S3 · Roles** — Recommended preset shown pre-filled, with the difficulty read. Host can tap any
+**S3 · Roles**. Recommended preset shown pre-filled, with the difficulty read. Host can tap any
 role to add/remove; violations of §5.2 show an inline warning but never hard-block.
 
-**S4 · Seats** — Enter names, or accept auto-names (`Player 1…n`) and rename later. Drag to reorder
-to match the physical circle — this matters, because the host reads the app left-to-right.
+**S4 · Seats**. Enter names, or accept auto-names (`Player 1…n`) and rename later. Drag to reorder
+to match the physical circle, this matters, because the host reads the app left-to-right.
 
-**S5 · The deal** — Roles are shuffled and assigned. Then, one seat at a time:
+**S5 · The deal**. Roles are shuffled and assigned. Then, one seat at a time:
 
 > «*[Name]*, take the phone. Don't let anyone see.»
 > ▸ Hand device to player → they tap **Reveal** → hold to see role + flavour → tap **Hide** →
@@ -304,13 +304,13 @@ to match the physical circle — this matters, because the host reads the app le
 > Guard rail: a 3-second "cover the screen" countdown before each reveal, and the screen never
 > shows the role and the next player's name at the same time.
 
-**S6 · Ready** — Recap: *N players · Theme · Night 1 begins.* One giant button: **Begin.**
+**S6 · Ready**. Recap: *N players · Theme · Night 1 begins.* One giant button: **Begin.**
 
 ### NIGHT
 
-♪ **Cue: NIGHT_FALL** — *"Start your night music now. Lower the lights."*
+♪ **Cue: NIGHT_FALL**. *"Start your night music now. Lower the lights."*
 
-> «Night falls on *[place]*. Everyone — close your eyes.»
+> «Night falls on *[place]*. Everyone. Close your eyes.»
 > «Heads down. No peeking, no sounds, no smiles.»
 
 Then, for each beat in night order, the app shows a **card** with three zones:
@@ -334,24 +334,24 @@ Then, for each beat in night order, the app shows a **card** with three zones:
   resolved yet).
 - Closing line each beat: «*[Role]*, close your eyes.»
 
-♪ **Cue: NIGHT_END** — *"Fade the music out."*
+♪ **Cue: NIGHT_END**. *"Fade the music out."*
 
 ### DAWN
 
-♪ **Cue: DAWN** — *"Cut the music. Two seconds of silence — then speak."*
+♪ **Cue: DAWN** (*"Cut the music. Two seconds of silence) then speak."*
 
 > «The sun rises over *[place]*.»
-> — if deaths: «*[Name]* did not survive the night.» + theme-specific death flavour by reason.
-> — if none: «Somehow, everyone is still breathing. That should worry you.»
+>. If deaths: «*[Name]* did not survive the night.» + theme-specific death flavour by reason.
+>. If none: «Somehow, everyone is still breathing. That should worry you.»
 
 The app reveals the dead seat's role only if the theme/settings say roles are revealed on death
-(**Reveal on death: ON by default** — it's better for new groups; OFF is the expert setting).
+(**Reveal on death: ON by default**, it's better for new groups; OFF is the expert setting).
 
 Hunter died? → immediate «*[Name]*, you have one shot left. Who goes with you?» card.
 
 ### DAY
 
-♪ **Cue: DAY** — *"Bring up bright, busy music at low volume. Let them argue over it."*
+♪ **Cue: DAY**. *"Bring up bright, busy music at low volume. Let them argue over it."*
 
 > «You have *[N]* minutes. Find the *[mafia-term]* among you.»
 
@@ -360,7 +360,7 @@ Screen shows: living seats, day number, optional timer, silenced players flagged
 
 ### VOTE
 
-♪ **Cue: VOTE** — *"Kill the music. Total silence for the count."*
+♪ **Cue: VOTE**. *"Kill the music. Total silence for the count."*
 
 > «Time's up. Nominations.»
 > ▸ Tap each nominated seat → tap vote counts → app tallies (Mayor = 2, silenced = 0).
@@ -373,7 +373,7 @@ Outcomes:
 
 ### DUSK (execution)
 
-♪ **Cue: EXECUTION** — *"One heavy hit — a stomp, a clap, a drum. Then nothing."*
+♪ **Cue: EXECUTION** (*"One heavy hit) a stomp, a clap, a drum. Then nothing."*
 
 > «*[Name]*. The town has chosen you. Last words.»
 > ▸ 30-second last-words timer.
@@ -385,13 +385,13 @@ Outcomes:
 
 ### END
 
-♪ **Cue: VICTORY_VILLAGE / VICTORY_MAFIA / VICTORY_NEUTRAL** — each theme names a specific mood.
+♪ **Cue: VICTORY_VILLAGE / VICTORY_MAFIA / VICTORY_NEUTRAL**. Each theme names a specific mood.
 
 Screen shows: winning faction banner, **full role reveal for every seat**, a scrollable night-by-night
-log ("Night 2 — Doctor saved Ben from the wolves"), and two buttons: **Rematch, same roles** and
+log ("Night 2. Doctor saved Ben from the wolves"), and two buttons: **Rematch, same roles** and
 **New game**.
 
-The log is the real payoff — it's what the table argues about for the next ten minutes.
+The log is the real payoff, it's what the table argues about for the next ten minutes.
 
 ---
 
@@ -418,14 +418,14 @@ type Cue = {
 |---|---|---|
 | `NIGHT_FALL` | music | Start a slow, low ambient track. Dim the lights. |
 | `WOLVES_WAKE` | sfx | A low growl, or scrape your nails on the table. |
-| `SEER_WAKE` | sfx | A single soft chime — a glass tap works. |
+| `SEER_WAKE` | sfx | A single soft chime, a glass tap works. |
 | `DOCTOR_WAKE` | sfx | Two quiet taps, like a heartbeat. |
 | `WITCH_WAKE` | sfx | A bubbling hiss, or blow across a bottle. |
 | `NIGHT_END` | music | Fade out. Let silence sit for two seconds. |
 | `DAWN` | music | Nothing. Silence is the cue. Then speak. |
 | `DEATH_REVEAL` | voice | Drop your voice. Say the name slowly. Pause. |
 | `NO_DEATH` | voice | Sound *confused*. Sell it. |
-| `DAY` | music | Bright, busy, low volume — a floor under the arguing. |
+| `DAY` | music | Bright, busy, low volume, a floor under the arguing. |
 | `VOTE` | music | Cut everything. Dead air makes people nervous. |
 | `EXECUTION` | sfx | One heavy hit: stomp, clap, or a drum. Then nothing. |
 | `LAST_WORDS` | light | If you can, put a light on them. Everyone else goes quiet. |
@@ -445,14 +445,14 @@ Each theme overrides `text` for whatever cues it wants a distinct flavour on:
 
 ### 7.4 Optional generated audio
 
-For hosts who don't want to DJ, the app can synthesise cues with the Web Audio API — no files, no
+For hosts who don't want to DJ, the app can synthesise cues with the Web Audio API. No files, no
 licensing:
 
-- **Night drone** — two detuned sine oscillators at 55 Hz / 55.3 Hz through a slow lowpass sweep.
-- **Chime** — a plucked sine with a 1.5 s exponential decay.
-- **Heartbeat** — two filtered noise thuds at 62 BPM.
-- **Hit** — a fast pitch-drop sine plus a short noise burst.
-- **Vote tick** — a click every second in the final 10 seconds.
+- **Night drone**: two detuned sine oscillators at 55 Hz / 55.3 Hz through a slow lowpass sweep.
+- **Chime**, a plucked sine with a 1.5 s exponential decay.
+- **Heartbeat**: two filtered noise thuds at 62 BPM.
+- **Hit**, a fast pitch-drop sine plus a short noise burst.
+- **Vote tick**, a click every second in the final 10 seconds.
 
 This is **off by default** and framed as a fallback: *"No music? I'll handle it."*
 
@@ -520,10 +520,10 @@ type Theme = {
 
 1. Copy `src/themes/_template.ts`.
 2. Fill **every** `roleSkins` entry for the roles you support (missing keys fall back to the
-   canonical English name — allowed, but it looks lazy).
+   canonical English name. Allowed, but it looks lazy).
 3. Write narration for all beats. **Hard cap: 35 words per line.**
 4. Pick a palette that passes **4.5:1** contrast on body text (see DESIGN.md §3.4).
-5. Add at least **three** `cueOverrides` — otherwise the theme doesn't *sound* like anything.
+5. Add at least **three** `cueOverrides`. Otherwise the theme doesn't *sound* like anything.
 6. Register in `src/themes/index.ts`. The schema validator runs at build; a broken theme fails CI,
    not the party.
 
@@ -536,10 +536,10 @@ These are decided. The engine implements them; the host never adjudicates.
 | Situation | Ruling |
 |---|---|
 | Doctor protects the Serial Killer's target | Protection works normally. SK is not piercing. |
-| Alpha Rampage vs Doctor **and** Bodyguard | Rampage pierces protection but the Bodyguard still absorbs — a body is a body. |
+| Alpha Rampage vs Doctor **and** Bodyguard | Rampage pierces protection but the Bodyguard still absorbs, a body is a body. |
 | Bodyguard guards a seat attacked twice in one night | Absorbs **one** attack. The second lands. |
 | Witch revives a seat the Vigilante also shot | Life removes the seat from the death set entirely, regardless of source count. |
-| Vigilante kills the Jester | Jester does **not** win — only execution counts. |
+| Vigilante kills the Jester | Jester does **not** win. Only execution counts. |
 | Hunter is executed by vote | Revenge shot fires **after** last words, before Night. |
 | Hunter's revenge kills a Lover | Cascade continues: the other Lover dies too. Repeat until stable. |
 | Both Lovers are the last two alive | Lovers win, overriding Village and Mafia. |
@@ -549,7 +549,7 @@ These are decided. The engine implements them; the host never adjudicates.
 | Blackmailed player is nominated | They may not speak, including last words. Their vote counts 0. |
 | All Mafia die on the same night | Village wins immediately at the mid-phase win check. |
 | Mafia and Serial Killer reach 1-vs-1 | Play continues into the night; the SK kills or is killed. |
-| Last Mafia member is the Minion (no killers left) | No night kill occurs. Village wins on the next check — the Minion cannot win alone. |
+| Last Mafia member is the Minion (no killers left) | No night kill occurs. Village wins on the next check, the Minion cannot win alone. |
 | Doctor self-protects a third time | Blocked at input. The button is disabled with a reason. |
 | Prince executed twice | The second execution kills. The save is one-shot. |
 | Host taps the wrong target | **← Back** un-does any intent before the night resolves. After resolution, an "undo last phase" restores the previous snapshot. |
@@ -567,7 +567,7 @@ records the method, so future contributors can add roles without breaking the ta
 Take a composition, assume plausible-but-not-lucky play, and trace it. Notation is
 `village / mafia / neutral`, with the majority threshold noted each day.
 
-**Worked example — the 15-player preset**
+**Worked example, the 15-player preset**
 (10 village-aligned: Seer, Doctor, Bodyguard, Hunter, Witch + 5 plain · 4 Mafia incl. Alpha · 1 Jester)
 
 ```
@@ -593,8 +593,8 @@ Day 5      4 / 1 / 1   (6 alive, majority 4)
    Village executes the last Mafia. → VILLAGE WINS
 ```
 
-That trace contains **two village mislynches, one Rampage, and a dead Seer** — a distinctly
-unlucky village — and the village still wins on turn five with the Hunter doing the closing work.
+That trace contains **two village mislynches, one Rampage, and a dead Seer** (a distinctly
+unlucky village) and the village still wins on turn five with the Hunter doing the closing work.
 That tells us the 15-player preset is, if anything, mildly village-favoured, which is correct for a
 default. A host who wants it harder removes the Bodyguard; the app's balance meter reflects that
 instantly.
@@ -632,7 +632,7 @@ checks live during setup and flags failures in `--warn`.
 
 Once a second hostile faction exists (Serial Killer at 15+, per §5.2 rule 7), some night kills land
 on *other evil players* instead of the village. This is **crossfire**, and it is a real, quantifiable
-gift to the village — the mafia's expected kill rate against villagers drops, and the SK is
+gift to the village, the mafia's expected kill rate against villagers drops, and the SK is
 strictly worse at guessing than the mafia because the mafia have three known-safe teammates to
 exclude and the SK has one.
 
@@ -643,7 +643,7 @@ P(hit village) = villageAlive / (alive - 1 - knownTeammates)
 ```
 
 At 17 players with 4 mafia and 1 SK, the mafia hit a villager ~`12/12` of the time early (they
-exclude each other), while the SK hits a villager ~`12/16` ≈ 75 % — meaning **one night in four**,
+exclude each other), while the SK hits a villager ~`12/16` ≈ 75 %. Meaning **one night in four**,
 the SK does the village's work for it. This is why the balance table can afford *more* mafia at 17+
 than the flat 26 % ratio would suggest.
 
@@ -652,7 +652,7 @@ than the flat 26 % ratio would suggest.
 A **kingmaker scenario** is an endgame where a player who cannot possibly win chooses which of two
 other factions does. Classic case: one plain villager, one wolf, one Serial Killer, daytime, all
 votes equal. The villager cannot win. Whoever they vote for loses. They are, functionally, a
-referee — and they will make that call for social reasons, not game reasons.
+referee, and they will make that call for social reasons, not game reasons.
 
 Kingmaker endings are *tolerable evidence of a balanced setup* (they only occur when the numbers
 stayed close), but they are **bad play experiences** and we design against them:
@@ -680,7 +680,7 @@ simulate(composition, { runs: 10_000, policy: 'baseline' }) → {
 }
 ```
 
-**Agent policy (`baseline`)** — deliberately mediocre, because we're testing the *setup*, not the
+**Agent policy (`baseline`)**. Deliberately mediocre, because we're testing the *setup*, not the
 players:
 
 - Village votes weighted by a crude suspicion score: didn't-vote-with-consensus, claimed late,
@@ -695,7 +695,7 @@ is a bug in the table, not a taste difference.
 
 **Where it runs:** in a Web Worker, debounced 400 ms after the host changes a role during setup. It
 never blocks the UI, and if it hasn't finished, the setup screen falls back to the cheap
-`villageEdge` heuristic (§5.3). Results for a given composition hash are cached in `localStorage` —
+`villageEdge` heuristic (§5.3). Results for a given composition hash are cached in `localStorage`,
 most hosts play the same handful of setups.
 
 ### 10.6 Knowing when the game is over
@@ -711,14 +711,14 @@ The engine detects *forced* outcomes beyond the strict win conditions in §2:
 - Only a Minion remains on the mafia side (no kill source anywhere). → Village cannot lose.
 - Every living player's win condition is unreachable except one faction's.
 
-When a forced outcome is detected the app does **not** end the game unilaterally — it surfaces a
+When a forced outcome is detected the app does **not** end the game unilaterally, it surfaces a
 quiet prompt: *"This is decided. Call it?"* with the projected winner. The host keeps the gavel.
 
 ### 10.7 The postgame
 
 The end-screen log (§6, END) is the app's version of a written postgame, and it's what turns a
 finished game into a rematch. It reconstructs, night by night: who acted, who was targeted, what
-was saved, what the Seer learned and when, and — crucially — **the moment the game was actually
+was saved, what the Seer learned and when, and (crucially) **the moment the game was actually
 decided**, highlighted.
 
 Vote history and night targets alone are a thin postgame. The richer part of any mafia game is what
@@ -731,7 +731,7 @@ in the recap next to the actions that contradicted them.
 ## 11. Sources
 
 - Mekkah, **"Designing and Hosting a Mafia Game,"** *The Smog* Issue 8, Smogon University.
-  <https://www.smogon.com/smog/issue8/mafia> — the scenario-walkthrough method (§10.1), the
+  <https://www.smogon.com/smog/issue8/mafia>, the scenario-walkthrough method (§10.1), the
   vote-margin reasoning (§10.2), crossfire probability (§10.3), the kingmaker analysis (§10.4),
   directional neutral win conditions (§5.2 rule 15), the village-needs-inspection-and-a-bodyguard
   floor (rules 11–12), the restricted-vigilante principle (rule 13), the no-evil-lynchproof

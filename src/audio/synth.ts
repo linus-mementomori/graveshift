@@ -1,14 +1,14 @@
 'use client'
 
 /**
- * Generated sound — ARCHITECTURE §7, permitted by CONTEXT.md D2.
+ * Generated sound (ARCHITECTURE §7), permitted by CONTEXT.md D2.
  *
  * Every sound here is SYNTHESISED from oscillators and noise at runtime.
  * Nothing is fetched, nothing is shipped, nothing is sampled from a recording.
  * That is a deliberate legal position, not a technical preference:
  *
- *   - zero licensing risk — we own every waveform because we generate it
- *   - zero bundle cost — this file is ~4 kB and replaces megabytes of audio
+ *   - zero licensing risk. We own every waveform because we generate it
+ *   - zero bundle cost. This file is ~4 kB and replaces megabytes of audio
  *   - works in airplane mode, which is the whole point of the app (D5)
  *
  * The trade-off is honest: a synthesised howl will never sound as good as a
@@ -25,7 +25,7 @@ let sustained: { stop: () => void } | null = null
 
 /**
  * iOS refuses to create a running AudioContext outside a user gesture, so this
- * is called lazily from the tap that wants the sound — never at module load.
+ * is called lazily from the tap that wants the sound. Never at module load.
  */
 function audio(): { ctx: AudioContext; master: GainNode } | null {
   if (typeof window === 'undefined') return null
@@ -177,7 +177,7 @@ function playTick(ctx: AudioContext, out: GainNode) {
 
 /**
  * A wolf howl, from a pitch-swept saw through a formant-ish bandpass.
- * Not a recording — closer to someone doing a good impression, which suits an
+ * Not a recording. Closer to someone doing a good impression, which suits an
  * app whose whole premise is that the host performs.
  */
 function playHowl(ctx: AudioContext, out: GainNode) {
@@ -217,7 +217,7 @@ function playHowl(ctx: AudioContext, out: GainNode) {
   osc.stop(t + 3)
 }
 
-/** Play a patch. Safe to call before any gesture — it simply no-ops. */
+/** Play a patch. Safe to call before any gesture. It simply no-ops. */
 export function play(patch: PatchId): void {
   const a = audio()
   if (!a) return

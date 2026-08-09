@@ -101,7 +101,7 @@ export function Speak({ children }: { children: ReactNode }) {
 }
 
 /**
- * DESIGN.md §5.2 — the performance instruction strip.
+ * DESIGN.md §5.2. The performance instruction strip.
  *
  * Text only. The play button used to live here, but sound moved into the dock's
  * soundboard: a host wants sound at any beat, not only the ones that happened

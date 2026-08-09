@@ -10,8 +10,8 @@ import type { CueId, GameState } from '@/engine/types'
  * sixteen buttons to find the one for the beat they're on. This picks it out so
  * the common case is one tap.
  *
- * Returns null when nothing is obviously right, which is better than guessing —
- * a wrong "recommended" is worse than none.
+ * Returns null when nothing is obviously right, which beats guessing. A wrong
+ * "recommended" is worse than none.
  */
 export function recommendedCue(game: GameState | null): CueId | null {
   if (!game) return null
@@ -21,7 +21,7 @@ export function recommendedCue(game: GameState | null): CueId | null {
       const beats = beatsForNight(game)
       const beat = beats[game.beatIndex]
       if (beat?.cueId) return beat.cueId
-      // Ran past the last beat — the night is closing.
+      // Ran past the last beat. The night is closing.
       if (game.beatIndex >= beats.length) return 'NIGHT_END'
       // A beat with no cue of its own still sits inside the night.
       return 'NIGHT_FALL'

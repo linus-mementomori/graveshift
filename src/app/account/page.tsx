@@ -44,7 +44,7 @@ export default function AccountPage() {
    * Set up a fresh game with the same theme and role board.
    *
    * Not a true "restore": finished games are stored with seat names stripped
-   * (CLOUD_PLAN §14.2 — they're the real names of guests who never signed up),
+   * (CLOUD_PLAN §14.2: they're the real names of guests who never signed up),
    * so there is nothing to restore *to*. Re-running the same setup is the
    * useful thing that data can honestly support, and it drops you at the seat
    * list to name this table's players.
@@ -119,7 +119,7 @@ export default function AccountPage() {
           {localGame && localGame.phase !== 'end' && (
             <div className="mt-8">
               <ButtonLink href="/play">
-                ↻ Resume — {localGame.phase} {localGame.dayNumber}
+                ↻ Resume · {localGame.phase} {localGame.dayNumber}
               </ButtonLink>
             </div>
           )}

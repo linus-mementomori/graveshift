@@ -9,7 +9,7 @@ import { supabase } from '@/lib/supabase'
  *
  * This must exist as a real exported page: with `output: 'export'` and
  * `trailingSlash: true`, the Supabase redirect URL is `/auth/callback/` and a
- * missing page here shows up as a 404 *after* a successful Google login — the
+ * missing page here shows up as a 404 *after* a successful Google login. The
  * classic symptom. Keep the trailing slash in the dashboard's Redirect URLs.
  */
 export default function AuthCallbackPage() {

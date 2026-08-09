@@ -1,7 +1,7 @@
-# CLOUD_PLAN.md — Graveshift accounts, sync & admin
+# CLOUD_PLAN.md: Graveshift accounts, sync & admin
 
 > **Status: proposal, not yet accepted.** This is the re-plan that CONTEXT.md §4 demands before
-> a locked decision changes. Read §1 first — it asks you to reverse three of them.
+> a locked decision changes. Read §1 first, it asks you to reverse three of them.
 >
 > Nothing in `src/` changes until you say go.
 
@@ -16,7 +16,7 @@
 8. Custom themes & prompt editing
 9. PDF export
 10. Admin dashboard
-11. **What you do in Supabase** — step-by-step
+11. **What you do in Supabase**. Step-by-step
 12. App-side file plan
 13. Sequencing (and why one feature has to wait)
 14. Risks, sharp edges, and the two I'd fix first
@@ -35,7 +35,7 @@ This feature set contradicts the project's own locked decisions. Quoting CONTEXT
 | **§5 Non-goals** | "❌ Player accounts, profiles, ELO, leaderboards" | Adds accounts and profiles. |
 | **ROADMAP §Explicitly rejected** | "online play, room codes, **accounts** … If one of these starts to look necessary, that's a signal to **re-read CONTEXT.md, not to open a PR**." | This is that re-read. |
 
-CONTEXT.md §4 says: *"These are settled. Changing one is a re-plan, not a tweak."* So — this document.
+CONTEXT.md §4 says: *"These are settled. Changing one is a re-plan, not a tweak."* So, this document.
 
 **My read:** the reversal is worth making, but only in a specific shape. D1's real value was never
 "no accounts" as an end in itself; it was **the host must be able to run a whole game with a dead
@@ -50,7 +50,7 @@ What genuinely does get given up, and can't be bought back:
 
 - **Privacy-by-architecture.** "Nothing to send" becomes "we choose not to send." Different promise.
 - **The zero-ops deployment story.** ARCHITECTURE §10: "No env vars. No secrets." Not true after this.
-- **The engine's isolation stays intact** — `src/engine/**` still imports nothing. Cloud code lives
+- **The engine's isolation stays intact**, `src/engine/**` still imports nothing. Cloud code lives
   entirely outside it. This one is non-negotiable and the plan preserves it.
 
 ---
@@ -62,7 +62,7 @@ Six rules. Everything downstream is an application of one of them.
 **P1 · The account is optional, forever.**
 Anonymous local play is the default path and never degrades. No screen blocks on a session. If you
 open the app and hit New Game, you never see a login. Signing in *adds* history, custom themes and
-sync — it is never a gate.
+sync, it is never a gate.
 
 **P2 · Local is the source of truth during a game.**
 Zustand + localStorage stays exactly as ARCHITECTURE §4 describes: synchronous write on every
@@ -70,7 +70,7 @@ action. The network is a background reconciler that can fail silently. A game th
 must survive airplane mode with no behavioural change at all.
 
 **P3 · Never write to the network on the hot path.**
-Sync happens at checkpoints (game created, game ended, theme saved) — never per beat, per tap, or
+Sync happens at checkpoints (game created, game ended, theme saved). Never per beat, per tap, or
 per intent. A per-action network write would burn quota, add latency to the one interaction budget
 that matters (ARCHITECTURE §9: ≤100 ms), and break P2.
 
@@ -82,7 +82,7 @@ Postgres enforces every rule. Any check written in React is a convenience, not a
 **P5 · The static export survives.**
 `output: 'export'` stays. Supabase-js is a client library; auth, queries and RPC all work from a
 static bundle. No API routes, no middleware, no server runtime, no Vercel lock-in. Deployment stays
-"copy `out/` anywhere" — plus two build-time env vars.
+"copy `out/` anywhere". Plus two build-time env vars.
 
 **P6 · Third-party PII does not leave the device by default.**
 See §14. This is the sharpest edge in the whole plan and it deserves its own line up here.
@@ -112,7 +112,7 @@ Your seven asks, mapped:
 |---|---|---|
 | Create an account, log in | Supabase Auth + `profiles` | Email/password + Google. §6 |
 | Start a game | Unchanged locally; a `games` row on start | §7 |
-| Save game data | `games` row updated at end | Needs Phase 1 engine first — §13 |
+| Save game data | `games` row updated at end | Needs Phase 1 engine first, §13 |
 | Modify the prompt | A `custom_themes` row derived from a base theme | §8 |
 | Create their own theme | Same table, `base_theme_id = null` | §8 |
 | Export the prompt to PDF | Client-side print route, zero deps | §9 |
@@ -120,14 +120,14 @@ Your seven asks, mapped:
 
 **The unifying idea:** "modify the prompt" and "create a theme" are *the same feature*. A theme is
 already pure data (D4) whose narration lines *are* the prompt. Editing a line produces a custom
-theme derived from a base. One table, one editor, one validator, one PDF exporter — instead of two
+theme derived from a base. One table, one editor, one validator, one PDF exporter. Instead of two
 parallel systems that drift apart.
 
 ---
 
 ## 5. The schema
 
-Proposed DDL. On implementation this becomes `supabase/schema.sql`, run once in the dashboard —
+Proposed DDL. On implementation this becomes `supabase/schema.sql`, run once in the dashboard,
 same workflow as your blog. Read it as the specification: **these policies are the security
 boundary**, not the React code.
 
@@ -319,7 +319,7 @@ Notes on choices:
 - **Denormalized columns beside the blob** (`player_count`, `status`, `winner_faction`) so admin
   queries and history lists never parse JSON.
 - **`is_admin()` as an email allowlist in the DB**, matching your blog's `is_author()`. Portable,
-  auditable in one place, and it survives a token refresh — no custom claims plumbing needed.
+  auditable in one place, and it survives a token refresh. No custom claims plumbing needed.
 
 **Two patterns above are deliberate and easy to get wrong** (both per Supabase's own
 `supabase-postgres-best-practices` skill, installed in `.agents/skills/`):
@@ -328,10 +328,10 @@ Notes on choices:
   function *once per row* scanned; wrapped in a scalar subquery it's evaluated once and cached.
   Supabase measures this as a 5–10× difference on large tables. Cheap now, invisible later.
 - **`security definer` only where it's actually required.** `is_admin()` reads the caller's own JWT
-  and touches no table, so it doesn't need elevated privilege at all — and a definer function that
+  and touches no table, so it doesn't need elevated privilege at all, and a definer function that
   forgets its own identity check is the standard way Supabase projects leak their whole database.
   Only `handle_new_user()` keeps it, because a trigger on `auth.users` genuinely must.
-- **Every column used in an RLS policy is indexed** — `games (user_id, …)` and
+- **Every column used in an RLS policy is indexed**, `games (user_id, …)` and
   `custom_themes (user_id, …)` above; `profiles.id` is the primary key.
 
 ---
@@ -341,7 +341,7 @@ Notes on choices:
 **Providers:** email/password + Google. Google because you've already done the OAuth dance for the
 blog; email/password because a host signing up at a party will not want an OAuth redirect.
 
-**Consider Supabase anonymous sign-in — I'd skip it.** It would give every device a user row and
+**Consider Supabase anonymous sign-in. I'd skip it.** It would give every device a user row and
 make sync uniform, but it manufactures a user record for people who never asked for an account, it
 complicates the "upgrade to a real account" path, and it quietly violates P1's spirit. Local
 storage already does this job for free.
@@ -352,7 +352,7 @@ storage already does this job for free.
 **The static-export catch:** OAuth needs a callback page that actually exists in `out/`. With
 `trailingSlash: true` the redirect URL must be `https://yoursite/auth/callback/` (trailing slash),
 backed by a real `src/app/auth/callback/page.tsx`. Get this wrong and you get a 404 after a
-successful Google login — the classic symptom.
+successful Google login, the classic symptom.
 
 **Local→cloud adoption.** On first successful sign-in, if localStorage holds finished games or
 draft themes, offer once: *"Save your 3 local games to your account?"* Explicit, dismissible, never
@@ -377,17 +377,17 @@ tap → store action → engine (pure) → new state → render
 
 | When | Write |
 |---|---|
-| Roles dealt / game begins | `insert into games` — status `in_progress` |
-| Game reaches a winner | `update games` — status `complete`, winner, night count, snapshot |
-| Host abandons or starts a new game over an unfinished one | `update games` — status `abandoned` |
+| Roles dealt / game begins | `insert into games`. Status `in_progress` |
+| Game reaches a winner | `update games`. Status `complete`, winner, night count, snapshot |
+| Host abandons or starts a new game over an unfinished one | `update games`. Status `abandoned` |
 
 **The outbox.** Pending mutations queue in `localStorage['graveshift:outbox']` and flush on app
-open, on `online`, and after sign-in. Every write is idempotent — client-generated UUID as the
+open, on `online`, and after sign-in. Every write is idempotent. Client-generated UUID as the
 primary key, so a retry upserts rather than duplicating. A game hosted entirely offline syncs whole
 the next time the app opens with a signal.
 
 **Conflicts.** Effectively impossible by construction: a game row is written by the one device that
-hosted it, and rows are never co-edited. Custom themes *can* be edited on two devices — last write
+hosted it, and rows are never co-edited. Custom themes *can* be edited on two devices. Last write
 wins on `updated_at`, which is the right tradeoff for a single-author document.
 
 **Failure is silent.** No toast, no retry spinner, no error state in the play UI. A failed sync
@@ -401,33 +401,33 @@ do with the information.
 **One editor, two entry points:** "Edit this theme's script" (prefills from a base theme) and
 "Create a theme" (starts blank). Both produce a `custom_themes` row.
 
-**What's editable:** everything in the `Theme` interface — `name`, `tagline`, `place`,
+**What's editable:** everything in the `Theme` interface, `name`, `tagline`, `place`,
 `factionNames`, `roleSkins` (name + flavour per role), all nine `narration` lines, `deathFlavour`,
-`cueOverrides`, `victory`. What is **not** editable: anything rule-shaped. D4 holds — a theme is a
+`cueOverrides`, `victory`. What is **not** editable: anything rule-shaped. D4 holds, a theme is a
 costume. There is no path from this editor to changing what a role does.
 
 **The prerequisite nobody has noticed yet:** ARCHITECTURE §2 lists `src/themes/schema.ts` as the
 runtime validator, and §5 says *"a theme with a narration line over 35 words fails the build."*
-**That file does not exist.** Today it doesn't matter — themes are hand-written by you and checked
+**That file does not exist.** Today it doesn't matter. Themes are hand-written by you and checked
 by TypeScript. The moment themes arrive as `jsonb` from a database, it matters enormously: it is
 the difference between a typo and a broken play screen mid-party.
 
 So `themes/schema.ts` is **blocking work for this feature**, not a nice-to-have. It must:
 
 - validate shape and required keys, filling missing `roleSkins` from the canonical fallback
-- enforce the GAME_DESIGN §8.4 word caps (≤35 words per narration line) — the cap that keeps the
+- enforce the GAME_DESIGN §8.4 word caps (≤35 words per narration line), the cap that keeps the
   read-aloud text inside DESIGN §4.3's "never truncated, never scrolling" rule
 - enforce string length ceilings matching the DB `check` constraints
 - **fail closed**: an invalid custom theme falls back to its base (or Millers Hollow) with a quiet
   notice, never a crash and never a half-rendered beat
 
 **Bundle cost.** Zod is ~13 kB gzipped against a ≤120 kB first-load budget (ARCHITECTURE §9). Two
-options: (a) hand-roll the validator — it's ~80 lines of boring checks for a known shape, zero
+options: (a) hand-roll the validator, it's ~80 lines of boring checks for a known shape, zero
 bytes of dependency; (b) use Zod but only in the editor route and the custom-theme loader, both
 dynamically imported. **I'd hand-roll it.** The shape is fixed, the rules are ours, and the budget
 is one of the few hard numbers this project committed to.
 
-**Public sharing — recommend deferring.** The schema supports `is_public` and the RLS policy is
+**Public sharing. Recommend deferring.** The schema supports `is_public` and the RLS policy is
 written, but shipping a public gallery means shipping moderation: user-authored text rendered to
 other people's screens, no report flow, no takedown path, one bad actor away from an incident. Ship
 private-only in v1; the column is there when you want it.
@@ -438,8 +438,8 @@ private-only in v1; the column is there when you want it.
 
 **Recommendation: a dedicated print route, not a PDF library.**
 
-`/script/print` renders the complete host script for the selected theme — every narration line in
-night order, role skins, cue text, victory copy — styled with `@media print`. The host hits Export,
+`/script/print` renders the complete host script for the selected theme (every narration line in
+night order, role skins, cue text, victory copy) styled with `@media print`. The host hits Export,
 the browser's print dialog opens, "Save as PDF" produces the file.
 
 | | Print route | jsPDF / pdf-lib |
@@ -452,7 +452,7 @@ the browser's print dialog opens, "Save as PDF" produces the file.
 
 Against a ≤120 kB budget, a PDF library would roughly *double* the app's JavaScript to save one
 click in a dialog. If you later decide the one-click download is worth it, `pdf-lib` behind a
-dynamic import on that route only — so the play path never pays for it.
+dynamic import on that route only, so the play path never pays for it.
 
 Worth having regardless of accounts: this is genuinely useful for a host who wants a paper backup,
 and it works for built-in themes too.
@@ -461,7 +461,7 @@ and it works for built-in themes too.
 
 ## 10. Admin dashboard
 
-`/admin`, client-rendered, and — per P4 — **its JavaScript is public**. That's fine. Every query it
+`/admin`, client-rendered, and (per P4) **its JavaScript is public**. That's fine. Every query it
 issues is subject to the RLS policies in §5; a non-admin who opens the route sees an empty dashboard
 because Postgres returns them nothing. No secrets ship in the bundle.
 
@@ -478,7 +478,7 @@ because Postgres returns them nothing. No secrets ship in the bundle.
 | Custom themes authored | `count(*) from custom_themes` |
 
 **Aggregates first, names second.** Default the dashboard to counts and charts; put the per-host
-list behind an explicit "Show hosts" toggle. It's the same data either way — but it sets the tone
+list behind an explicit "Show hosts" toggle. It's the same data either way, but it sets the tone
 that this is a health dashboard, not a surveillance panel, and it keeps casual shoulder-surfing
 from exposing your users' emails.
 
@@ -495,7 +495,7 @@ Do these in order. Steps 1–5 are needed before any code runs; 6–8 before dep
 
 **1 · Create the project**
 supabase.com → New project. Pick the region closest to your users. **Save the database password**
-in your password manager — it is shown once and is not the same thing as the API keys.
+in your password manager, it is shown once and is not the same thing as the API keys.
 
 **2 · Copy the API credentials**
 Project Settings → API. You need:
@@ -503,7 +503,7 @@ Project Settings → API. You need:
 - `anon` / `public` key
 
 Ignore the `service_role` key entirely. It bypasses RLS. It must never appear in this repo, in
-`.env.local`, or in any client bundle — same rule as the portfolio's AGENTS.md.
+`.env.local`, or in any client bundle. Same rule as the portfolio's AGENTS.md.
 
 **3 · Create `.env.local`** in the graveshift project root:
 
@@ -512,7 +512,7 @@ NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
 ```
 
-Confirm `.env.local` is gitignored. (Graveshift has no `.gitignore` yet and isn't a git repo — worth
+Confirm `.env.local` is gitignored. (Graveshift has no `.gitignore` yet and isn't a git repo. Worth
 fixing before the first commit.)
 
 **4 · Run the schema**
@@ -528,7 +528,7 @@ aren't checking an inbox on every test signup. Turn it back on before launch.
 - Authorised redirect URI: `https://<your-project-ref>.supabase.co/auth/v1/callback`
 - Copy the Client ID and Secret into Supabase → Authentication → Providers → Google
 
-**7 · Set the URL configuration** — this is the step that bites people
+**7 · Set the URL configuration**, this is the step that bites people
 Authentication → URL Configuration:
 - **Site URL:** `http://localhost:3000` in dev; your real domain in production
 - **Redirect URLs**, both entries, both with the trailing slash:
@@ -547,7 +547,7 @@ after any change.
 development only. If you ship password resets or email confirmation to real users, configure your
 own SMTP (Resend, Postmark, SES) under Project Settings → Auth.
 
-**Not needed:** Storage buckets (no user uploads in this plan), Realtime (D1′ — no live sync),
+**Not needed:** Storage buckets (no user uploads in this plan), Realtime (D1′. No live sync),
 Edge Functions (nothing needs a server).
 
 ---
@@ -583,7 +583,7 @@ supabase/
 **Untouched:** `src/engine/**` (D10), `src/store/gameStore.ts`'s local behaviour, the offline
 service worker's shell caching, every existing play screen.
 
-**One existing file must change — see §14.**
+**One existing file must change. See §14.**
 
 ---
 
@@ -592,7 +592,7 @@ service worker's shell caching, every existing play screen.
 **The blocker you should know about before committing to a date: there is no game yet.**
 
 ROADMAP Phase 1 is unstarted. `src/engine/` has `types.ts`, `roles.ts`, `nightOrder.ts` and
-`balance.ts` — but no `deal.ts`, no `resolve.ts`, no `winCheck.ts`, no `machine.ts`. Both
+`balance.ts`, but no `deal.ts`, no `resolve.ts`, no `winCheck.ts`, no `machine.ts`. Both
 `/play` and `/setup/deal` are explicitly labelled `PHASE 1 STUB` in their own source comments. The
 app cannot currently deal roles, resolve a night, or reach a winner.
 
@@ -604,7 +604,7 @@ and PDF export can all ship against what exists today.
 
 | Stage | Work | Depends on |
 |---|---|---|
-| **C0** | `themes/schema.ts` validator + fail-closed loading | nothing — do this first regardless |
+| **C0** | `themes/schema.ts` validator + fail-closed loading | nothing. Do this first regardless |
 | **C1** | Supabase project, client, auth, `profiles`, sign-in/callback/account routes | C0 |
 | **C2** | Theme + prompt editor, `custom_themes` CRUD, custom theme selectable in setup | C1 |
 | **C3** | PDF/print export | C2 (works standalone for built-in themes) |
@@ -612,7 +612,7 @@ and PDF export can all ship against what exists today.
 | **C5** | Admin dashboard | C4 (meaningful data) |
 
 C0–C3 are shippable now and deliver most of what you described. C4–C5 want a finished Phase 1
-underneath them. My recommendation: **do C0, then finish Phase 1, then C1–C5** — or accept that the
+underneath them. My recommendation: **do C0, then finish Phase 1, then C1–C5**, or accept that the
 admin dashboard sits empty until the engine lands.
 
 ---
@@ -629,11 +629,11 @@ event.respondWith(caches.match(request).then((hit) => { if (hit) return hit; ...
 ```
 
 Point that at Supabase and it will cache REST responses and token endpoints and then serve them
-forever — stale sessions, stale game lists, logins that appear to succeed against a cached reply.
+forever. Stale sessions, stale game lists, logins that appear to succeed against a cached reply.
 Worse, the fallback `.catch(() => caches.match('/'))` returns the **HTML shell** for a failed API
 call, so client code trying to parse JSON gets `<!doctype html>`.
 
-The fix is small — restrict the handler to same-origin navigations and assets:
+The fix is small. Restrict the handler to same-origin navigations and assets:
 
 ```js
 const url = new URL(request.url)
@@ -651,7 +651,7 @@ verbatim uploads all of them.
 
 That is a materially different privacy posture from "the host has an account," and it's the kind of
 thing that is trivial to prevent now and awkward to unwind later. **Recommendation: strip seat
-names before upload** — replace with `Seat 1…n`, keeping roles, alive/dead and outcomes, which is
+names before upload**. Replace with `Seat 1…n`, keeping roles, alive/dead and outcomes, which is
 everything the history view and the admin stats actually need. If you later want named history,
 make it explicit opt-in per game with copy that says what it means.
 
@@ -660,14 +660,14 @@ Everything else, in descending order of how much it should worry you:
 | Risk | Mitigation |
 |---|---|
 | Hostile/malformed custom theme reaches the play screen | §8 validator, fail closed to base theme, DB `check` constraints as a second wall |
-| Sync latency creeps onto the hot path | P3 — checkpoints only; never `await` a network call inside a store action |
+| Sync latency creeps onto the hot path | P3. Checkpoints only; never `await` a network call inside a store action |
 | Bundle blows the ≤120 kB budget | Hand-rolled validator over Zod; print route over a PDF lib; admin route code-split |
-| Someone opens `/admin` | Expected and harmless — RLS returns nothing. Do **not** rely on hiding the route |
-| `security definer` footgun | §10 — use RLS + `security_invoker` views, never an ungated definer function |
-| Public theme gallery becomes a moderation problem | §8 — ship private-only; `is_public` stays dormant |
+| Someone opens `/admin` | Expected and harmless, RLS returns nothing. Do **not** rely on hiding the route |
+| `security definer` footgun | §10. Use RLS + `security_invoker` views, never an ungated definer function |
+| Public theme gallery becomes a moderation problem | §8. Ship private-only; `is_public` stays dormant |
 | Env vars missing at build → broken prod bundle | Nullable client renders a clear "cloud not configured" state instead of crashing |
-| Anonymous local games silently uploaded on sign-in | §6 — one-time explicit prompt, never automatic |
-| Docs drift from reality | §3 — amend CONTEXT.md and ROADMAP.md in the same commit as C1 |
+| Anonymous local games silently uploaded on sign-in | §6: one-time explicit prompt, never automatic |
+| Docs drift from reality | §3. Amend CONTEXT.md and ROADMAP.md in the same commit as C1 |
 
 ---
 
@@ -677,13 +677,13 @@ Four answers unblock implementation. My recommendation is on each, so "all your 
 valid reply.
 
 1. **Do you accept the D1′/D6′ reversal in §3?** This is the real decision; everything else is
-   mechanics. *(No default — it's yours to make.)*
+   mechanics. *(No default, it's yours to make.)*
 2. **Seat names: strip before upload?** *(Recommend: yes, strip. §14.2)*
-3. **Public theme gallery in v1?** *(Recommend: no — build the table for it, ship it private. §8)*
+3. **Public theme gallery in v1?** *(Recommend: no. Build the table for it, ship it private. §8)*
 4. **Sequencing: C0 → Phase 1 engine → C1–C5, or C0–C3 first and accept an empty admin
-   dashboard until the engine lands?** *(Recommend: the former — but the latter gets you a demo
+   dashboard until the engine lands?** *(Recommend: the former, but the latter gets you a demo
    sooner, and it's a reasonable call if you want something to show. §13)*
 
-On approval I'd start with **C0** — `themes/schema.ts` — because it's blocking, it's useful even if
+On approval I'd start with **C0** (`themes/schema.ts`) because it's blocking, it's useful even if
 you never ship a single cloud feature, and it's the file ARCHITECTURE.md has been claiming exists
 since Phase 0.

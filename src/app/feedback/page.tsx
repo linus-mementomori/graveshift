@@ -64,7 +64,7 @@ export default function FeedbackPage() {
     })
 
     if (res.ok) {
-      setStatus({ tone: 'success', text: 'Sent. It goes straight to the developer — thank you.' })
+      setStatus({ tone: 'success', text: 'Sent. It goes straight to the developer. Thank you.' })
       setMessage('')
       setKind(null)
       listMyFeedback().then(setMine)
@@ -97,7 +97,7 @@ export default function FeedbackPage() {
       <Screen title="Feedback" action={<ButtonLink href="/auth/sign-in">Sign in</ButtonLink>}>
         <div className="pt-4">
           <Notice>
-            Sign in to send feedback — it&apos;s tied to your account so the developer can follow up
+            Sign in to send feedback. It&apos;s tied to your account so the developer can follow up
             rather than shouting into the void.
           </Notice>
         </div>
@@ -171,7 +171,7 @@ export default function FeedbackPage() {
               {myThemes.length === 0 ? (
                 <Notice>
                   You haven&apos;t saved a theme yet. Write one first and it&apos;ll show up here to
-                  attach — or send this without one and just describe the idea.
+                  attach, or send this without one and just describe the idea.
                 </Notice>
               ) : (
                 <Select
@@ -179,7 +179,7 @@ export default function FeedbackPage() {
                   value={themeId}
                   onChange={(e) => setThemeId(e.target.value)}
                   options={[
-                    { value: '', label: '— none, just describing it —' },
+                    { value: '', label: '(none, just describing it)' },
                     ...myThemes.map((t) => ({ value: t.id, label: t.theme.name })),
                   ]}
                 />

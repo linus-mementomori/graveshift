@@ -1,6 +1,6 @@
 /**
  * Themes are PURE DATA (CONTEXT.md decision D4).
- * A theme changes names, flavour, narration, colour and cue text — never the rules.
+ * A theme changes names, flavour, narration, colour and cue text. Never the rules.
  * Adding a theme is one file and zero engine changes.
  */
 

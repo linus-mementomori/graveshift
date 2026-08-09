@@ -1,6 +1,12 @@
 {
   "version": 1,
   "skills": {
+    "content-humanizer": {
+      "source": "alirezarezvani/claude-skills",
+      "sourceType": "github",
+      "skillPath": "marketing-skill/skills/content-humanizer/SKILL.md",
+      "computedHash": "e81a9f160664d6a4a6a3e587c0a97b42392713d1ab842e5ca4714755caa13976"
+    },
     "supabase": {
       "source": "supabase/agent-skills",
       "sourceType": "github",

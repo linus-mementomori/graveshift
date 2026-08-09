@@ -1,4 +1,4 @@
-# EMAIL_SETUP.md — Custom SMTP
+# EMAIL_SETUP.md: Custom SMTP
 
 How to enable custom SMTP so the email templates become editable.
 
@@ -49,16 +49,16 @@ The rest of this doc uses Resend.
 
 This determines how much work step 3 is.
 
-**Option A — you own a domain** (you do: `molinalim.com`).
+**Option A, you own a domain** (you do: `molinalim.com`).
 Verify it with Resend and you can send from `no-reply@molinalim.com` to anyone.
 This is what you want before launch.
 
 Consider a **subdomain** like `mail.molinalim.com` rather than the root. If a
 Graveshift email ever gets marked as spam, the damage is contained to the subdomain's
-reputation instead of your main domain's — which also carries your portfolio
+reputation instead of your main domain's, which also carries your portfolio
 mail.
 
-**Option B — no domain / just testing.**
+**Option B. No domain / just testing.**
 Resend gives you `onboarding@resend.dev` with zero setup, but with a hard limit:
 **it only delivers to the email address you signed up with.** Fine for testing
 your own flows, useless the moment a second person registers.
@@ -71,7 +71,7 @@ your own flows, useless the moment a second person registers.
 
 2. **Domains → Add Domain** → enter `mail.molinalim.com` (or your root domain)
 
-3. Resend shows you DNS records — typically three:
+3. Resend shows you DNS records. Typically three:
 
    | Type | Purpose |
    |---|---|
@@ -80,7 +80,7 @@ your own flows, useless the moment a second person registers.
    | `TXT` (DKIM) | Cryptographically signs your mail |
 
    Add them wherever your DNS lives (Cloudflare, Namecheap, Vercel…). Copy the
-   values exactly — a trailing dot or a wrapped line will silently fail.
+   values exactly, a trailing dot or a wrapped line will silently fail.
 
 4. Wait for verification. Usually a few minutes; DNS can take up to an hour.
    Resend's dashboard shows the status.
@@ -121,7 +121,7 @@ Save.
 Go back to **Authentication → Emails → Templates**. The banner is gone and the
 subject/body fields are editable.
 
-Paste in the six files from [`supabase/email-templates/`](../supabase/email-templates/) —
+Paste in the six files from [`supabase/email-templates/`](../supabase/email-templates/),
 mapping and suggested subject lines are in that folder's README.
 
 ---
@@ -133,7 +133,7 @@ mapping and suggested subject lines are in that folder's README.
 3. Register with a real address you can check
 4. Confirm the email arrives, looks right, and the link works
 
-Then check delivery quality — **Resend → Logs** shows accepted/delivered/bounced
+Then check delivery quality. **Resend → Logs** shows accepted/delivered/bounced
 per message. If something never arrives, the answer is almost always there
 rather than in Supabase.
 
@@ -147,8 +147,8 @@ rather than in Supabase.
 | Emails go to spam | Domain not fully verified, or you're sending from a domain with no sending history. Warm up gradually; check SPF/DKIM show verified in Resend. |
 | "Only your own email" errors | You're on `onboarding@resend.dev`. Verify a real domain (§2, Option A). |
 | Nothing arrives, no error | Check Resend → Logs first. A wrong API key shows as an auth failure there. |
-| Confirmation link 404s | Unrelated to SMTP — that's the redirect-URL trailing slash. See `docs/GOOGLE_AUTH.md` §3. |
-| Works locally, not in production | Supabase SMTP is server-side, so it's environment-independent — if it works in one it works in both. A production-only failure is almost always the Site URL / Redirect URLs, not SMTP. |
+| Confirmation link 404s | Unrelated to SMTP, that's the redirect-URL trailing slash. See `docs/GOOGLE_AUTH.md` §3. |
+| Works locally, not in production | Supabase SMTP is server-side, so it's environment-independent. If it works in one it works in both. A production-only failure is almost always the Site URL / Redirect URLs, not SMTP. |
 
 ---
 
@@ -156,5 +156,5 @@ rather than in Supabase.
 
 Turn **off** "Confirm email" under Authentication → Providers → Email during
 development, so you aren't checking an inbox on every test signup. Turn it back
-on before launch — without it, anyone can register with an address they don't
+on before launch. Without it, anyone can register with an address they don't
 own.

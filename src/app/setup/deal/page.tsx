@@ -9,7 +9,7 @@ import { getTheme, roleName, roleFlavour } from '@/themes'
 import { ROLES } from '@/engine/roles'
 
 /**
- * The deal — GAME_DESIGN.md §6 (S5), DESIGN.md §7.6.
+ * The deal. See GAME_DESIGN.md §6 (S5) and DESIGN.md §7.6.
  *
  * One player at a time. No back-navigation into an already-dealt seat: it would
  * leak. The role is never on screen at the same time as the next player's name.
@@ -21,7 +21,7 @@ export default function DealPage() {
   const [index, setIndex] = useState(0)
   const [seen, setSeen] = useState(false)
 
-  // Deal on arrival so the roles exist before the first reveal — but only
+  // Deal on arrival so the roles exist before the first reveal, but only
   // AFTER hydration, or we'd deal a fresh game over one already in progress.
   useEffect(() => {
     if (hydrated && !game) startGame()
@@ -79,7 +79,7 @@ export default function DealPage() {
         <Button onClick={next} disabled={!seen}>
           {seen
             ? isLast
-              ? 'Everyone has seen — begin Night 1'
+              ? 'Everyone has seen. Begin Night 1'
               : `${seat.name} has seen it →`
             : 'Hold the card above to reveal'}
         </Button>

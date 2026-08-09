@@ -31,7 +31,7 @@ export const hunterDemon: Theme = {
     sleepwalker: { name: 'Night Watch', flavour: 'You never sleep. You know if the night claimed anyone.' },
   },
   narration: {
-    nightFall: 'The lanterns go out. Everyone — eyes closed.',
+    nightFall: 'The lanterns go out. Everyone, eyes closed.',
     wolvesWake: 'Demons. Open your eyes. Choose tonight.',
     seerWake: 'Oracle. Whose aura do you read?',
     doctorWake: 'Medic. Who breathes until morning?',

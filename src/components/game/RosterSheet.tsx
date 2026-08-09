@@ -10,7 +10,7 @@ import type { GameState, Seat } from '@/engine/types'
 /**
  * Every seat, what they are, what they can do, and whether they're still alive.
  *
- * This is the host's cheat sheet — the thing they'd otherwise be holding in
+ * This is the host's cheat sheet. The thing they'd otherwise be holding in
  * their head (CONTEXT.md §2: "the host holds 12 secret identities and forgets
  * who the Doctor saved"). It is also the single most dangerous screen in the
  * app: it shows every hidden role at once. Hence the deliberate friction of
@@ -82,7 +82,7 @@ function RosterRow({ seat, theme }: { seat: Seat; theme: ReturnType<typeof getTh
           {seat.name}
         </span>
         <span className={cn('caption shrink-0', factionColour)}>
-          {/* Word as well as colour — never encode meaning in colour alone (DESIGN §8). */}
+          {/* Word as well as colour. Never encode meaning in colour alone (DESIGN §8). */}
           {seat.alive ? faction : 'out'}
         </span>
       </div>

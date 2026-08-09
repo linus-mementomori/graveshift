@@ -6,7 +6,7 @@ import type { Seat } from '@/engine/types'
 import type { TargetOption } from '@/engine/machine'
 
 /**
- * The seat grid — DESIGN.md §5.1.
+ * The seat grid (DESIGN.md §5.1).
  *
  * 3 columns at 9+ players (the common case), 2 below. Disabled seats always
  * carry a reason; a dead button with no explanation is a design failure (§5.8).

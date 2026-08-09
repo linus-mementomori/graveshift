@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * The offline outbox — CLOUD_PLAN §7.
+ * The offline outbox, CLOUD_PLAN §7.
  *
  * Writes queue in localStorage and flush on app open, on `online`, and after
  * sign-in. A game hosted entirely in a basement syncs whole the next time the
@@ -40,7 +40,7 @@ function write(entries: OutboxEntry[]): void {
   try {
     localStorage.setItem(KEY, JSON.stringify(entries.slice(-MAX_ENTRIES)))
   } catch {
-    /* quota — dropping telemetry is always better than breaking the game */
+    /* quota. Dropping telemetry is always better than breaking the game */
   }
 }
 
@@ -54,7 +54,7 @@ export function pendingCount(): number {
 
 let flushing = false
 
-/** Drain the queue. Silent on failure — entries stay for the next attempt. */
+/** Drain the queue. Silent on failure. Entries stay for the next attempt. */
 export async function flush(): Promise<void> {
   if (flushing || !supabase) return
   if (typeof navigator !== 'undefined' && navigator.onLine === false) return
@@ -74,7 +74,7 @@ export async function flush(): Promise<void> {
             : supabase.from(entry.table).update(entry.row).eq('id', entry.id ?? '')
 
         const { error } = await q
-        // A row rejected by RLS or a constraint will never succeed on retry —
+        // A row rejected by RLS or a constraint will never succeed on retry, so
         // dropping it beats blocking the queue forever behind a poison entry.
         if (error && !/row-level security|violates|invalid input/i.test(error.message)) {
           remaining.push(entry)

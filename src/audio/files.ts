@@ -3,7 +3,7 @@
  *
  * Drop an MP3 into `public/audio/` with the matching filename and it is used
  * automatically. Leave one out and that cue falls back to the generated synth
- * patch — so a half-filled folder is a perfectly valid state, and the app never
+ * patch, so a half-filled folder is a perfectly valid state, and the app never
  * goes silent waiting for you to finish.
  *
  * Keep clips SHORT (2–4 s) and compressed (mono, 96 kbps). ARCHITECTURE §9 caps
@@ -40,13 +40,13 @@ export interface ExtraSound {
   /** Shown on the soundboard button. */
   label: string
   file: string
-  /** One line on when to use it — the host is scanning this in the dark. */
+  /** One line on when to use it. The host is scanning this in the dark. */
   hint: string
 }
 
 /**
  * The host soundboard: sounds with no fixed place in the night order, fired
- * whenever the room needs it. This is where a sarcastic sting belongs — it is
+ * whenever the room needs it. This is where a sarcastic sting belongs. It is
  * a performance choice, not a game beat.
  */
 export const EXTRA_SOUNDS: ExtraSound[] = [

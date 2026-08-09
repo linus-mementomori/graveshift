@@ -11,7 +11,7 @@ import type { GameState } from '@/engine/types'
 import { deathLine } from './narration'
 
 /**
- * DAWN — GAME_DESIGN.md §6.
+ * DAWN, GAME_DESIGN.md §6.
  * Deliberately sparse. If nobody died, the emptiness IS the design (DESIGN §7.8).
  */
 export function DawnPhase({ game }: { game: GameState }) {
@@ -19,7 +19,7 @@ export function DawnPhase({ game }: { game: GameState }) {
   const theme = getTheme(game.themeId)
   const alive = livingSeats(game)
 
-  // A Hunter died and still owes a shot — resolve it before the day (§9).
+  // A Hunter died and still owes a shot. Resolve it before the day (§9).
   const hunterId = pendingHunterIds[0]
   if (hunterId) {
     const hunter = game.seats.find((s) => s.id === hunterId)

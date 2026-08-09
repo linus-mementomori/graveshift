@@ -31,7 +31,7 @@ export const longCourt: Theme = {
     sleepwalker: { name: 'The Wakeful', flavour: 'You do not sleep. You know if the night took a life.' },
   },
   narration: {
-    nightFall: 'The braziers gutter out. Everyone — close your eyes.',
+    nightFall: 'The braziers gutter out. Everyone, close your eyes.',
     wolvesWake: 'Winter-sworn, wake. Whose breath stops tonight?',
     seerWake: 'Seer of Ash. Whose name do the ashes give you?',
     doctorWake: 'Hedge-witch. Who do you hold to this side of morning?',
@@ -59,7 +59,7 @@ export const longCourt: Theme = {
     VICTORY_MAFIA: 'Something beautiful and completely cold.',
   },
   victory: {
-    village: 'The frost draws back. The court holds — this winter, at least.',
+    village: 'The frost draws back. The court holds, this winter at least.',
     mafia: 'The Long Court belongs to winter now. It is very quiet, and very beautiful.',
     neutral: 'An oath nobody swore has been kept.',
   },

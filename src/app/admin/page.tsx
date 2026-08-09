@@ -15,7 +15,7 @@ import {
 /**
  * Admin dashboard.
  *
- * This route's JavaScript is PUBLIC — with `output: 'export'` every visitor can
+ * This route's JavaScript is PUBLIC. With `output: 'export'` every visitor can
  * download it. That is fine and expected: the isAdmin check below only decides
  * what we bother to render. The real boundary is `public.is_admin()` in the RLS
  * policies (supabase/schema.sql), so a non-admin who opens this page gets empty
@@ -179,7 +179,7 @@ export default function AdminPage() {
             <Stat value={stats.completed} label="Played to a winner" />
             <Stat value={stats.customThemes} label="Custom themes" />
             <Stat
-              value={stats.games ? `${Math.round((stats.completed / stats.games) * 100)}%` : '—'}
+              value={stats.games ? `${Math.round((stats.completed / stats.games) * 100)}%` : '–'}
               label="Completion rate"
             />
           </div>
@@ -187,7 +187,7 @@ export default function AdminPage() {
           <h3 className="display glow-sm mt-10 text-xl">Most-used themes</h3>
           {stats.topThemes.length === 0 ? (
             <p className="mt-3 text-sm text-[var(--text-secondary)]">
-              No games recorded yet — sync lands with ROADMAP Phase&nbsp;1.
+              No games recorded yet. Sync lands with ROADMAP Phase&nbsp;1.
             </p>
           ) : (
             <ul className="mt-3 space-y-1.5">
@@ -233,7 +233,7 @@ export default function AdminPage() {
           {!showHosts ? (
             <div className="mt-3 space-y-2">
               <p className="text-sm text-[var(--text-secondary)]">
-                Hidden by default — this section names individual hosts.
+                Hidden by default. This section names individual hosts.
               </p>
               <Button variant="secondary" onClick={loadHosts}>
                 Show hosts
@@ -274,8 +274,8 @@ export default function AdminPage() {
  *   2. what public.is_admin() returns for that session's token
  *
  * They must agree with the email inside is_admin() in supabase/schema.sql.
- * Anything else — a stale bundle, a different Google address, an unsaved SQL
- * edit — shows up here immediately instead of as a silent empty screen.
+ * Anything else. A stale bundle, a different Google address, an unsaved SQL
+ * edit. Shows up here immediately instead of as a silent empty screen.
  */
 function AdminDiagnostics({ email }: { email: string }) {
   const [rpc, setRpc] = useState<{ value: unknown; error: string | null } | null>(null)
@@ -305,7 +305,7 @@ function AdminDiagnostics({ email }: { email: string }) {
           rpc === null
             ? 'checking…'
             : rpc.error
-              ? `error — ${rpc.error}`
+              ? `error: ${rpc.error}`
               : String(rpc.value)
         }
       />
@@ -314,8 +314,8 @@ function AdminDiagnostics({ email }: { email: string }) {
         {rpc?.error
           ? 'The function could not be called. Re-run supabase/schema.sql.'
           : rpc?.value === false
-            ? 'The function ran and returned false — the email above is not inside is_admin(). Copy it EXACTLY into supabase/set-admin.sql and re-run it. Watch for a different Google address than the one you expected.'
-            : 'If this says true but the dashboard is still hidden, you are running an old bundle — hard-reload once.'}
+            ? 'The function ran and returned false. The email above is not inside is_admin(). Copy it EXACTLY into supabase/set-admin.sql and re-run it. Watch for a different Google address than the one you expected.'
+            : 'If this says true but the dashboard is still hidden, you are running an old bundle. Hard-reload once.'}
       </p>
     </div>
   )

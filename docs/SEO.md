@@ -1,4 +1,4 @@
-# SEO.md — Getting found in search
+# SEO.md: Getting found in search
 
 What's already built, what **you** have to do, and an honest read on what will
 and won't work.
@@ -37,7 +37,7 @@ exact problem you solve type things like:
 - "werewolf role generator"
 - "werewolf app for large groups"
 
-These have low competition and high conversion — someone typing them wants
+These have low competition and high conversion. Someone typing them wants
 precisely this. That's what the site is now optimised for.
 
 ---
@@ -51,20 +51,20 @@ precisely this. That's what the site is now optimised for.
 | Auto-generated OG image | `src/app/opengraph-image.tsx` | 1200×630 card, built at compile time |
 | `robots.txt` | `src/app/robots.ts` | Allows public pages, blocks `/admin`, `/account`, `/auth`, `/play` |
 | `sitemap.xml` | `src/app/sitemap.ts` | Lists the four genuinely indexable pages |
-| **Structured data (JSON-LD)** | `src/lib/seo.ts` | `SoftwareApplication` + `FAQPage` — this is the real win |
+| **Structured data (JSON-LD)** | `src/lib/seo.ts` | `SoftwareApplication` + `FAQPage`, this is the real win |
 | **On-page content** | `src/app/page.tsx` | ~400 words of actual copy below the fold |
 | Per-page titles | `src/app/guide/layout.tsx` | The guide gets its own title and description |
 
 ### The two that matter most
 
 **On-page content.** Before this, the homepage was a wordmark, a tagline and two
-buttons — nothing for a crawler to rank. There's now a section under the CTAs
+buttons. Nothing for a crawler to rank. There's now a section under the CTAs
 explaining what the app does, how a game runs, the roles and themes, and four
 FAQs. It sits below the fold so it never costs a host a tap in a dark room.
 
 **JSON-LD.** Unlike meta keywords, Google documents and uses this. The `FAQPage`
 block is what can turn your result from a plain blue link into one with an
-expandable Q&A — which takes up more space and gets more clicks. The visible
+expandable Q&A, which takes up more space and gets more clicks. The visible
 FAQs deliberately match the structured data, because Google penalises FAQ markup
 with no on-page equivalent.
 
@@ -72,13 +72,13 @@ with no on-page equivalent.
 
 ## What you need to do
 
-### 1 · Confirm the domain is set (required — do this first)
+### 1 · Confirm the domain is set (required: do this first)
 
-Everything now points at `https://graveshift.1stplaybook.com` — that's the real
+Everything now points at `https://graveshift.1stplaybook.com`, that's the real
 domain, not a placeholder, since `1stplaybook.com` is a domain you own and
 Graveshift lives on its subdomain.
 
-Set it in `.env` **and** in Vercel's environment variables:
+Set it in `.env` **and** in Netlify's environment variables:
 
 ```
 NEXT_PUBLIC_SITE_URL=https://graveshift.1stplaybook.com
@@ -89,24 +89,32 @@ until you rebuild.
 
 **Worth knowing about subdomains and SEO:** search engines treat a subdomain of
 an owned root domain (`graveshift.1stplaybook.com`) far better than a
-free-hosting one (`*.vercel.app`) — but Google Search Console still needs its
-own property for the subdomain specifically (§2 below covers this). If you ever
-add sibling products under `1stplaybook.com`, each one benefits from the root
-domain's accumulated trust, which is the whole point of the studio-plus-named-
-products structure you chose.
+free-hosting one (`*.netlify.app`). See §6 for how this interacts with the
+1st Playbook landing page now that it exists.
 
 ### 2 · Google Search Console (the single highest-value 10 minutes)
 
 1. Go to [search.google.com/search-console](https://search.google.com/search-console)
-2. **Add property** → **URL prefix** → your domain
-3. Verify — easiest is the **HTML tag** method: copy the `content` value, then
-   add to `src/app/layout.tsx` inside `metadata`:
+2. **Add property** → choose **Domain**, not URL prefix → enter
+   `1stplaybook.com`
 
-   ```ts
-   verification: { google: 'PASTE_THE_CONTENT_VALUE_HERE' },
-   ```
+   > **Use a Domain property, now that there are two sites.** A URL-prefix
+   > property only covers the exact host you type, so you would need one for
+   > `graveshift.1stplaybook.com` and a second for `1stplaybook.com`, forever
+   > adding another for each new product. A Domain property covers the root
+   > **and every subdomain** in one place, and it is the only way to see both
+   > sites' performance side by side, which is exactly the comparison you will
+   > want (§6).
 
-   Redeploy, then click Verify.
+3. Verify via **DNS**. Domain properties require it. Search Console gives you a
+   `TXT` record; add it in Cloudflare (DNS → Records → Add record, type `TXT`,
+   name `@`), then click Verify. You already know this dashboard from
+   `DEPLOY_DOMAIN.md`.
+
+   *(Prefer not to touch DNS? The HTML-tag method still works, but only for a
+   URL-prefix property: add `verification: { google: '…' }` to `metadata` in
+   `src/app/layout.tsx` and redeploy. You would then repeat the whole exercise
+   for the landing page.)*
 4. **Sitemaps** → submit `sitemap.xml`
 5. **URL Inspection** → paste your homepage → **Request indexing**
 
@@ -115,7 +123,7 @@ weeks. With it, usually days.
 
 ### 3 · Bing Webmaster Tools (5 minutes)
 
-[bing.com/webmasters](https://www.bing.com/webmasters) — you can import directly
+[bing.com/webmasters](https://www.bing.com/webmasters), you can import directly
 from Search Console. Bing is ~3% of search but also powers ChatGPT's browsing
 and DuckDuckGo, which increasingly matters.
 
@@ -125,14 +133,14 @@ This is the uncomfortable one: **backlinks remain the strongest ranking factor,
 and no amount of on-page work substitutes for them.** Realistic places for a
 free party-game tool:
 
-- **Reddit** — r/boardgames, r/werewolf, r/partygames, r/webdev "I made a thing".
+- **Reddit**: r/boardgames, r/werewolf, r/partygames, r/webdev "I made a thing".
   Read each subreddit's self-promotion rules first; blatant promo gets removed
   and can get you banned.
-- **Hacker News** — Show HN. Post it yourself, honestly, with what it does and
+- **Hacker News**. Show HN. Post it yourself, honestly, with what it does and
   what it doesn't.
-- **BoardGameGeek** — the Werewolf/Mafia forums have exactly your audience.
-- **Product Hunt** — one launch, worth a spike and a permanent backlink.
-- **itch.io** — free tools list well there.
+- **BoardGameGeek**, the Werewolf/Mafia forums have exactly your audience.
+- **Product Hunt**: one launch, worth a spike and a permanent backlink.
+- **itch.io**. Free tools list well there.
 
 Five genuine links from relevant communities beat a hundred from directories.
 
@@ -143,16 +151,97 @@ meaningful traffic at 6+ months. Anyone promising faster is selling something.
 
 ---
 
+## 6 · The two-site structure (added when the landing page was built)
+
+`1stplaybook.com` is now a real landing page and `graveshift.1stplaybook.com` is
+the app. The obvious question, *should SEO move to the root domain since that is
+the "actual website"?*, has a clear answer: **no.**
+
+### Why Graveshift stays the SEO surface
+
+**Nobody searches for "1st Playbook".** It is a brand-new brand with no search
+volume and no reason for anyone to type it. Brand-name traffic follows products,
+not the other way round. People will find Graveshift first and learn the studio
+name second, if ever.
+
+The searches that matter are intent searches: *"werewolf moderator app"*,
+*"mafia night order"*, *"how to host werewolf"*. The page that should win those
+is the page that **satisfies** them. If the root domain ranked for "werewolf
+moderator app", the searcher would land on a page that describes an app and
+links to it. That is an extra click and a worse intent match, which means a
+higher bounce rate, and bouncing off a query you ranked for teaches the ranking
+system your page was the wrong answer. **You would be competing with yourself
+and losing to yourself.**
+
+So the division is:
+
+| Site | Should rank for | Should *not* chase |
+|---|---|---|
+| `graveshift.1stplaybook.com` | Every intent keyword: werewolf/mafia hosting, night order, roles, player counts | nothing, this is the SEO surface |
+| `1stplaybook.com` | Brand terms only: "1st Playbook", "1st Playbook games" | any werewolf/mafia keyword |
+
+### ⚠ The cannibalisation risk to watch
+
+The landing page will describe Graveshift. That is its whole job. But the more of
+Graveshift's *keyword territory* that copy covers ("runs the night order",
+"deals the roles", "Mafia and Werewolf game master"), the more Google sees two
+pages on the same property answering the same query and has to pick one. It often
+picks wrong, and both rank worse than one would have.
+
+**Keep the landing page's Graveshift blurb short and brand-flavoured.** Two or
+three sentences, oriented around *what it is* rather than *how to host a werewolf
+game*. Let the link do the work. All the depth belongs on Graveshift, where the
+app actually is.
+
+Concretely, on the landing page: **do not** add an FAQ section, a rules
+explainer, a night-order description, or role lists. Those exist on Graveshift
+and duplicating them is pure self-competition. This is written into the landing
+page brief.
+
+### What the landing page genuinely gains you
+
+Three real wins, none of which involve ranking for game keywords:
+
+1. **A root-domain link to Graveshift.** Internal, but it establishes the
+   hierarchy and gives crawlers a path from the root to the app.
+2. **`Organization` structured data.** This only becomes possible once a real
+   parent site exists. Put `Organization` JSON-LD on `1stplaybook.com`, then have
+   Graveshift's `SoftwareApplication` schema in `src/lib/seo.ts` reference it as
+   `publisher`. That tells Google the two are one entity rather than two
+   unrelated sites. Worth doing, and cheap.
+3. **Somewhere to point brand links.** Press, Product Hunt, a Reddit bio: links
+   that are not about werewolf specifically now have a sensible destination.
+
+### The one decision worth knowing you made
+
+There is a real argument that Graveshift should have been
+`1stplaybook.com/graveshift`, a **subdirectory**, rather than a subdomain. Google
+says it treats the two equally; the practical case-study evidence fairly
+consistently favours subdirectories, because authority from backlinks
+consolidates onto one host instead of being split across several.
+
+**Do not change it.** The cost is real and immediate: redirects, re-indexing,
+reconfiguring DNS and two Netlify sites to proxy one path, and a temporary
+ranking dip. The benefit is speculative and scales with backlink volume you do
+not have yet. At zero backlinks there is functionally nothing to consolidate.
+
+Revisit only if two things become true at once: Graveshift accumulates real
+inbound links, **and** you launch a second product that would benefit from
+inheriting them. Until then the subdomain is fine, and the `Organization` schema
+above recovers some of the entity-level association anyway.
+
+---
+
 ## If you want to go further
 
-The highest-leverage next step is **more real content**, because right now you
+The biggest next step by far is **more real content**, because right now you
 have one page worth indexing. Each of these could rank on its own:
 
-- `/guide/werewolf-rules` — the complete rules
-- `/guide/night-order` — the night order explained (people search this exact phrase)
-- `/guide/roles` — one section per role
-- `/guide/how-many-players` — the player-count question
-- `/guide/mafia-vs-werewolf` — the difference
+- `/guide/werewolf-rules`, the complete rules
+- `/guide/night-order`, the night order explained (people search this exact phrase)
+- `/guide/roles`: one section per role
+- `/guide/how-many-players`, the player-count question
+- `/guide/mafia-vs-werewolf`, the difference
 
 Ten pages of genuinely useful writing will beat any amount of meta-tag tuning.
 Your `docs/GAME_DESIGN.md` already contains most of the raw material.
@@ -173,7 +262,7 @@ Then run these:
 | Tool | Checks |
 |---|---|
 | [Rich Results Test](https://search.google.com/test/rich-results) | Your JSON-LD parses and is eligible for rich results |
-| [PageSpeed Insights](https://pagespeed.web.dev/) | Core Web Vitals — a real ranking factor |
+| [PageSpeed Insights](https://pagespeed.web.dev/) | Core Web Vitals, a real ranking factor |
 | [OpenGraph.xyz](https://www.opengraph.xyz/) | Your social preview card renders |
 | Search Console → Coverage | Which pages Google has actually indexed |
 
@@ -189,7 +278,7 @@ single-page client app. Neither is ideal for SEO:
 - The static export does pre-render HTML, which mitigates most of it.
 
 If organic search ever becomes the main growth channel, the right fix is to make
-the marketing content genuinely server-rendered — split the landing page from
+the marketing content genuinely server-rendered. Split the landing page from
 the app, so `/` is static HTML and the app lives at `/play`. That's a real
 restructure, not a tweak, and it isn't worth doing until search is actually
 delivering traffic worth protecting.

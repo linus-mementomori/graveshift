@@ -1,5 +1,5 @@
 /**
- * The phase machine — the ONLY place `phase` changes.
+ * The phase machine. The ONLY place `phase` changes.
  *
  * Every function is (state, input) => newState (or a small result object).
  * Nothing here touches the DOM, the clock, or randomness beyond the seed
@@ -14,7 +14,7 @@ import type { Beat, BeatId, Death, GameState, Intent, Seat, WinResult } from './
 
 /**
  * Beats where the host shows something rather than choosing something. These
- * advance without a target — the picker is hidden entirely.
+ * advance without a target. The picker is hidden entirely.
  */
 export const INFORMATIONAL: Set<string> = new Set([
   'wolves_recognise',
@@ -36,7 +36,7 @@ const find = (state: GameState, id: string | null | undefined) =>
 
 export const livingSeats = (state: GameState): Seat[] => state.seats.filter((s) => s.alive)
 
-/** The very first night — where the once-only beats (Cupid, Minion…) live. */
+/** The very first night. Where the once-only beats (Cupid, Minion…) live. */
 export const isFirstNight = (state: GameState): boolean => state.dayNumber === 1
 
 /** Night 0 is the opening night with no kills. Information only. */
@@ -112,7 +112,7 @@ export function legalTargets(
     if (beat.id === 'doctor_protect') {
       const doc = beat.actors[0]
       if (doc?.lastProtectedId === seat.id) {
-        return block(seat, 'Protected last night — never twice in a row.')
+        return block(seat, 'Protected last night. Never twice in a row.')
       }
       if (actorIds.has(seat.id) && (doc?.charges.selfHeal ?? 0) <= 0) {
         return block(seat, 'Self-heal already used.')
@@ -125,7 +125,7 @@ export function legalTargets(
   })
 }
 
-/** Record a tap. Nothing resolves — see resolve.ts for why. */
+/** Record a tap. Nothing resolves. See resolve.ts for why. */
 export function recordIntent(state: GameState, intent: Intent): GameState {
   const next = clone(state)
   // One intent per (beat, source): re-tapping replaces rather than stacks.
@@ -143,7 +143,7 @@ export function recordIntent(state: GameState, intent: Intent): GameState {
 }
 
 /**
- * Cupid picks TWO, and toggling matters — so this is its own entry point rather
+ * Cupid picks TWO, and toggling matters, so this is its own entry point rather
  * than a variant of recordIntent. Linking is structural, not an attack: the
  * Lovers must exist for every later beat and for grief cascades, so it applies
  * to the seats immediately.
@@ -283,7 +283,7 @@ export function revealMayor(state: GameState, seatId: string): GameState {
   return next
 }
 
-/** Total votes available — a revealed Mayor is worth two. */
+/** Total votes available. A revealed Mayor is worth two. */
 export function voterWeight(state: GameState): number {
   const alive = livingSeats(state)
   const mayorAlive = alive.some((s) => s.id === state.mayorRevealedId)
@@ -293,14 +293,14 @@ export function voterWeight(state: GameState): number {
 }
 
 /**
- * Votes needed to execute — HOUSE RULE.
+ * Votes needed to execute, HOUSE RULE.
  *
  * This is a PLURALITY rule, not a majority one: whoever has the most votes is
  * executed, provided they have more than one. A single accusing voice is never
  * enough to hang someone, but the town does not have to agree as a body.
  *
  * Kept as a named constant because it is the single most balance-sensitive
- * number in the game — see the note in `tallyVote`.
+ * number in the game. See the note in `tallyVote`.
  */
 export const MIN_VOTES_TO_EXECUTE = 2
 
@@ -318,7 +318,7 @@ export function tallyVote(
   const [topId, topCount] = sorted[0]
   const tie = sorted.length > 1 && sorted[1][1] === topCount
 
-  // A tie saves EVERYONE involved — nobody is executed, both walk away.
+  // A tie saves EVERYONE involved. Nobody is executed, both walk away.
   // Deliberate: it makes a split town a real defensive outcome rather than a
   // coin-flip, and gives a cornered player something to actually play for.
   if (tie) return { tie: true }
@@ -372,7 +372,7 @@ export function execute(state: GameState, seatId: string): ExecuteResult {
       faction: 'neutral',
       roleId: 'jester',
       kingmaker: true,
-      message: `${target.name} was the Jester — and you did exactly what they wanted.`,
+      message: `${target.name} was the Jester, and you did exactly what they wanted.`,
     }
     next.phase = 'end'
     return { state: next, survived: false, pendingHunterIds: [] }

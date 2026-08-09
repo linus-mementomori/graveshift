@@ -1,5 +1,5 @@
 /**
- * The night order table — GAME_DESIGN.md §4.1.
+ * The night order table, GAME_DESIGN.md §4.1.
  * The engine walks these in ascending order, skipping beats with no living actor.
  */
 
@@ -18,8 +18,8 @@ export interface BeatDef {
 // NOTE: the BeatDef[] annotation only gives contextual typing (so each `id`
 // stays a BeatId literal instead of widening to `string`) when it's applied
 // directly to this array literal. Chaining `.sort()` onto the literal breaks
-// that — the annotation would apply to the sort *call's* result, not to the
-// literal itself — so the array is declared first and sorted as a second,
+// that. The annotation would apply to the sort *call's* result, not to the
+// literal itself, so the array is declared first and sorted as a second,
 // separate (mutating) statement.
 export const NIGHT_ORDER: BeatDef[] = [
   { id: 'cupid_link', order: 1, roleId: 'cupid', firstNightOnly: true },

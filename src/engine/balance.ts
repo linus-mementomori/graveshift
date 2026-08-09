@@ -1,5 +1,5 @@
 /**
- * Balance — GAME_DESIGN.md §5 and §10.
+ * Balance, GAME_DESIGN.md §5 and §10.
  *
  * Presets, the rule checks, the villageEdge heuristic, and the opening
  * vote-margin arithmetic. All pure; the setup screen calls this on every change.
@@ -67,14 +67,14 @@ export const countByFaction = (c: Composition) => {
   return { village, mafia, neutral }
 }
 
-/** GAME_DESIGN §5.2 rule 1 — the target mafia count for a table size. */
+/** GAME_DESIGN §5.2 rule 1. The target mafia count for a table size. */
 export const recommendedMafia = (players: number) =>
   Math.max(1, Math.min(Math.round(players * 0.26), Math.floor((players - 1) / 3)))
 
 export const majority = (alive: number) => Math.floor(alive / 2) + 1
 
 /**
- * The opening vote-margin check — GAME_DESIGN §10.2.
+ * The opening vote-margin check, GAME_DESIGN §10.2.
  * This is the single most load-bearing balance test: can evil simply out-vote
  * the town before any information exists?
  */
@@ -91,7 +91,7 @@ export function voteMarginCheck(c: Composition) {
   return { dayOne, afterOne, pass: dayOne && afterOne, evilBloc, majority: majority(players) }
 }
 
-/** Structural legality — GAME_DESIGN §5.2 rules 5–8, 11–12. */
+/** Structural legality, GAME_DESIGN §5.2 rules 5–8, 11–12. */
 export function ruleViolations(c: Composition): string[] {
   const players = totalPlayers(c)
   const { village, mafia } = countByFaction(c)
@@ -107,8 +107,8 @@ export function ruleViolations(c: Composition): string[] {
   // The 20–30% ratio floor only applies from 7 players up. At 5–6 the stronger
   // rule binds first: a second wolf would start the game at parity-minus-one.
   const ratio = players > 0 ? mafia / players : 0
-  if (players >= 7 && ratio < 0.2) out.push('Too few mafia — the village will steamroll this.')
-  if (ratio > 0.3) out.push('Too many mafia — they win before anyone learns anything.')
+  if (players >= 7 && ratio < 0.2) out.push('Too few mafia. The village will steamroll this.')
+  if (ratio > 0.3) out.push('Too many mafia. They win before anyone learns anything.')
 
   const investigators = (c.seer ?? 0) + (c.gravedigger ?? 0)
   if (investigators === 0) out.push('No investigative role. This is a lottery, not a deduction game.')
@@ -125,7 +125,7 @@ export function ruleViolations(c: Composition): string[] {
 
   const villageKillers = (c.vigilante ?? 0) + (c.witch ?? 0) + (c.serialKiller ?? 0)
   if (villageKillers > Math.floor(players / 6)) {
-    out.push('Too many night killers — the day stops mattering.')
+    out.push('Too many night killers. The day stops mattering.')
   }
 
   if (!voteMarginCheck(c).afterOne) {

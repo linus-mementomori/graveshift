@@ -8,7 +8,7 @@ import { cn } from '@/components/ui'
  * Bottom sheet for the in-game dock.
  *
  * Slides up over the play screen and stops short of the dock, so the host can
- * still see which tab they're in. Tapping the scrim closes it — DESIGN §1
+ * still see which tab they're in. Tapping the scrim closes it (DESIGN §1
  * principle 7: never trap the host, especially not at 1 a.m.
  */
 export function Sheet({

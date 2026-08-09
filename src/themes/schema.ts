@@ -1,5 +1,5 @@
 /**
- * Theme validation — CONTEXT.md D11.
+ * Theme validation, CONTEXT.md D11.
  *
  * Built-in themes are checked by TypeScript. Custom themes arrive as `jsonb`
  * from a database, authored by a user, and TypeScript cannot help with that at
@@ -125,7 +125,7 @@ export function validateTheme(input: unknown): ValidationResult {
     if (v.length > LIMITS.factionName) errors.push(`Faction name "${k}" is too long.`)
   }
 
-  // ── narration — the part that must not be wrong ───────────────────────────
+  // ── narration. The part that must not be wrong ───────────────────────────
   const rawNarration = isRecord(input.narration) ? input.narration : {}
   const narration = {} as Theme['narration']
   for (const key of NARRATION_KEYS) {
@@ -136,7 +136,7 @@ export function validateTheme(input: unknown): ValidationResult {
     }
     if (wordCount(line) > MAX_NARRATION_WORDS) {
       errors.push(
-        `"${NARRATION_LABELS[key]}" is ${wordCount(line)} words — keep it to ${MAX_NARRATION_WORDS} or fewer so it fits on one screen.`,
+        `"${NARRATION_LABELS[key]}" is ${wordCount(line)} words. Keep it to ${MAX_NARRATION_WORDS} or fewer so it fits on one screen.`,
       )
     }
     if (line.length > LIMITS.line) errors.push(`"${NARRATION_LABELS[key]}" is too long.`)
@@ -154,7 +154,7 @@ export function validateTheme(input: unknown): ValidationResult {
     if (wordCount(v) > MAX_NARRATION_WORDS) errors.push(`Victory line "${k}" is too long to read aloud.`)
   }
 
-  // ── optional maps — degrade gracefully, never fatal ───────────────────────
+  // ── optional maps. Degrade gracefully, never fatal ───────────────────────
   const roleSkins: Theme['roleSkins'] = {}
   if (isRecord(input.roleSkins)) {
     for (const [roleId, value] of Object.entries(input.roleSkins)) {
@@ -208,7 +208,7 @@ export function validateTheme(input: unknown): ValidationResult {
 
 /**
  * Fail closed. An invalid custom theme falls back to a known-good one rather
- * than reaching a play screen half-rendered — a broken theme should cost the
+ * than reaching a play screen half-rendered. A broken theme should cost the
  * host a costume, never a game.
  */
 export function safeTheme(input: unknown, fallback: Theme): Theme {
@@ -216,7 +216,7 @@ export function safeTheme(input: unknown, fallback: Theme): Theme {
   return result.ok && result.theme ? result.theme : fallback
 }
 
-/** Seed an editor from an existing theme — a costume, not a fork of the rules. */
+/** Seed an editor from an existing theme. A costume, not a fork of the rules. */
 export function draftFrom(base: Theme, name: string): Theme {
   return {
     ...base,

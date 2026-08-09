@@ -31,7 +31,7 @@ export const cosaNostra: Theme = {
     sleepwalker: { name: 'Insomniac', flavour: 'You do not sleep. You know if the night was quiet.' },
   },
   narration: {
-    nightFall: 'The city goes quiet. Everybody — eyes down.',
+    nightFall: 'The city goes quiet. Everybody, eyes down.',
     wolvesWake: "The Family, wake up. Who doesn't see morning?",
     seerWake: 'Detective. One file. Who are we looking at?',
     doctorWake: 'Doc, you are up. Who lives through this?',

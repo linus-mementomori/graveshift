@@ -10,7 +10,7 @@ import { isKingmakerFinish } from '@/engine/winCheck'
 import type { GameState } from '@/engine/types'
 
 /**
- * END — GAME_DESIGN.md §6, §10.7.
+ * END, GAME_DESIGN.md §6, §10.7.
  * The log is the real payoff: it's what the table argues about for ten minutes.
  */
 export function EndPhase({ game }: { game: GameState }) {
@@ -47,7 +47,7 @@ export function EndPhase({ game }: { game: GameState }) {
       title="Game over"
       action={
         <>
-          <Button onClick={playAgain}>Rematch — same roles, reshuffled</Button>
+          <Button onClick={playAgain}>Rematch: same roles, reshuffled</Button>
           <Button
             variant="secondary"
             onClick={() => {
@@ -79,7 +79,7 @@ export function EndPhase({ game }: { game: GameState }) {
 
       {kingmaker && (
         <p className="caption mt-4 text-[var(--warn)]">
-          ⚠ Kingmaker finish — a player who could not win chose who did. That&apos;s the setup&apos;s
+          ⚠ Kingmaker finish. A player who could not win chose who did. That&apos;s the setup&apos;s
           doing, not theirs.
         </p>
       )}
@@ -130,7 +130,7 @@ export function EndPhase({ game }: { game: GameState }) {
                   : 'text-[var(--text-secondary)]',
               )}
             >
-              — {entry.text}
+              · {entry.text}
             </li>
           ))}
         </ul>

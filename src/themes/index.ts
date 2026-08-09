@@ -33,7 +33,7 @@ export const DEFAULT_THEME_ID = millersHollow.id
  *
  * Kept in a separate map so `THEMES` stays exactly the seven built-ins (the
  * setup grid, the docs and the tests all assume that), while `getTheme()` keeps
- * working unchanged for every component during play — none of them need to know
+ * working unchanged for every component during play. None of them need to know
  * whether the host picked a shipped costume or one they wrote themselves.
  */
 const CUSTOM_THEMES: Record<string, Theme> = {}

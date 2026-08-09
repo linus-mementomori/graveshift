@@ -11,13 +11,13 @@ export const SUPPORT_URL = `https://ko-fi.com/${KOFI_ID}`
  * A plain <a target="_blank"> is not enough here. It silently does nothing in
  * three situations this app is regularly in:
  *
- *   - installed as a PWA (`display: standalone` in the manifest) — some
+ *   - installed as a PWA (`display: standalone` in the manifest). Some
  *     platforms, iOS especially, just swallow _blank
  *   - inside an in-app browser (Instagram, Slack, the preview pane)
  *   - behind a popup blocker
  *
- * So: try window.open, and if it returns null — which is exactly what a blocked
- * or ignored popup looks like — navigate this tab instead. Leaving the app is a
+ * So: try window.open, and if it returns null (exactly what a blocked or
+ * ignored popup looks like) navigate this tab instead. Leaving the app is a
  * far better outcome than a button that does nothing. This was a real bug, not
  * a hypothetical one.
  *

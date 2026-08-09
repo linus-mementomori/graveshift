@@ -31,7 +31,7 @@ export const signalLost: Theme = {
     sleepwalker: { name: 'Night Shift', flavour: 'You are awake. You know if the cycle cost someone.' },
   },
   narration: {
-    nightFall: 'Lights to night cycle. Everyone — eyes down.',
+    nightFall: 'Lights to night cycle. Everyone, eyes down.',
     wolvesWake: 'Anomaly. Open your eyes. Select a crew member.',
     seerWake: 'Bio-scanner. One deep scan. Who are we reading?',
     doctorWake: 'Med-Officer. One pod. Who goes in it?',

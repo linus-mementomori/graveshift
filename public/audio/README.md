@@ -1,10 +1,10 @@
-# public/audio — drop your MP3s here
+# public/audio: drop your MP3s here
 
 Name a file exactly as listed below and the app uses it automatically. No code
 changes, no config.
 
 **Nothing here is required.** Any cue without a file falls back to the generated
-synth patch, so a half-filled folder works fine — add sounds as you find them.
+synth patch, so a half-filled folder works fine. Add sounds as you find them.
 
 ---
 
@@ -33,7 +33,7 @@ These fire from the ▶ Play button on the cue strip at that point in the game.
 
 ## Soundboard sounds
 
-These appear in the **Soundboard** tray during play — fired whenever the host
+These appear in the **Soundboard** tray during play. Fired whenever the host
 wants, not tied to a beat. Buttons only appear for files that exist.
 
 | Filename | Intended use |
@@ -45,7 +45,7 @@ wants, not tied to a beat. Buttons only appear for files that exist.
 | `heartbeat-long.mp3` | Under the final accusation |
 | `door-creak.mp3` | Nothing is at the door. Let them wonder. |
 
-Want different ones? Edit `EXTRA_SOUNDS` in `src/audio/files.ts` — id, label,
+Want different ones? Edit `EXTRA_SOUNDS` in `src/audio/files.ts`. Id, label,
 filename, and a one-line hint.
 
 ---
@@ -83,9 +83,9 @@ Safest sources, in order:
 
 | Source | Licence |
 |---|---|
-| [Freesound](https://freesound.org) — **filter to CC0** | Public domain |
+| [Freesound](https://freesound.org), **filter to CC0** | Public domain |
 | [Pixabay Sound Effects](https://pixabay.com/sound-effects/) | Free commercial use |
-| [OpenGameArt](https://opengameart.org) | Mixed — check each |
+| [OpenGameArt](https://opengameart.org) | Mixed. Check each |
 
 Avoid ripping from films, games, TV or meme soundboards for anything public.
 It's fine for a private game night; it's a real risk on a public site with your

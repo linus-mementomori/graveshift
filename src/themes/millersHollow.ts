@@ -16,7 +16,7 @@ export const millersHollow: Theme = {
     hunter: { name: 'Hunter', flavour: 'If you fall, your last shot is already aimed.' },
     witch: { name: 'Witch', flavour: 'Two vials. One gives back a life. One takes it.' },
     vigilante: { name: 'Poacher', flavour: 'Two shots, and no one to forgive you if you are wrong.' },
-    mayor: { name: 'Elder', flavour: 'The village listens to you — once you decide to be heard.' },
+    mayor: { name: 'Elder', flavour: 'The village listens to you, once you decide to be heard.' },
     lycan: { name: 'Cursed', flavour: 'You are no wolf. The Seer will not believe you.' },
     minion: { name: 'Servant', flavour: 'You know their faces. They will never know yours.' },
     alpha: { name: 'Alpha', flavour: 'Once, the pack hunts as one, and no herb will help them.' },
@@ -31,7 +31,7 @@ export const millersHollow: Theme = {
     sleepwalker: { name: 'Sleepwalker', flavour: 'You wander. You know whether the night took someone.' },
   },
   narration: {
-    nightFall: 'Night falls on the village. Everyone — close your eyes.',
+    nightFall: 'Night falls on the village. Everyone, close your eyes.',
     wolvesWake: 'Werewolves, open your eyes. Choose your prey.',
     seerWake: 'Seer, awaken. Whose soul will you read?',
     doctorWake: 'Healer, wake. Who lives through tonight?',

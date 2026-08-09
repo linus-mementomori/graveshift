@@ -169,7 +169,7 @@ function Editor() {
       <h2 className="display glow-sm text-3xl">{draft.name || 'Untitled'}</h2>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
         Everything here is words and colour. The rules, the night order and the roles are identical
-        in every theme — that&apos;s what makes a theme safe to write.
+        in every theme. That&apos;s what makes a theme safe to write.
       </p>
 
       {problems.length > 0 && (
@@ -209,7 +209,7 @@ function Editor() {
           options={THEME_CATEGORIES.map((c) => ({ value: c, label: c }))}
         />
         <Field
-          label="Place — substituted into narration"
+          label="Place (substituted into narration)"
           value={draft.place}
           maxLength={40}
           onChange={(e) => set('place', e.target.value)}
@@ -231,11 +231,11 @@ function Editor() {
         ))}
       </div>
 
-      {/* ── narration — the script ───────────────────────────────────────── */}
+      {/* ── narration: the script ───────────────────────────────────────── */}
       <h3 className="display glow-sm mt-8 text-xl">The script</h3>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
-        These are the lines you read out loud. Keep each under {MAX_NARRATION_WORDS} words — longer
-        than that and it won&apos;t fit on a phone screen or in one breath.
+        These are the lines you read out loud. Keep each under {MAX_NARRATION_WORDS} words. Any
+        longer and it won&apos;t fit on a phone screen or in one breath.
       </p>
       <div className="mt-3 space-y-3">
         {NARRATION_KEYS.map((key) => {
@@ -309,7 +309,7 @@ function Editor() {
       )}
 
       <p className="caption mt-10 text-[var(--text-muted)]">
-        Based on {baseThemeId ? getBuiltIn(baseThemeId).name : 'nothing — written from scratch'} ·{' '}
+        Based on {baseThemeId ? getBuiltIn(baseThemeId).name : 'nothing, written from scratch'} ·{' '}
         {THEMES.length} built-in themes available to copy
       </p>
     </Screen>

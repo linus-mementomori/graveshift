@@ -8,10 +8,10 @@ import { SITE_NAME, SITE_TAGLINE } from '@/lib/seo'
  * three words on it, which makes a terrible thumbnail. This says what the thing
  * is, which is what a link preview is for.
  */
-/** Required by `output: 'export'` — the PNG is rendered once at build time. */
+/** Required by `output: 'export'`. The PNG is rendered once at build time. */
 export const dynamic = 'force-static'
 
-export const alt = `${SITE_NAME} — a Werewolf and Mafia game master in your pocket`
+export const alt = `${SITE_NAME}: a Werewolf and Mafia game master in your pocket`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { cn } from './ui'
 
 /**
- * Hold-to-reveal — DESIGN.md §5.4.
+ * Hold-to-reveal (DESIGN.md §5.4).
  *
  * Secret information never appears on a plain tap. There is a countdown so the
  * player can turn away from the table, the content is NOT rendered to the DOM
@@ -67,7 +67,7 @@ export function RevealPanel({
       style={{ touchAction: 'none', WebkitUserSelect: 'none' }}
     >
       {holding ? (
-        // Rendered only while held — never present in the DOM otherwise.
+        // Rendered only while held. Never present in the DOM otherwise.
         <>
           <p className="display glow text-4xl text-[var(--accent)]">{label}</p>
           {detail && (

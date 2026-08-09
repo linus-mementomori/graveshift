@@ -23,7 +23,7 @@ export function ThemeRoot({ children }: { children: React.ReactNode }) {
      *
      * `public/sw.js` carries a `__BUILD_ID__` placeholder that `stamp-sw.mjs`
      * replaces after `next build`. In dev nothing stamps it, so the cache name
-     * is the literal string and never changes — meaning the worker happily
+     * is the literal string and never changes. Meaning the worker happily
      * serves last hour's HTML, pointing at chunk hashes that no longer exist.
      * That produced a 404 on layout.js, which stopped every client component
      * mounting, which looked like the app hanging on "Loading…".
@@ -39,7 +39,7 @@ export function ThemeRoot({ children }: { children: React.ReactNode }) {
     }
 
     navigator.serviceWorker.register('/sw.js').catch(() => {
-      /* offline support is a progressive enhancement — never block the app */
+      /* offline support is a progressive enhancement. Never block the app */
     })
   }, [])
 

@@ -1,4 +1,4 @@
-# CLOUD_PLAN.md — Project Remus accounts, sync & admin
+# CLOUD_PLAN.md — Graveshift accounts, sync & admin
 
 > **Status: proposal, not yet accepted.** This is the re-plan that CONTEXT.md §4 demands before
 > a locked decision changes. Read §1 first — it asks you to reverse three of them.
@@ -133,7 +133,7 @@ boundary**, not the React code.
 
 ```sql
 -- ============================================================================
---  Project Remus — schema + Row Level Security
+--  Graveshift — schema + Row Level Security
 --  Run in Supabase dashboard → SQL Editor → New query → Run.
 --
 --  IMPORTANT: the policies below are the ACTUAL security boundary. Any check
@@ -381,7 +381,7 @@ tap → store action → engine (pure) → new state → render
 | Game reaches a winner | `update games` — status `complete`, winner, night count, snapshot |
 | Host abandons or starts a new game over an unfinished one | `update games` — status `abandoned` |
 
-**The outbox.** Pending mutations queue in `localStorage['project-remus:outbox']` and flush on app
+**The outbox.** Pending mutations queue in `localStorage['graveshift:outbox']` and flush on app
 open, on `online`, and after sign-in. Every write is idempotent — client-generated UUID as the
 primary key, so a retry upserts rather than duplicating. A game hosted entirely offline syncs whole
 the next time the app opens with a signal.
@@ -505,14 +505,14 @@ Project Settings → API. You need:
 Ignore the `service_role` key entirely. It bypasses RLS. It must never appear in this repo, in
 `.env.local`, or in any client bundle — same rule as the portfolio's AGENTS.md.
 
-**3 · Create `.env.local`** in the project-remus project root:
+**3 · Create `.env.local`** in the graveshift project root:
 
 ```
 NEXT_PUBLIC_SUPABASE_URL=https://xxxxxxxxxxxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGci...
 ```
 
-Confirm `.env.local` is gitignored. (Project Remus has no `.gitignore` yet and isn't a git repo — worth
+Confirm `.env.local` is gitignored. (Graveshift has no `.gitignore` yet and isn't a git repo — worth
 fixing before the first commit.)
 
 **4 · Run the schema**

@@ -72,24 +72,28 @@ with no on-page equivalent.
 
 ## What you need to do
 
-### 1 · Set your real domain (required — do this first)
+### 1 · Confirm the domain is set (required — do this first)
 
-Everything currently points at `https://projectremus.vercel.app`. If that's not
-your final URL, the sitemap and canonicals are all wrong.
+Everything now points at `https://graveshift.1stplaybook.com` — that's the real
+domain, not a placeholder, since `1stplaybook.com` is a domain you own and
+Graveshift lives on its subdomain.
 
-Add to `.env` **and** to Vercel's environment variables:
+Set it in `.env` **and** in Vercel's environment variables:
 
 ```
-NEXT_PUBLIC_SITE_URL=https://your-real-domain.com
+NEXT_PUBLIC_SITE_URL=https://graveshift.1stplaybook.com
 ```
 
 Then redeploy. `NEXT_PUBLIC_*` is inlined at build time, so it does nothing
 until you rebuild.
 
-**A custom domain is worth buying.** `*.vercel.app` subdomains rank poorly —
-they inherit nothing, and search engines treat free-hosting subdomains with
-suspicion. Something like `projectremus.com` is ~£10/year and will outperform
-the free subdomain within months.
+**Worth knowing about subdomains and SEO:** search engines treat a subdomain of
+an owned root domain (`graveshift.1stplaybook.com`) far better than a
+free-hosting one (`*.vercel.app`) — but Google Search Console still needs its
+own property for the subdomain specifically (§2 below covers this). If you ever
+add sibling products under `1stplaybook.com`, each one benefits from the root
+domain's accumulated trust, which is the whole point of the studio-plus-named-
+products structure you chose.
 
 ### 2 · Google Search Console (the single highest-value 10 minutes)
 

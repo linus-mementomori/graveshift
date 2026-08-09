@@ -1,6 +1,6 @@
 # DONATIONS.md — Ko-fi
 
-How donations work in Project Remus. Live at
+How donations work in Graveshift. Live at
 **[ko-fi.com/projectremus](https://ko-fi.com/projectremus)**.
 
 > **Switched from Buy Me a Coffee, August 2026.** This originally planned for
@@ -87,7 +87,7 @@ script fails silently and the `/account` link still works.
 
 Edit freely — it should sound like you.
 
-> I build **Project Remus**, a free game master for Werewolf and Mafia. It deals
+> I build **Graveshift**, a free game master for Werewolf and Mafia. It deals
 > the roles, runs the night order, settles the rules arguments, and tells you
 > exactly what to say — so whoever's hosting can actually enjoy it.
 >

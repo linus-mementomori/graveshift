@@ -1,4 +1,4 @@
-# ARCHITECTURE.md — Project Remus
+# ARCHITECTURE.md — Graveshift
 
 How the app is built. Assumes CONTEXT.md's locked decisions (especially **D1** single-device,
 **D3** full state machine, **D5** offline PWA, **D7** pure engine).
@@ -38,7 +38,7 @@ reporting SaaS, any package that needs a network at runtime.
 ## 2. File tree
 
 ```
-project-remus/
+graveshift/
 ├── docs/
 │   ├── CONTEXT.md            ← why this exists, locked decisions
 │   ├── DESIGN.md             ← visual & interaction system
@@ -215,7 +215,7 @@ one deterministic pass (GAME_DESIGN §4.2) computes the whole outcome. Back is t
 ```
 User taps  →  store action  →  engine fn (pure)  →  new GameState  →  render
                                                           ↓
-                                            localStorage['remus:game'] (sync, every action)
+                                            localStorage['graveshift:game'] (sync, every action)
 ```
 
 - **Write on every action.** The state is a few kB; JSON round-trip is sub-millisecond. There is no

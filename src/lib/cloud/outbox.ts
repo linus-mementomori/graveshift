@@ -21,7 +21,7 @@ export interface OutboxEntry {
   queuedAt: number
 }
 
-const KEY = 'remus:outbox'
+const KEY = 'graveshift:outbox'
 /** Stop the queue growing without bound if the user is offline for weeks. */
 const MAX_ENTRIES = 200
 

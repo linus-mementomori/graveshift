@@ -1,4 +1,4 @@
-# GAME_DESIGN.md — Project Remus
+# GAME_DESIGN.md — Graveshift
 
 The complete rules specification. This document is **normative**: the engine implements exactly
 what is written here, and any ambiguity found in play is resolved by amending this file first.

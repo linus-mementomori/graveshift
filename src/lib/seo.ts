@@ -13,9 +13,9 @@
  */
 
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://projectremus.vercel.app'
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://graveshift.1stplaybook.com'
 
-export const SITE_NAME = 'Project Remus'
+export const SITE_NAME = 'Graveshift'
 
 export const SITE_TAGLINE = 'The game master in your pocket'
 
@@ -83,19 +83,19 @@ export function faqJsonLd() {
     ],
     [
       'What is the night order in Werewolf?',
-      'The fixed sequence in which roles act each night. Project Remus runs it for you: Cupid and one-time roles first, then protective roles like the Doctor and Bodyguard, then the Seer, then the Werewolves, then the Witch. Getting this order wrong is the most common hosting mistake.',
+      'The fixed sequence in which roles act each night. Graveshift runs it for you: Cupid and one-time roles first, then protective roles like the Doctor and Bodyguard, then the Seer, then the Werewolves, then the Witch. Getting this order wrong is the most common hosting mistake.',
     ],
     [
       'Do you need a moderator to play Werewolf?',
-      'Traditionally yes, and that person never gets to play. Project Remus takes over the bookkeeping — who is alive, who was protected, who wins — so the host only has to perform, or so a player can host and still take part.',
+      'Traditionally yes, and that person never gets to play. Graveshift takes over the bookkeeping — who is alive, who was protected, who wins — so the host only has to perform, or so a player can host and still take part.',
     ],
     [
-      'Is Project Remus free?',
+      'Is Graveshift free?',
       'Yes. It is free, needs no account to play, and works offline once loaded.',
     ],
     [
       'What is the difference between Mafia and Werewolf?',
-      'They are the same game with different names. Mafia is the 1986 original; Werewolf is the 1997 retheme. Project Remus ships both, plus five other settings, and the rules underneath are identical.',
+      'They are the same game with different names. Mafia is the 1986 original; Werewolf is the 1997 retheme. Graveshift ships both, plus five other settings, and the rules underneath are identical.',
     ],
   ]
 

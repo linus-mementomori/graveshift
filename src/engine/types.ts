@@ -1,5 +1,5 @@
 /**
- * PROJECT REMUS ENGINE — types
+ * GRAVESHIFT ENGINE — types
  *
  * ⚠ ARCHITECTURAL RULE: nothing in src/engine may import from outside src/engine.
  * The engine is pure (CONTEXT.md D7) so it can run in a Worker, in Node, and in tests.

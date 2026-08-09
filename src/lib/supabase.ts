@@ -1,7 +1,7 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 /**
- * Supabase client for Project Remus.
+ * Supabase client for Graveshift.
  *
  * CLOUD_PLAN P1: the account is OPTIONAL. This module must never be on the
  * critical path of hosting a game — nothing under src/engine or the play flow

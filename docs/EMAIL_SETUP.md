@@ -54,7 +54,7 @@ Verify it with Resend and you can send from `no-reply@molinalim.com` to anyone.
 This is what you want before launch.
 
 Consider a **subdomain** like `mail.molinalim.com` rather than the root. If a
-Remus email ever gets marked as spam, the damage is contained to the subdomain's
+Graveshift email ever gets marked as spam, the damage is contained to the subdomain's
 reputation instead of your main domain's — which also carries your portfolio
 mail.
 
@@ -102,7 +102,7 @@ Enable custom SMTP and fill in:
 | Field | Value |
 |---|---|
 | Sender email | `no-reply@mail.molinalim.com` (must be on your verified domain) |
-| Sender name | `Project Remus` |
+| Sender name | `Graveshift` |
 | Host | `smtp.resend.com` |
 | Port | `465` |
 | Username | `resend` (literally the word) |

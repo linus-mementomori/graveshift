@@ -1,5 +1,5 @@
 /**
- * Project Remus service worker — ARCHITECTURE.md §6.
+ * Graveshift service worker — ARCHITECTURE.md §6.
  *
  * Job: make the app work in a basement with no signal. Nothing more.
  *
@@ -17,7 +17,7 @@
  * means a returning visitor keeps yesterday's JavaScript forever.
  */
 const VERSION = '__BUILD_ID__'
-const CACHE = `remus-${VERSION}`
+const CACHE = `graveshift-${VERSION}`
 
 /** Pages worth having offline. Hashed assets are cached on demand below. */
 const SHELL = [

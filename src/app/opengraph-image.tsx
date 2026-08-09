@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { SITE_NAME, SITE_TAGLINE } from '@/lib/seo'
 
 /**
  * The social preview card, generated at build time.
@@ -10,7 +11,7 @@ import { ImageResponse } from 'next/og'
 /** Required by `output: 'export'` — the PNG is rendered once at build time. */
 export const dynamic = 'force-static'
 
-export const alt = 'Project Remus — a Werewolf and Mafia game master in your pocket'
+export const alt = `${SITE_NAME} — a Werewolf and Mafia game master in your pocket`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
@@ -36,7 +37,7 @@ export default function OpengraphImage() {
             color: '#6e6e80',
           }}
         >
-          The game master in your pocket
+          {SITE_TAGLINE}
         </div>
 
         <div
@@ -49,7 +50,7 @@ export default function OpengraphImage() {
             letterSpacing: -2,
           }}
         >
-          PROJECT REMUS
+          {SITE_NAME.toUpperCase()}
         </div>
 
         <div

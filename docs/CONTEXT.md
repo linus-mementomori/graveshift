@@ -1,4 +1,4 @@
-# CONTEXT.md — Project Remus
+# CONTEXT.md — Graveshift
 
 > The single source of truth for *why this project exists* and *what decisions are locked*.
 > Read this first. Every other doc assumes it.
@@ -7,7 +7,7 @@
 
 ## 1. One-line pitch
 
-**Project Remus** is an installable web app that turns any phone into a professional Mafia/Werewolf
+**Graveshift** is an installable web app that turns any phone into a professional Mafia/Werewolf
 game master — it handles the rules, the roles, and the night order, and it tells the human host
 exactly what to say, what to play, and what to do at every beat.
 
@@ -26,7 +26,7 @@ Social deduction games are wonderful and hosting them is miserable.
 | **Dead air** | Night phases in silence feel like a spreadsheet. Great hosts add music; most hosts don't. |
 | **Same game every time** | Vanilla Werewolf gets stale after three sessions. |
 
-Existing apps mostly solve #2 and stop there. Project Remus solves the **theatre** of it — the part
+Existing apps mostly solve #2 and stop there. Graveshift solves the **theatre** of it — the part
 that makes people say "one more round."
 
 ---

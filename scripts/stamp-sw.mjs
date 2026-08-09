@@ -28,4 +28,4 @@ if (!source.includes('__BUILD_ID__')) {
 }
 
 writeFileSync(target, source.replaceAll('__BUILD_ID__', buildId))
-console.log(`[stamp-sw] service worker cache stamped: remus-${buildId}`)
+console.log(`[stamp-sw] service worker cache stamped: graveshift-${buildId}`)

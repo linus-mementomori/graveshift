@@ -6,6 +6,7 @@ import { useGameStore } from '@/store/gameStore'
 import { getTheme } from '@/themes'
 import { isSupabaseConfigured } from '@/lib/supabase'
 import { useAuth } from '@/lib/useAuth'
+import { SITE_NAME } from '@/lib/seo'
 
 const PHASE_LABEL: Record<string, string> = {
   night: 'Night',
@@ -27,7 +28,7 @@ export default function Home() {
   return (
     <div className="flex min-h-dvh flex-col justify-between px-5 pt-24 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <div>
-        <h1 className="display pulse-glow text-5xl text-[var(--accent)]">PROJECT REMUS</h1>
+        <h1 className="display pulse-glow text-5xl text-[var(--accent)]">{SITE_NAME.toUpperCase()}</h1>
         <p className="caption mt-3 text-[var(--text-muted)]">
           the game master in your pocket
         </p>
@@ -87,11 +88,11 @@ function AboutContent() {
     ],
     [
       'What is the night order in Werewolf?',
-      'The fixed sequence in which roles act each night. Project Remus runs it for you: one-time roles like Cupid first, then protective roles such as the Doctor and Bodyguard, then the Seer, then the Werewolves, then the Witch. Getting this order wrong is the single most common hosting mistake.',
+      'The fixed sequence in which roles act each night. Graveshift runs it for you: one-time roles like Cupid first, then protective roles such as the Doctor and Bodyguard, then the Seer, then the Werewolves, then the Witch. Getting this order wrong is the single most common hosting mistake.',
     ],
     [
       'Do you need a moderator to play Werewolf?',
-      'Traditionally yes — and that person never gets to play. Project Remus takes over the bookkeeping, so the host only has to perform.',
+      'Traditionally yes — and that person never gets to play. Graveshift takes over the bookkeeping, so the host only has to perform.',
     ],
     [
       'What is the difference between Mafia and Werewolf?',
@@ -105,7 +106,7 @@ function AboutContent() {
       <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
         Hosting social deduction games is miserable: ten minutes shuffling role cards, somebody
         always sees one, and the moderator holds twelve secret identities in their head while
-        googling whether the Seer sees the Lycan as a wolf. Project Remus is a free, installable web
+        googling whether the Seer sees the Lycan as a wolf. Graveshift is a free, installable web
         app that does all of that for you — it deals the roles, walks the night order, resolves
         protection and kills, checks the win conditions, and tells you exactly what to say out loud
         at every beat.

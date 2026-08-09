@@ -1,4 +1,4 @@
-# AUDIO.md — Sound in Project Remus
+# AUDIO.md — Sound in Graveshift
 
 Why the app generates sound instead of playing files, what's built, and how to
 add real recordings later if you decide you want them.

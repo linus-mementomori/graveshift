@@ -15,12 +15,12 @@ Budget about 15 minutes. Google's console is the fiddly half.
 
 **Google Cloud Console → https://console.cloud.google.com**
 
-1. Top-left project dropdown → **New Project** → name it `Project Remus` → Create.
+1. Top-left project dropdown → **New Project** → name it `Graveshift` → Create.
    (An existing project is fine too.)
 
 2. **APIs & Services → OAuth consent screen**
    - User type: **External** → Create
-   - App name: `Project Remus`
+   - App name: `Graveshift`
    - User support email: yours
    - Developer contact email: yours
    - Save and continue through Scopes and Test users — the defaults are fine.
@@ -28,7 +28,7 @@ Budget about 15 minutes. Google's console is the fiddly half.
 
 3. **APIs & Services → Credentials → + Create Credentials → OAuth client ID**
    - Application type: **Web application**
-   - Name: `Project Remus web`
+   - Name: `Graveshift web`
    - **Authorised redirect URIs** → Add URI, and paste exactly this:
 
      ```

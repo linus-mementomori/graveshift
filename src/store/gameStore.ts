@@ -311,7 +311,7 @@ export const useGameStore = create<GameStore>()(
       },
     }),
     {
-      name: 'remus:game',
+      name: 'graveshift:game',
       version: 3,
       /**
        * Rehydrate MANUALLY, after React mounts — see <StoreHydrator/>.

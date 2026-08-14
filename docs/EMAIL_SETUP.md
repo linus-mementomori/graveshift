@@ -49,11 +49,11 @@ The rest of this doc uses Resend.
 
 This determines how much work step 3 is.
 
-**Option A, you own a domain** (you do: `molinalim.com`).
-Verify it with Resend and you can send from `no-reply@molinalim.com` to anyone.
+**Option A, you own a domain** (you do: `1stplaybook.com`).
+Verify it with Resend and you can send from `no-reply@1stplaybook.com` to anyone.
 This is what you want before launch.
 
-Consider a **subdomain** like `mail.molinalim.com` rather than the root. If a
+Consider a **subdomain** like `mail.1stplaybook.com` rather than the root. If a
 Graveshift email ever gets marked as spam, the damage is contained to the subdomain's
 reputation instead of your main domain's, which also carries your portfolio
 mail.
@@ -69,7 +69,7 @@ your own flows, useless the moment a second person registers.
 
 1. Sign up at [resend.com](https://resend.com)
 
-2. **Domains → Add Domain** → enter `mail.molinalim.com` (or your root domain)
+2. **Domains → Add Domain** → enter `mail.1stplaybook.com` (or your root domain)
 
 3. Resend shows you DNS records. Typically three:
 
@@ -101,7 +101,7 @@ Enable custom SMTP and fill in:
 
 | Field | Value |
 |---|---|
-| Sender email | `no-reply@mail.molinalim.com` (must be on your verified domain) |
+| Sender email | `no-reply@mail.1stplaybook.com` (must be on your verified domain) |
 | Sender name | `Graveshift` |
 | Host | `smtp.resend.com` |
 | Port | `465` |

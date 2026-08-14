@@ -112,8 +112,8 @@ say, what to play, and who to tap. That asymmetry is the product.
 
 ## 8. Theme system in one paragraph
 
-The user picks a **skin**, not a ruleset. *Werewolves of Millers Hollow* (folk horror),
-*Mafia* (noir crime), *Hunter × Demon* (anime), *Olympus Betrayed* (myth), *Deep Space Anomaly*
+The user picks a **skin**, not a ruleset. *The Wolves of Remus Vale* (folk horror),
+*Mafia* (noir crime), *Nightshift* (anime), *Olympus Betrayed* (myth), *Deep Space Anomaly*
 (sci-fi horror), *Salem 1692* (historical), *The Coven* (dark fantasy). Each supplies: display name,
 palette, a title/subtitle, a name for each rule-role (Werewolf → *Made Man* → *Oni* → *Titan-blooded*),
 narration lines for every phase, victory copy, and audio cue text (*"play low strings"* vs

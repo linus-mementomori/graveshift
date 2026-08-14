@@ -193,7 +193,7 @@ function Editor() {
           value={draft.name}
           maxLength={60}
           onChange={(e) => set('name', e.target.value)}
-          placeholder="Millers Hollow"
+          placeholder="Remus Vale"
         />
         <Field
           label="Tagline"

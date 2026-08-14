@@ -136,9 +136,9 @@ All color goes through CSS custom properties on `:root`, swapped by a `data-them
 
 | Theme | `--accent` | `--accent-soft` | `--phase-night` | `--phase-day` | Feel |
 |---|---|---|---|---|---|
-| **Millers Hollow** | `#b5453f` blood red | `#6b2724` | `#141420` | `#2a2418` | Woodsmoke, dried blood, lantern |
+| **Remus Vale** | `#b5453f` blood red | `#6b2724` | `#141420` | `#2a2418` | Woodsmoke, dried blood, lantern |
 | **Cosa Nostra** | `#c9a227` brass | `#6b5410` | `#0f1218` | `#241f1a` | Rain, brass, cigarette smoke |
-| **Hunter × Demon** | `#7b4dff` violet | `#3a1f80` | `#12101f` | `#1f1a2e` | Neon, ink, moonlight |
+| **Nightshift** | `#7b4dff` violet | `#3a1f80` | `#12101f` | `#1f1a2e` | Neon, ink, moonlight |
 | **Olympus Betrayed** | `#e0b64a` gold | `#7a5f18` | `#101318` | `#2b2618` | Marble, gold leaf, storm |
 | **Signal Lost** | `#3fb5b0` cyan | `#1a5654` | `#0a1214` | `#16211f` | Cold, sterile, humming |
 | **Salem, 1692** | `#c98a3f` candle | `#6b4419` | `#12100c` | `#241d14` | Tallow, wool, whisper |
@@ -182,7 +182,7 @@ All fonts loaded via `next/font/google` (`Libre_Baskerville`, `Courier_Prime`) i
 
 Ported from the Figma Make reference in `Werewolves Game Website/`, a VHS/horror mock with glow
 type, scanlines and floating embers. Layered onto the existing token system so every theme keeps it,
-not just Millers Hollow:
+not just Remus Vale:
 
 - **VHS scanlines**, `.vhs-scan` on `<body>`, a fixed repeating-gradient overlay at `z-index: 50`,
   `pointer-events: none`. Purely atmospheric, sits above content, never blocks touches.

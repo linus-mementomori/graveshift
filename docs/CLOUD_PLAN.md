@@ -418,7 +418,7 @@ So `themes/schema.ts` is **blocking work for this feature**, not a nice-to-have.
 - enforce the GAME_DESIGN §8.4 word caps (≤35 words per narration line), the cap that keeps the
   read-aloud text inside DESIGN §4.3's "never truncated, never scrolling" rule
 - enforce string length ceilings matching the DB `check` constraints
-- **fail closed**: an invalid custom theme falls back to its base (or Millers Hollow) with a quiet
+- **fail closed**: an invalid custom theme falls back to its base (or Remus Vale) with a quiet
   notice, never a crash and never a half-rendered beat
 
 **Bundle cost.** Zod is ~13 kB gzipped against a ≤120 kB first-load budget (ARCHITECTURE §9). Two

@@ -195,6 +195,42 @@ describe('story alignment: a line must match the death it describes', () => {
   })
 })
 
+describe('no borrowed intellectual property', () => {
+  // Themes are written *near* well-known worlds on purpose, which is fine:
+  // premises, tropes and game rules are not protectable. Names, characters and
+  // coined mechanics are. This guards the line so a future theme edit cannot
+  // quietly walk back over it.
+  const FORBIDDEN: [RegExp, string][] = [
+    [/miller'?s hollow/i, 'the published board game title'],
+    [/fear street|shadyside|sunnyvale|sarah fier/i, 'Fear Street'],
+    [/demon slayer|kimetsu|hashira|nichirin/i, 'Demon Slayer'],
+    [/\bhunter ?[x×] ?hunter\b/i, 'Hunter x Hunter'],
+    [/breathing (technique|form)/i, 'Demon Slayer breathing forms'],
+    [/\bhogwarts|muggle|lupin\b/i, 'Harry Potter'],
+    [/\bwesteros|lannister|winterfell|white walker/i, 'A Song of Ice and Fire'],
+    [/\bxenomorph|weyland|nostromo\b/i, 'Alien'],
+    [/\bcthulhu|arkham|miskatonic\b/i, 'Lovecraft estate-adjacent naming'],
+    [/among us|town of salem|werewolf online/i, 'a competing product name'],
+  ]
+
+  it('no theme text contains a protected name', () => {
+    for (const theme of THEMES) {
+      const corpus = [
+        theme.name, theme.tagline, theme.place,
+        ...Object.values(theme.factionNames),
+        ...Object.values(theme.narration),
+        ...Object.values(theme.victory),
+        ...Object.values(theme.roleSkins).flatMap((r) => [r?.name ?? '', r?.flavour ?? '']),
+        ...allLines(theme),
+      ].join(' | ')
+
+      for (const [pattern, source] of FORBIDDEN) {
+        expect(pattern.test(corpus), `${theme.name} contains ${source}`).toBe(false)
+      }
+    }
+  })
+})
+
 describe('themes are costumes, never rules (D4)', () => {
   it('getTheme falls back rather than throwing on an unknown id', () => {
     expect(() => getTheme('does-not-exist')).not.toThrow()

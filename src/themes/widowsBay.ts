@@ -1,26 +1,24 @@
 import type { Theme } from './types'
 
 /**
- * WIDOW'S BAY. The shared premise of Fear Street (2021) and Widow's Bay (2026).
+ * FORTUNE BAY. A coastal town whose luck was bought, and is still being paid for.
  *
- * Both turn on the same bargain: a founding family made a pact underground, and
- * every generation an heir goes back down and gives up a name. The named person
- * is taken. The family and their side of the water stay rich.
+ * Built from two folk-horror archetypes much older than any film that uses
+ * them: the Faustian bargain, where prosperity is granted now against a soul
+ * collected later, and the scapegoat town, where everyone's comfort rests on a
+ * victim the community has agreed not to discuss.
  *
- * From Fear Street: Solomon Goode's deal, the caverns beneath the house, a new
- * name added each generation, prosperous Sunnyvale against ruined Shadyside,
- * and Sarah Fier hanged as a witch for a curse she never cast.
- *
- * From Widow's Bay: a New England island, a 1700s founder granted eternal life
- * and buried rather than dead, the curse holding as long as one of his blood
- * remains on the island, and islanders who die if they ever leave.
+ * The local shape of it: a founding family struck a deal in a cave under the
+ * headland. Every generation an heir goes back down and gives up a name. The
+ * named person is taken, the tide leaves that name cut into wet stone, and this
+ * side of the water stays rich. Nobody who leaves the island lives long.
  *
  * The mafia here are not monsters. They are neighbours with a mortgage. That's
  * the horror.
  */
 export const widowsBay: Theme = {
   id: 'widowsBay',
-  name: "Widow's Bay",
+  name: 'Fortune Bay',
   tagline: 'Somebody went down to the cave again, and somebody up here got rich.',
   category: 'horror',
   place: 'the island',

@@ -50,7 +50,7 @@ export const KINDS: Record<FeedbackKind, KindMeta> = {
     label: 'Something broke',
     hint: 'A screen, a button, a resolution that went wrong',
     placeholder:
-      'On night 3 the Doctor protected Ana and she still died. 8 players, Millers Hollow…',
+      'On night 3 the Doctor protected Ana and she still died. 8 players, Remus Vale…',
   },
   idea: {
     label: 'New idea',

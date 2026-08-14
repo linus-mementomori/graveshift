@@ -477,7 +477,7 @@ A theme is **pure data**. Adding one is a new file and zero engine changes (Deci
 ```ts
 type Theme = {
   id: string
-  name: string                 // "Werewolves of Millers Hollow"
+  name: string                 // "The Wolves of Remus Vale"
   tagline: string              // "Something is wrong in the woods."
   category: 'horror' | 'crime' | 'anime' | 'myth' | 'scifi' | 'history' | 'fantasy'
   place: string                // "the village"        → used in narration
@@ -495,17 +495,17 @@ type Theme = {
 
 | Theme | Category | Village / Mafia | Wolf → | Seer → | Doctor → | Mood |
 |---|---|---|---|---|---|---|
-| **Millers Hollow** | horror | Villagers / Werewolves | Werewolf | Seer | Healer | Folk horror, woodsmoke, wind |
+| **Remus Vale** | horror | Villagers / Werewolves | Werewolf | Seer | Healer | Folk horror, woodsmoke, wind |
 | **Cosa Nostra** | crime | Citizens / The Family | Made Man | Private Eye | Surgeon | Noir, rain, brass |
-| **Hunter × Demon** | anime | Corps / Demons | Demon | Oracle | Medic | Shonen night-arc, neon |
+| **Nightshift** | anime | Corps / Demons | Demon | Oracle | Medic | Shonen night-arc, neon |
 | **Olympus Betrayed** | myth | Mortals / Titan-blooded | Titan-blooded | Oracle of Delphi | Asclepius | Marble, gold, thunder |
 | **Signal Lost** | scifi | Crew / The Anomaly | Assimilated | Bio-scanner | Med-officer | Cold blue, reactor hum |
 | **Salem, 1692** | history | Townsfolk / The Coven | Witch | Reverend | Midwife | Candlelight, paranoia |
 | **The Long Court** | fantasy | The Court / The Winter Pact | Winter-sworn | Seer of Ash | Hedge-witch | Dark fae, frost, cruelty |
 
-### 8.3 Sample narration (Millers Hollow vs Cosa Nostra)
+### 8.3 Sample narration (Remus Vale vs Cosa Nostra)
 
-| Beat | Millers Hollow | Cosa Nostra |
+| Beat | Remus Vale | Cosa Nostra |
 |---|---|---|
 | `NIGHT_FALL` | «Night falls on the village. Close your eyes.» | «The city goes quiet. Everybody, eyes down.» |
 | `WOLVES_WAKE` | «Werewolves, open your eyes. Choose your prey.» | «The Family, wake up. Who doesn't see morning?» |

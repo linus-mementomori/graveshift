@@ -136,7 +136,7 @@ function AboutContent() {
       <p className="mt-3 text-sm leading-relaxed text-[var(--text-secondary)]">
         Twenty-one roles across three tiers: Werewolf, Seer, Doctor, Witch, Hunter, Bodyguard,
         Vigilante, Mayor, Cupid, Jester, Serial Killer and more. Seven built-in themes reskin every
-        word and colour: folk horror in Millers Hollow, noir crime in Cosa Nostra, anime, Greek
+        word and colour: folk horror in Remus Vale, noir crime in Cosa Nostra, anime, Greek
         myth, sci-fi horror, Salem 1692, and dark fantasy. Signed-in hosts can write their own
         theme and rewrite every line of the script.
       </p>

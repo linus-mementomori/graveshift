@@ -52,7 +52,7 @@ speak" is a table convention the app only flags.
 - [x] `BalanceMeter` with the plain-language read
 - [x] Night 0 toggle
 - [x] Reveal-on-death setting
-- [ ] Move the §9 edge-case assertions into a real runner (Vitest) instead of a scratch script
+- [x] Move the §9 edge-case assertions into a real runner (Vitest) instead of a scratch script
 
 **Exit:** a 12–15 player game with a full role board resolves correctly, including the nasty
 interactions (Rampage vs Bodyguard, Witch reviving a double-target, Hunter killing a Lover).

@@ -83,7 +83,7 @@ export function DawnPhase({ game }: { game: GameState }) {
               <div key={d.seatId} className="space-y-1">
                 <p className="display glow text-3xl text-[var(--danger)]">{seat.name}</p>
                 <p className="speak-sm !text-base text-[var(--text-secondary)]">
-                  {deathLine(theme, d.reason, seat.name)}
+                  {deathLine(theme, game, d.seatId, d.reason)}
                 </p>
                 {game.settings.revealRoleOnDeath && (
                   <p className="caption text-[var(--text-muted)]">

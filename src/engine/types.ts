@@ -117,6 +117,17 @@ export interface Seat {
   execTargetId?: string
   lastProtectedId?: string
   notes?: string
+  /**
+   * How, and in what order, this seat died.
+   *
+   * Recorded so the narration can avoid telling the same death story twice in
+   * one game: to do that it has to know which flavour variants a reason has
+   * already spent. Absent on living seats, and on games saved before this
+   * existed (those simply fall back to an independent pick).
+   */
+  deathReason?: DeathReason
+  /** 0-based ordinal across every death in the game. */
+  deathOrder?: number
 }
 
 export interface Role {

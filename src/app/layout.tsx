@@ -53,13 +53,16 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     locale: 'en_US',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${SITE_NAME}: ${SITE_TAGLINE}` }],
+    // No `images` key on purpose. src/app/opengraph-image.tsx is Next's file
+    // convention and fills in og:image *and* twitter:image with the card it
+    // actually generates. Naming an image by hand here only shadowed the
+    // twitter tag, which pointed at /og.png, a file this project has never
+    // built: the X/Twitter card was a 404 in production while OG looked fine.
   },
   twitter: {
     card: 'summary_large_image',
     title: `${SITE_NAME} | Werewolf & Mafia game master app`,
     description: SITE_DESCRIPTION,
-    images: ['/og.png'],
   },
   robots: {
     index: true,

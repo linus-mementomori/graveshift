@@ -335,6 +335,10 @@ export function applyDeaths(
       const seat = find(state.seats, death.seatId)
       if (!seat?.alive) continue
 
+      // Counted before this seat flips, so the first death of a game is 0.
+      // Narration reads these back to avoid repeating a death story (§8.1).
+      seat.deathOrder = state.seats.filter((s) => !s.alive).length
+      seat.deathReason = death.reason
       seat.alive = false
       all.push(death)
 

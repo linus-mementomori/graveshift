@@ -6,6 +6,7 @@ import { getTheme, roleName } from '@/themes'
 import { CUES } from '@/audio/cues'
 import { livingSeats, tallyVote, voterWeight, MIN_VOTES_TO_EXECUTE } from '@/engine/machine'
 import type { GameState } from '@/engine/types'
+import { deathLine } from './narration'
 
 /**
  * VOTE + DUSK, GAME_DESIGN.md §6.
@@ -196,9 +197,17 @@ export function DuskPhase({ game }: { game: GameState }) {
       {executed ? (
         <div className="mt-10">
           <p className="display glow text-4xl text-[var(--danger)]">{executed.name}</p>
+          {/*
+            Every theme has always carried a deathFlavour.execution line and none
+            of them was ever rendered: the vote was the one death announced with
+            no flavour at all. It now reads the way a night death reads at dawn.
+          */}
+          <p className="speak-sm mt-3 !text-lg text-[var(--text-secondary)]">
+            {deathLine(theme, game, executed.id, 'execution')}
+          </p>
           {game.settings.revealRoleOnDeath && (
-            <p className="speak-sm mt-3 !text-lg text-[var(--text-secondary)]">
-              was the {roleName(theme, executed.roleId)}.
+            <p className="caption mt-2 text-[var(--text-muted)]">
+              was the {roleName(theme, executed.roleId)}
             </p>
           )}
         </div>

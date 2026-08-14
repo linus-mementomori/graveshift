@@ -40,7 +40,14 @@ export interface Theme {
     vote: string
     execution: string
   }
-  deathFlavour: Partial<Record<DeathReason, string>>
+  /**
+   * One line, or several to pick between. Built-in themes supply several so a
+   * five-night game doesn't repeat itself. A bare string stays valid, because
+   * every custom theme already saved to Supabase was written that way.
+   *
+   * Lines are verb phrases completing "<name> …", never full sentences.
+   */
+  deathFlavour: Partial<Record<DeathReason, string | string[]>>
   cueOverrides: Partial<Record<CueId, string>>
   victory: { village: string; mafia: string; neutral: string }
 }

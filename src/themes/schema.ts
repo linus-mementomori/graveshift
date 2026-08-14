@@ -66,6 +66,8 @@ export const LIMITS = {
   roleName: 40,
   roleFlavour: 200,
   line: 400,
+  /** Ceiling on death-flavour variants, so a pasted theme can't be unbounded. */
+  deathVariants: 6,
 } as const
 
 export const wordCount = (s: string): number =>
@@ -172,8 +174,19 @@ export function validateTheme(input: unknown): ValidationResult {
   const deathFlavour: Theme['deathFlavour'] = {}
   if (isRecord(input.deathFlavour)) {
     for (const [k, v] of Object.entries(input.deathFlavour)) {
-      const line = str(v).trim()
-      if (line) deathFlavour[k as DeathReason] = line.slice(0, LIMITS.line)
+      // Either shape is accepted: a bare string (how every custom theme already
+      // in Supabase was written) or several variants to pick between.
+      if (Array.isArray(v)) {
+        const lines = v
+          .map((x) => str(x).trim())
+          .filter(Boolean)
+          .slice(0, LIMITS.deathVariants)
+          .map((x) => x.slice(0, LIMITS.line))
+        if (lines.length) deathFlavour[k as DeathReason] = lines
+      } else {
+        const line = str(v).trim()
+        if (line) deathFlavour[k as DeathReason] = line.slice(0, LIMITS.line)
+      }
     }
   }
 
@@ -224,7 +237,11 @@ export function draftFrom(base: Theme, name: string): Theme {
     name,
     roleSkins: { ...base.roleSkins },
     narration: { ...base.narration },
-    deathFlavour: { ...base.deathFlavour },
+    // Copy the variant arrays too. A spread alone would hand the draft the
+    // built-in theme's own arrays, so editing the draft would edit the original.
+    deathFlavour: Object.fromEntries(
+      Object.entries(base.deathFlavour).map(([k, v]) => [k, Array.isArray(v) ? [...v] : v]),
+    ) as Theme['deathFlavour'],
     cueOverrides: { ...base.cueOverrides },
     factionNames: { ...base.factionNames },
     victory: { ...base.victory },

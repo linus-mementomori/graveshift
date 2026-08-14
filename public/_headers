@@ -1,0 +1,29 @@
+# Netlify response headers. Copied to the publish root by the static export.
+#
+# These fix MIME types Netlify cannot infer, which are invisible locally because
+# `next dev` serves the same files with the correct type.
+
+# Next's opengraph-image.tsx emits a file with NO extension, so Netlify guesses
+# text/plain. It is a valid 1200x630 PNG, but Facebook, X, LinkedIn and Google
+# all check Content-Type before rendering a preview card, so the card silently
+# fails in production while looking perfect in local dev.
+/opengraph-image
+  Content-Type: image/png
+  Cache-Control: public, max-age=3600
+
+# Served as application/octet-stream otherwise. The spec type is required by
+# some browsers before they will offer the PWA install prompt.
+/manifest.webmanifest
+  Content-Type: application/manifest+json
+
+# Never let an intermediary hold on to the service worker. scripts/stamp-sw.mjs
+# gives each deploy a unique cache name, but that only helps if the browser can
+# actually see the new worker: a cached /sw.js reintroduces exactly the stale
+# bundle bug that stamping was added to kill.
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  Content-Type: text/javascript
+
+# Hashed build assets are immutable by construction.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

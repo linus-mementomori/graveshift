@@ -1,9 +1,12 @@
-# Netlify response headers. Copied to the publish root by the static export.
+# Response headers. Copied to the publish root by the static export.
 #
-# These fix MIME types Netlify cannot infer, which are invisible locally because
-# `next dev` serves the same files with the correct type.
+# Understood by both Netlify and Cloudflare (Workers static assets and Pages),
+# so this file survives a host change untouched.
+#
+# These fix MIME types the host cannot infer, which are invisible locally
+# because `next dev` serves the same files with the correct type.
 
-# Next's opengraph-image.tsx emits a file with NO extension, so Netlify guesses
+# Next's opengraph-image.tsx emits a file with NO extension, so the host guesses
 # text/plain. It is a valid 1200x630 PNG, but Facebook, X, LinkedIn and Google
 # all check Content-Type before rendering a preview card, so the card silently
 # fails in production while looking perfect in local dev.

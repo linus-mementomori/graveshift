@@ -1,0 +1,27 @@
+{
+  // Cloudflare Workers, serving the static export directly.
+  //
+  // This file exists mainly to STOP Wrangler guessing. With no config present,
+  // `wrangler deploy` auto-detects "Next.js", installs the OpenNext adapter,
+  // and tries to bundle a server. This app is `output: 'export'`, so there is
+  // no server: no `.next/standalone`, and the build dies on a missing
+  // pages-manifest.json. Declaring `assets` here says plainly that the whole
+  // site is a folder of files, which it is.
+  //
+  // Nothing here needs a Worker script. Cloudflare serves ./out from its edge.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "graveshift",
+  "compatibility_date": "2026-08-15",
+
+  "assets": {
+    "directory": "./out",
+    // `trailingSlash: true` in next.config means every route is a directory
+    // with an index.html, which this handles. 404s fall through to the
+    // exported 404.html rather than a bare Cloudflare error page.
+    "not_found_handling": "404-page"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+}

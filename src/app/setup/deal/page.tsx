@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button, ButtonLink, Screen, Speak, cn } from '@/components/ui'
 import { RevealPanel } from '@/components/RevealPanel'
@@ -21,11 +21,29 @@ export default function DealPage() {
   const [index, setIndex] = useState(0)
   const [seen, setSeen] = useState(false)
 
-  // Deal on arrival so the roles exist before the first reveal, but only
-  // AFTER hydration, or we'd deal a fresh game over one already in progress.
+  /**
+   * Deal on arrival.
+   *
+   * This used to read `if (hydrated && !game) startGame()`, which looks correct
+   * and is badly wrong: `game` is persisted, so ANY game sitting in localStorage
+   * (finished, abandoned, or from last week) made that condition false and no
+   * deal happened. A host would set up twelve players, walk the whole flow, and
+   * be handed back the previous five-player game: five reveals, then a game that
+   * played out at five, because it *was* the old game.
+   *
+   * Reaching this screen means setup was just completed deliberately, so the
+   * correct behaviour is simply to deal. The ref holds that to once per visit,
+   * which also stops React's development double-mount reshuffling the roles.
+   *
+   * Resuming is a separate, explicit path: the home screen offers Resume for a
+   * mid-flight game, and that route never passes through setup.
+   */
+  const dealt = useRef(false)
   useEffect(() => {
-    if (hydrated && !game) startGame()
-  }, [hydrated, game, startGame])
+    if (!hydrated || dealt.current) return
+    dealt.current = true
+    startGame()
+  }, [hydrated, startGame])
 
   if (!game) {
     return (

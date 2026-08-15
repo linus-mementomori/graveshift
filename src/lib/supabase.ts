@@ -48,6 +48,14 @@ export async function fetchIsAdmin(): Promise<boolean> {
   return data === true
 }
 
+/**
+ * Must match Supabase -> Authentication -> Providers -> Email -> "Minimum
+ * password length". If the app's number is lower, the form accepts a password
+ * the server then rejects, and the user sees a raw API error instead of our
+ * own message. Raising it in the dashboard means raising it here.
+ */
+export const MIN_PASSWORD_LENGTH = 10
+
 /** Where OAuth should land. Trailing slash matters. Next.config sets trailingSlash. */
 export const authRedirectTo = (): string =>
   typeof window === 'undefined' ? '' : `${window.location.origin}/auth/callback/`

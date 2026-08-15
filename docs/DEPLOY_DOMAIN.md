@@ -1,4 +1,8 @@
-# DEPLOY_DOMAIN.md: Pointing graveshift.1stplaybook.com at Netlify
+# DEPLOY_DOMAIN.md: Pointing graveshift.1stplaybook.com at a host
+
+> **Now on Cloudflare Workers.** See §5 at the bottom for that setup and for the
+> one trap that wasted a build. The Netlify instructions below still work and
+> are kept for reference.
 
 How to wire `graveshift.1stplaybook.com` (DNS on Cloudflare) to serve the
 Netlify-hosted build. Two dashboards, ~15 minutes, plus DNS propagation time.
@@ -149,3 +153,55 @@ written before it was confirmed this deploys via Netlify. The instructions
 transfer directly (same `NEXT_PUBLIC_*` / rebuild-on-change rule, different
 dashboard), but the wording is stale. Worth a pass to swap "Vercel" for
 "Netlify" throughout. Say the word and I'll do it.
+
+
+---
+
+## 5 · Cloudflare Workers (current host)
+
+The site is a **static export**, so it needs a plain file host. Cloudflare
+serves `out/` straight from its edge, and there is no Worker script involved.
+
+**Workers Builds settings:**
+
+| Field | Value |
+|---|---|
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+
+Everything else is in `wrangler.jsonc`, which is the important part.
+
+### ⚠ The trap: do NOT let Wrangler auto-detect the framework
+
+With no `wrangler.jsonc` in the repo, `wrangler deploy` sees a Next.js project
+and helpfully installs **OpenNext**, the server-side adapter for Workers. It
+then rewrites `package.json`, `next.config`, `.gitignore` and **`public/_headers`**,
+and finally tries to bundle a server that does not exist:
+
+```
+Error: ENOENT: no such file or directory,
+  open '.next/standalone/.next/server/pages-manifest.json'
+```
+
+`output: 'export'` produces no `.next/standalone`, so that file can never be
+there. The build before it succeeds, which makes the failure look unrelated.
+
+`wrangler.jsonc` prevents all of this: auto-config only runs when there is no
+config. It declares `assets.directory = "./out"` and nothing else.
+
+### Environment variables
+
+Workers Builds → Settings → Variables. Same `NEXT_PUBLIC_*` keys as before, and
+they are still inlined at **build** time, so a change needs a redeploy.
+
+### After the first deploy, re-check the two MIME fixes
+
+Cloudflare applies its own caching defaults, so confirm `public/_headers` took
+effect:
+
+```bash
+curl -sI https://graveshift.1stplaybook.com/opengraph-image | grep -i content-type
+```
+
+Expect `image/png`, not `text/plain`. Then check `/sw.js` returns
+`Cache-Control: no-cache`, or the stale-worker bug comes straight back.

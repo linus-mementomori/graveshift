@@ -2,6 +2,7 @@ node_modules/
 .next/
 next/   # stray build output, committed before the rule above existed
 out/
+.wrangler/
 .DS_Store
 
 # Secrets — never commit. See .env.example for the shape.

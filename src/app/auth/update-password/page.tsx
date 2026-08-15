@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Button, ButtonLink, Field, Notice, NotConfigured, Screen } from '@/components/ui'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
-
-const MIN_LENGTH = 8
+import { supabase, isSupabaseConfigured, MIN_PASSWORD_LENGTH } from '@/lib/supabase'
 
 /**
  * Where a password-reset link lands.
@@ -48,8 +46,8 @@ export default function UpdatePasswordPage() {
     e.preventDefault()
     if (!supabase) return
 
-    if (password.length < MIN_LENGTH) {
-      return setError(`Use at least ${MIN_LENGTH} characters.`)
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      return setError(`Use at least ${MIN_PASSWORD_LENGTH} characters.`)
     }
     if (password !== confirm) {
       return setError('Those two do not match.')
@@ -107,7 +105,7 @@ export default function UpdatePasswordPage() {
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="at least 8 characters"
+            placeholder={`at least ${MIN_PASSWORD_LENGTH} characters`}
           />
           <Field
             label="Type it again"

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { Button, ButtonLink, Field, Notice, NotConfigured, Screen } from '@/components/ui'
-import { supabase, isSupabaseConfigured, authRedirectTo } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured, authRedirectTo, MIN_PASSWORD_LENGTH } from '@/lib/supabase'
 
 export default function SignUpPage() {
   const [displayName, setDisplayName] = useState('')
@@ -17,8 +17,8 @@ export default function SignUpPage() {
     e.preventDefault()
     if (!supabase) return
 
-    if (password.length < 8) {
-      setError('Use at least 8 characters.')
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setError(`Use at least ${MIN_PASSWORD_LENGTH} characters.`)
       return
     }
 
@@ -90,10 +90,10 @@ export default function SignUpPage() {
               type="password"
               autoComplete="new-password"
               required
-              minLength={8}
+              minLength={MIN_PASSWORD_LENGTH}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="At least 8 characters"
+              placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
             />
             <Button type="submit" disabled={!isSupabaseConfigured || busy}>
               {busy ? 'Creating…' : 'Create account'}

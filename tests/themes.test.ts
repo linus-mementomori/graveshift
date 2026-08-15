@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { THEMES, getTheme } from '@/themes'
+import { validateTheme } from '@/themes/schema'
 import { ROLES } from '@/engine/roles'
 import type { DeathReason } from '@/engine/types'
 import type { Theme } from '@/themes/types'
@@ -45,7 +46,7 @@ describe('theme content integrity', () => {
   })
 
   it('supplies all nine narration beats and three victory lines', () => {
-    const beats = ['nightFall','wolvesWake','seerWake','doctorWake','dawn','noDeath','day','vote','execution'] as const
+    const beats = ['opening','intro','nightFall','wolvesWake','seerWake','doctorWake','dawn','noDeath','day','vote','execution'] as const
     for (const theme of THEMES) {
       for (const b of beats) expect(theme.narration[b], `${theme.name} / ${b}`).toBeTruthy()
       for (const f of ['village','mafia','neutral'] as const) {
@@ -240,5 +241,36 @@ describe('themes are costumes, never rules (D4)', () => {
   it('theme ids are unique', () => {
     const ids = THEMES.map((t) => t.id)
     expect(new Set(ids).size).toBe(ids.length)
+  })
+})
+
+describe('custom themes saved before a narration key existed still load', () => {
+  // opening/intro were added after users could already save themes to Supabase.
+  // If validation rejected a theme for missing them, safeTheme would hand back
+  // the base theme instead and the author's world would appear to vanish.
+  const legacyNarrationKeys = ['opening', 'intro'] as const
+
+  it('validates without the newer keys, and fills them in', () => {
+    const base = getTheme('remusVale')
+    for (const missing of legacyNarrationKeys) {
+      const narration = { ...base.narration }
+      delete (narration as Record<string, unknown>)[missing]
+
+      const result = validateTheme({ ...base, id: 'custom-legacy', name: 'Saved Earlier', narration })
+
+      expect(result.ok, `${missing}: ${result.errors.join(' / ')}`).toBe(true)
+      expect(result.theme?.narration[missing], `${missing} was not filled in`).toBeTruthy()
+    }
+  })
+
+  it('still refuses a theme missing a line that is read mid-game', () => {
+    // The fallback is deliberately narrow. There is nothing sensible to invent
+    // for a night-order cue, so these must stay required.
+    const base = getTheme('remusVale')
+    for (const missing of ['wolvesWake', 'dawn', 'vote'] as const) {
+      const narration = { ...base.narration }
+      delete (narration as Record<string, unknown>)[missing]
+      expect(validateTheme({ ...base, narration }).ok, missing).toBe(false)
+    }
   })
 })

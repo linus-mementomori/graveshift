@@ -51,3 +51,16 @@ export async function fetchIsAdmin(): Promise<boolean> {
 /** Where OAuth should land. Trailing slash matters. Next.config sets trailingSlash. */
 export const authRedirectTo = (): string =>
   typeof window === 'undefined' ? '' : `${window.location.origin}/auth/callback/`
+
+/**
+ * Where a password-reset link lands.
+ *
+ * Deliberately NOT /auth/callback/. Opening a recovery link creates a real
+ * session, so the callback would see one and forward straight to /account/,
+ * and the user would never be shown a field to type a new password into.
+ *
+ * Keep the trailing slash: `trailingSlash: true` serves these as directories,
+ * and the URL has to match Supabase's redirect allow-list exactly.
+ */
+export const passwordResetRedirectTo = (): string =>
+  typeof window === 'undefined' ? '' : `${window.location.origin}/auth/update-password/`

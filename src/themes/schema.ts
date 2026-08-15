@@ -25,6 +25,8 @@ export const THEME_CATEGORIES: ThemeCategory[] = [
 ]
 
 export const NARRATION_KEYS = [
+  'opening',
+  'intro',
   'nightFall',
   'wolvesWake',
   'seerWake',
@@ -40,6 +42,8 @@ export type NarrationKey = (typeof NARRATION_KEYS)[number]
 
 /** Human labels for the editor. */
 export const NARRATION_LABELS: Record<NarrationKey, string> = {
+  opening: 'Where we are',
+  intro: 'Player introductions',
   nightFall: 'Night falls',
   wolvesWake: 'Wolves wake',
   seerWake: 'Seer wakes',
@@ -57,6 +61,35 @@ export const NARRATION_LABELS: Record<NarrationKey, string> = {
  * ~35 words neither is true.
  */
 export const MAX_NARRATION_WORDS = 35
+
+/**
+ * The opening gets more room than the rest.
+ *
+ * Every other line is read mid-game, in the dark, with eleven people waiting,
+ * so it has to fit one breath and one screen. The opening is read once, before
+ * anything is at stake, and its whole job is to put everyone in the place. That
+ * needs a paragraph, not a sentence.
+ */
+export const MAX_OPENING_WORDS = 70
+
+/**
+ * Stand-ins for narration added after custom themes were already in the wild.
+ *
+ * Only keys listed here are optional. A theme missing one of these still loads;
+ * a theme missing `wolvesWake` does not, because that one is read aloud in the
+ * middle of a live night and there is nothing sensible to invent for it.
+ *
+ * The opening reuses the theme's own tagline, which is the one line every
+ * author has already written to set a mood.
+ */
+const NARRATION_FALLBACKS: Partial<
+  Record<NarrationKey, (tagline: string, place: string) => string>
+> = {
+  opening: (tagline, place) =>
+    tagline || `Look around. This is ${place}, and something here is wrong.`,
+  intro: () =>
+    'Go round the table. Your name, and one true thing about yourself. Keep it short.',
+}
 
 export const LIMITS = {
   name: 60,
@@ -133,12 +166,25 @@ export function validateTheme(input: unknown): ValidationResult {
   for (const key of NARRATION_KEYS) {
     const line = str(rawNarration[key]).trim()
     if (!line) {
+      // `opening` and `intro` were added after custom themes already existed in
+      // the database. Rejecting a theme for missing them would fail validation
+      // on the user's own saved work, and safeTheme would quietly hand them the
+      // base theme instead: their world would appear to vanish.
+      //
+      // So these two fall back instead of erroring. Everything else is still
+      // required, because a missing night-order line breaks a live game.
+      const fallback = NARRATION_FALLBACKS[key]?.(tagline, place)
+      if (fallback) {
+        narration[key] = fallback
+        continue
+      }
       errors.push(`Narration "${NARRATION_LABELS[key]}" is required.`)
       continue
     }
-    if (wordCount(line) > MAX_NARRATION_WORDS) {
+    const cap = key === 'opening' ? MAX_OPENING_WORDS : MAX_NARRATION_WORDS
+    if (wordCount(line) > cap) {
       errors.push(
-        `"${NARRATION_LABELS[key]}" is ${wordCount(line)} words. Keep it to ${MAX_NARRATION_WORDS} or fewer so it fits on one screen.`,
+        `"${NARRATION_LABELS[key]}" is ${wordCount(line)} words. Keep it to ${cap} or fewer so it fits on one screen.`,
       )
     }
     if (line.length > LIMITS.line) errors.push(`"${NARRATION_LABELS[key]}" is too long.`)

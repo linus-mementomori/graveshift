@@ -31,6 +31,10 @@ export const cosaNostra: Theme = {
     sleepwalker: { name: 'Insomniac', flavour: 'You do not sleep. You know if the night was quiet.' },
   },
   narration: {
+    opening:
+      'The city, and this is the good part of it. The docks pay, the restaurants pay, everybody pays somebody. Last month a man who stopped paying was found in the harbour, and every paper in town called it an accident.',
+    intro:
+      'Round the table. Name, what you do for a living, and who vouched for you. Be convincing.',
     nightFall: 'The city goes quiet. Everybody, eyes down.',
     wolvesWake: "The Family, wake up. Who doesn't see morning?",
     seerWake: 'Detective. One file. Who are we looking at?',

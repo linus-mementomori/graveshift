@@ -110,6 +110,10 @@ export const fortuneBay: Theme = {
     },
   },
   narration: {
+    opening:
+      'The island. One bridge, one road, and the tide going out. The families on the north side have new boats and new roofs and nobody asks how. Under the headland there is a cave, and after every visit a fresh name shows up cut into the wet stone.',
+    intro:
+      'Round the room. Your name, which side of the water you were born on, and who your people are. Everyone here knows already. Say it anyway.',
     nightFall: 'Lights out across the island. The tide is going out. Everyone, close your eyes.',
     wolvesWake: 'Bloodline, wake. Whose name goes on the wall tonight?',
     seerWake: 'Vicar. One soul. Tell me what you feel in them.',

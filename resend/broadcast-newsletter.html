@@ -1,0 +1,161 @@
+<!--
+  GRAVESHIFT — The Night Edition
+  Broadcast template for Resend. Paste into: Resend → Broadcasts → new broadcast → HTML.
+
+  Editable regions are marked EDIT. Everything else is scaffolding you can leave
+  alone from issue to issue.
+
+  Resend merge tags used:
+    {{{FIRST_NAME|there}}}          personalises the greeting, falls back to "there"
+    {{{RESEND_UNSUBSCRIBE_URL}}}    REQUIRED. See the footer note.
+
+  Note the TRIPLE braces. Resend uses {{{ }}} for broadcast variables; double
+  braces are Supabase's auth syntax and will render as literal text here.
+-->
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#0e0e14;margin:0;padding:32px 12px;">
+  <tr>
+    <td align="center">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;background-color:#16161f;border:1px solid rgba(255,255,255,0.10);border-radius:14px;">
+
+        <!-- ── masthead ──────────────────────────────────────────────────── -->
+        <tr>
+          <td style="padding:36px 36px 0 36px;" align="center">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:700;font-size:34px;letter-spacing:-0.01em;color:#cf5a53;">
+              GRAVESHIFT
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:#6e6e80;padding-top:8px;">
+              The Night Edition
+            </div>
+          </td>
+        </tr>
+
+        <!-- issue line. EDIT the date and number each send. -->
+        <tr>
+          <td style="padding:18px 36px 0 36px;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0"
+                   style="border-top:1px solid rgba(255,255,255,0.14);border-bottom:1px solid rgba(255,255,255,0.14);">
+              <tr>
+                <td style="padding:8px 0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6e6e80;" align="left">
+                  Issue No. 1
+                </td>
+                <td style="padding:8px 0;font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:#6e6e80;" align="right">
+                  August 2026
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- ── greeting ──────────────────────────────────────────────────── -->
+        <tr>
+          <td style="padding:26px 36px 0 36px;">
+            <div style="font-family:'Courier New',Courier,monospace;font-size:14px;line-height:23px;color:#a8a8b8;">
+              Evening, {{{FIRST_NAME|there}}}.
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── LEAD STORY. EDIT ──────────────────────────────────────────── -->
+        <tr>
+          <td style="padding:20px 36px 0 36px;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:25px;line-height:34px;color:#f2f2f7;">
+              Three new worlds, and nobody dies the same way twice
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:14px;line-height:24px;color:#a8a8b8;padding-top:14px;">
+              Every death in Graveshift now has its own telling, and the app will not
+              repeat one in a single game. Six ways for the wolves to take someone in
+              Remus Vale. Six for the town to hang you in Salem. The host reads, the
+              table listens, and nobody hears the same sentence twice in one night.
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── PRIMARY BUTTON. EDIT href and label ───────────────────────── -->
+        <tr>
+          <td style="padding:26px 36px 0 36px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <td align="center" bgcolor="#b5453f" style="border-radius:12px;">
+                  <a href="https://graveshift.1stplaybook.com"
+                     style="display:block;padding:16px 24px;font-family:'Courier New',Courier,monospace;font-size:15px;font-weight:bold;letter-spacing:0.06em;color:#0e0e14;text-decoration:none;border-radius:12px;">
+                    Host a game tonight
+                  </a>
+                </td>
+              </tr>
+            </table>
+            <!-- Printed because a real share of clients mangle or strip buttons. -->
+            <div style="font-family:'Courier New',Courier,monospace;font-size:11px;line-height:18px;color:#6e6e80;padding-top:10px;" align="center">
+              graveshift.1stplaybook.com
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── SHORT ITEMS. EDIT, delete any row you don't need ──────────── -->
+        <tr>
+          <td style="padding:30px 36px 0 36px;">
+            <div style="font-family:'Courier New',Courier,monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#6e6e80;border-bottom:1px solid rgba(255,255,255,0.14);padding-bottom:8px;">
+              Also this month
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:18px 36px 0 36px;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:25px;color:#f2f2f7;">
+              Set the scene before you deal
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:13px;line-height:22px;color:#a8a8b8;padding-top:8px;">
+              Every world now opens with a description of where you are, and the app
+              walks you through introductions while you type everyone in.
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td style="padding:20px 36px 0 36px;">
+            <div style="font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:25px;color:#f2f2f7;">
+              Write your own world
+            </div>
+            <div style="font-family:'Courier New',Courier,monospace;font-size:13px;line-height:22px;color:#a8a8b8;padding-top:8px;">
+              Sign in and rewrite every line of the script: role names, narration,
+              victory copy, the lot. It follows you to any device.
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── sign-off. EDIT ────────────────────────────────────────────── -->
+        <tr>
+          <td style="padding:30px 36px 0 36px;">
+            <div style="font-family:'Courier New',Courier,monospace;font-size:14px;line-height:23px;color:#a8a8b8;">
+              Graveshift is free, has no ads and sells nothing. If it has saved your
+              game night an argument, that is the whole point.
+            </div>
+          </td>
+        </tr>
+
+        <!-- ── footer ────────────────────────────────────────────────────── -->
+        <tr>
+          <td style="padding:28px 36px 34px 36px;">
+            <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:18px;font-family:'Courier New',Courier,monospace;font-size:11px;line-height:19px;color:#6e6e80;">
+              You're getting this because you made a Graveshift account.
+              <br />
+              <!--
+                REQUIRED, do not remove. Bulk marketing mail must carry a working
+                one-click unsubscribe (CAN-SPAM, GDPR, and Gmail/Yahoo bulk sender
+                rules). Resend fills this in per recipient and tracks the opt-out;
+                without it your domain reputation takes the hit, not just this send.
+              -->
+              <a href="{{{RESEND_UNSUBSCRIBE_URL}}}" style="color:#6e6e80;text-decoration:underline;">Unsubscribe</a>
+              &nbsp;·&nbsp;
+              <a href="https://graveshift.1stplaybook.com" style="color:#6e6e80;text-decoration:none;">graveshift.1stplaybook.com</a>
+              <br /><br />
+              <!-- EDIT: CAN-SPAM requires a real postal address on commercial mail. -->
+              1st Playbook · [your postal address]
+            </div>
+          </td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+</table>

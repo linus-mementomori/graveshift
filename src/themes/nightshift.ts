@@ -31,6 +31,10 @@ export const nightshift: Theme = {
     sleepwalker: { name: 'Night Watch', flavour: 'You never sleep. You know if the night claimed anyone.' },
   },
   narration: {
+    opening:
+      'The compound, an hour before full dark. The outer gate held last night, which is more than it managed the week before. Nineteen of us on the wall until dawn. Something came through the treeline at third bell and it has not gone back.',
+    intro:
+      'Down the line. Name, how long you have served, and what you saw on your last patrol. Loud enough for the back to hear.',
     nightFall: 'The lanterns go out. Everyone, eyes closed.',
     wolvesWake: 'Demons. Open your eyes. Choose tonight.',
     seerWake: 'Oracle. Whose aura do you read?',

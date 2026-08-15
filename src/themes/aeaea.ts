@@ -55,6 +55,10 @@ export const aeaea: Theme = {
     sleepwalker: { name: 'The Watchman', flavour: 'You slept badly on deck. You know if the sty took anyone. Never who.' },
   },
   narration: {
+    opening:
+      'Aeaea. A green island, smoke rising through the trees, and no harbour worth the name. We beached at dawn. There is a hall inland with a woman singing in it, and the sty behind that hall is not empty.',
+    intro:
+      'Round the fire. Your name, your station on the ship, and what you think is waiting in that hall.',
     nightFall: 'Night on Aeaea. Smoke from the hall, and something singing at a loom. Close your eyes.',
     wolvesWake: 'Enchantresses, wake. Whose cup do you fill tonight?',
     seerWake: 'Tiresias. One name, and the truth of them.',

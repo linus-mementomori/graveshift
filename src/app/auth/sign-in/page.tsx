@@ -80,6 +80,15 @@ export default function SignInPage() {
           </Button>
         </form>
 
+        <p className="text-center text-sm">
+          <Link
+            href="/auth/forgot"
+            className="text-[var(--text-muted)] underline underline-offset-4"
+          >
+            Forgotten your password?
+          </Link>
+        </p>
+
         <div className="flex items-center gap-3">
           <span className="h-px flex-1 bg-[var(--border-subtle)]" />
           <span className="caption text-[var(--text-muted)]">or</span>

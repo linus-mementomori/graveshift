@@ -19,6 +19,7 @@ import { getTheme as getBuiltIn, THEMES } from '@/themes'
 import { ROLE_LIST } from '@/engine/roles'
 import {
   MAX_NARRATION_WORDS,
+  MAX_OPENING_WORDS,
   NARRATION_KEYS,
   NARRATION_LABELS,
   THEME_CATEGORIES,
@@ -235,18 +236,23 @@ function Editor() {
       <h3 className="display glow-sm mt-8 text-xl">The script</h3>
       <p className="mt-2 text-sm text-[var(--text-secondary)]">
         These are the lines you read out loud. Keep each under {MAX_NARRATION_WORDS} words. Any
-        longer and it won&apos;t fit on a phone screen or in one breath.
+        longer and it won&apos;t fit on a phone screen or in one breath. &ldquo;Where we
+        are&rdquo; gets {MAX_OPENING_WORDS}, because it is read once before anything is at stake.
       </p>
       <div className="mt-3 space-y-3">
         {NARRATION_KEYS.map((key) => {
           const value = draft.narration[key] ?? ''
           const n = wordCount(value)
-          const over = n > MAX_NARRATION_WORDS
+          // The opening is scene-setting read before the game starts, so it has
+          // a longer cap than the lines read mid-night. Match the validator or
+          // the editor warns at a limit that would actually save fine.
+          const cap = key === 'opening' ? MAX_OPENING_WORDS : MAX_NARRATION_WORDS
+          const over = n > cap
           return (
             <Textarea
               key={key}
               label={NARRATION_LABELS[key]}
-              hint={`${n}/${MAX_NARRATION_WORDS} words`}
+              hint={`${n}/${cap} words`}
               tone={over ? 'warn' : 'muted'}
               value={value}
               onChange={(e) => setNarration(key, e.target.value)}

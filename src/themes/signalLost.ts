@@ -31,6 +31,10 @@ export const signalLost: Theme = {
     sleepwalker: { name: 'Night Shift', flavour: 'You are awake. You know if the cycle cost someone.' },
   },
   narration: {
+    opening:
+      'Kepler Station, nine months out, and the relay went quiet on Tuesday. Nineteen crew aboard. The scanner still counts nineteen heat signatures, and it has counted nineteen every hour since. One of them stopped matching its file three days ago.',
+    intro:
+      'Round the table. Name, section, and where you were when the relay dropped. The log is recording.',
     nightFall: 'Lights to night cycle. Everyone, eyes down.',
     wolvesWake: 'Anomaly. Open your eyes. Select a crew member.',
     seerWake: 'Bio-scanner. One deep scan. Who are we reading?',

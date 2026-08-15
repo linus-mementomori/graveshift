@@ -30,6 +30,10 @@ export interface Theme {
   factionNames: { village: string; mafia: string; neutral: string }
   roleSkins: Partial<Record<RoleId, RoleSkin>>
   narration: {
+    /** Read once before the first night: where are we, and what is wrong here. */
+    opening: string
+    /** Cues the round-the-table introductions after everyone has seen their role. */
+    intro: string
     nightFall: string
     wolvesWake: string
     seerWake: string

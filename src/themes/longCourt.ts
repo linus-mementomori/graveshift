@@ -31,6 +31,10 @@ export const longCourt: Theme = {
     sleepwalker: { name: 'The Wakeful', flavour: 'You do not sleep. You know if the night took a life.' },
   },
   narration: {
+    opening:
+      'The court, in the ninth week of a winter that should have broken with the spring. The braziers burn day and night and the corridors stay cold regardless. Everyone standing in this hall has sworn an oath to someone. Not all of them swore it to the throne.',
+    intro:
+      'Round the table, by rank. Your name, your title, and the oath you will admit to. The court is listening, and the court remembers.',
     nightFall: 'The braziers gutter out. Everyone, close your eyes.',
     wolvesWake: 'Winter-sworn, wake. Whose breath stops tonight?',
     seerWake: 'Seer of Ash. Whose name do the ashes give you?',

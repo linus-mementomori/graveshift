@@ -31,6 +31,10 @@ export const remusVale: Theme = {
     sleepwalker: { name: 'Sleepwalker', flavour: 'You wander. You know whether the night took someone.' },
   },
   narration: {
+    opening:
+      'Remus Vale. Forty houses, one road in, and woods on every side of it. The mill stopped in autumn and nobody has fixed it. Last winter three sheep were opened up and left in the field. Tonight the dogs will not go out past the gate.',
+    intro:
+      'Go round the circle. Your name, how long you have lived here, and one thing you did today. Keep it short. Lie if you like.',
     nightFall: 'Night falls on the village. Everyone, close your eyes.',
     wolvesWake: 'Werewolves, open your eyes. Choose your prey.',
     seerWake: 'Seer, awaken. Whose soul will you read?',

@@ -31,6 +31,10 @@ export const salem: Theme = {
     sleepwalker: { name: 'The Afflicted', flavour: 'You do not sleep. You know if the night took someone.' },
   },
   narration: {
+    opening:
+      'The town, in the cold part of the year. Two girls have taken fits that nobody can explain, the magistrate is riding in from the coast, and the meeting house has been full every night this week. Names are already being said aloud in it.',
+    intro:
+      'Round the room. Your name, your household, and where you were at prayer last night. Speak plainly. It will be remembered.',
     nightFall: 'The candles go out. Everyone, close your eyes.',
     wolvesWake: 'The Coven, wake. Whose name do you speak tonight?',
     seerWake: 'Reverend. Whose soul do you look upon?',

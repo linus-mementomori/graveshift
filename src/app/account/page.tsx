@@ -95,6 +95,14 @@ export default function AccountPage() {
             <ButtonLink href="/feedback" variant="secondary">
               Send feedback
             </ButtonLink>
+            {/*
+              The same screen a reset link lands on. Both cases are "a session
+              exists, set a new password". A Google-only account has no password
+              to change, and updateUser() says so plainly if they try.
+            */}
+            <ButtonLink href="/auth/update-password" variant="secondary">
+              Change password
+            </ButtonLink>
             <SupportLink />
             {isAdmin && (
               <ButtonLink href="/admin" variant="secondary">

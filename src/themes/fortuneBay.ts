@@ -16,8 +16,8 @@ import type { Theme } from './types'
  * The mafia here are not monsters. They are neighbours with a mortgage. That's
  * the horror.
  */
-export const widowsBay: Theme = {
-  id: 'widowsBay',
+export const fortuneBay: Theme = {
+  id: 'fortuneBay',
   name: 'Fortune Bay',
   tagline: 'Somebody went down to the cave again, and somebody up here got rich.',
   category: 'horror',

@@ -1,5 +1,6 @@
 node_modules/
 .next/
+next/   # stray build output, committed before the rule above existed
 out/
 .DS_Store
 

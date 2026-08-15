@@ -69,15 +69,15 @@ describe('death narration is deterministic (D7)', () => {
   })
 
   it('different seeds tell it in a different order', () => {
-    const a = deaths('seed-a', 'millersHollow', 'mafia_kill', 6).join('|')
-    const b = deaths('seed-b', 'millersHollow', 'mafia_kill', 6).join('|')
+    const a = deaths('seed-a', 'remusVale', 'mafia_kill', 6).join('|')
+    const b = deaths('seed-b', 'remusVale', 'mafia_kill', 6).join('|')
     expect(a).not.toBe(b)
   })
 })
 
 describe('death narration degrades safely', () => {
-  const theme = getTheme('millersHollow')
-  const bare = { seed: 's', themeId: 'millersHollow', seats: [], dayNumber: 1 } as unknown as GameState
+  const theme = getTheme('remusVale')
+  const bare = { seed: 's', themeId: 'remusVale', seats: [], dayNumber: 1 } as unknown as GameState
 
   it('falls back rather than throwing for an unknown reason', () => {
     expect(() => deathLine(theme, bare, 'nobody', 'not_a_reason' as DeathReason)).not.toThrow()
@@ -92,7 +92,7 @@ describe('death narration degrades safely', () => {
 
   it('handles a seat with no recorded death order (games saved before it existed)', () => {
     const legacy = {
-      seed: 's', themeId: 'millersHollow', dayNumber: 1,
+      seed: 's', themeId: 'remusVale', dayNumber: 1,
       seats: [{ id: 'x', name: 'x', roleId: 'villager', alive: false, marks: [], charges: {} }],
     } as unknown as GameState
     const line = deathLine(theme, legacy, 'x', 'mafia_kill')

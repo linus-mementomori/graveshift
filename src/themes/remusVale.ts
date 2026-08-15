@@ -1,7 +1,7 @@
 import type { Theme } from './types'
 
-export const millersHollow: Theme = {
-  id: 'millersHollow',
+export const remusVale: Theme = {
+  id: 'remusVale',
   name: 'Remus Vale',
   tagline: 'Something is wrong in the woods.',
   category: 'horror',

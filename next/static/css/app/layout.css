@@ -1207,7 +1207,7 @@
   --font-speak: var(--font-baskerville), Georgia, serif;
   --font-ui: var(--font-courier), 'Courier New', monospace;
 }
-[data-theme='millersHollow'] {
+[data-theme='remusVale'] {
   --accent: #b5453f;
   --accent-soft: #6b2724;
   --accent-glow: rgb(181 69 63 / 0.28);
@@ -1221,7 +1221,7 @@
   --phase-night: #0f1218;
   --phase-day: #241f1a;
 }
-[data-theme='hunterDemon'] {
+[data-theme='nightshift'] {
   --accent: #7b4dff;
   --accent-soft: #3a1f80;
   --accent-glow: rgb(123 77 255 / 0.3);

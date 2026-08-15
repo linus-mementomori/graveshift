@@ -71,7 +71,7 @@ function Editor() {
       })
       return
     }
-    const base = getBuiltIn(baseId ?? 'millersHollow')
+    const base = getBuiltIn(baseId ?? 'remusVale')
     setDraft(draftFrom(base, baseId ? `${base.name} (my version)` : 'My theme'))
   }, [email, editId, baseId])
 

@@ -81,7 +81,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="millersHollow" className={`${baskerville.variable} ${courierPrime.variable}`}>
+    <html lang="en" data-theme="remusVale" className={`${baskerville.variable} ${courierPrime.variable}`}>
       <head>
         {/*
           JSON-LD is the structured-data channel Google actually documents and

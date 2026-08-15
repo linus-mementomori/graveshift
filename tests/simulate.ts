@@ -56,7 +56,7 @@ export function simulate(
   let state: GameState = deal({
     names: Array.from({ length: n }, (_, i) => `P${i + 1}`),
     composition,
-    themeId: 'millersHollow',
+    themeId: 'remusVale',
     settings: { ...DEFAULT_SETTINGS, ...settings },
     seed,
   })

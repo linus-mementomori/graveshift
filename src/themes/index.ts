@@ -2,21 +2,21 @@ import type { Theme } from './types'
 import type { RoleId } from '@/engine/types'
 import { ROLES } from '@/engine/roles'
 
-import { millersHollow } from './millersHollow'
+import { remusVale } from './remusVale'
 import { cosaNostra } from './cosaNostra'
-import { hunterDemon } from './hunterDemon'
+import { nightshift } from './nightshift'
 import { aeaea } from './aeaea'
-import { widowsBay } from './widowsBay'
+import { fortuneBay } from './fortuneBay'
 import { signalLost } from './signalLost'
 import { salem } from './salem'
 import { longCourt } from './longCourt'
 
 export const THEMES: Theme[] = [
-  millersHollow,
+  remusVale,
   cosaNostra,
-  hunterDemon,
+  nightshift,
   aeaea,
-  widowsBay,
+  fortuneBay,
   signalLost,
   salem,
   longCourt,
@@ -26,7 +26,7 @@ export const THEMES_BY_ID: Record<string, Theme> = Object.fromEntries(
   THEMES.map((t) => [t.id, t]),
 )
 
-export const DEFAULT_THEME_ID = millersHollow.id
+export const DEFAULT_THEME_ID = remusVale.id
 
 /**
  * Custom themes registered at runtime, keyed by their database row id.
@@ -49,7 +49,7 @@ export function clearCustomThemes(): void {
 export const isCustomThemeId = (id: string): boolean => id in CUSTOM_THEMES
 
 export const getTheme = (id: string): Theme =>
-  THEMES_BY_ID[id] ?? CUSTOM_THEMES[id] ?? millersHollow
+  THEMES_BY_ID[id] ?? CUSTOM_THEMES[id] ?? remusVale
 
 /** Themed role name, falling back to the canonical English name. */
 export const roleName = (theme: Theme, roleId: RoleId): string =>

@@ -27,7 +27,7 @@ function game(composition: Composition, seed = 'test-seed'): GameState {
   return deal({
     names: Array.from({ length: n }, (_, i) => `P${i + 1}`),
     composition,
-    themeId: 'millersHollow',
+    themeId: 'remusVale',
     settings: SETTINGS,
     seed,
   })
@@ -81,7 +81,7 @@ describe('dealing', () => {
     const g = deal({
       names: ['', '  ', 'Real', 'D', 'E'],
       composition: PRESETS[5],
-      themeId: 'millersHollow',
+      themeId: 'remusVale',
       settings: SETTINGS,
       seed: 's',
     })
